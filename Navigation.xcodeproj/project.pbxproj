@@ -15,6 +15,7 @@
 		1D60141F2874BD5300CA8F4A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60141E2874BD5300CA8F4A /* ProfileViewController.swift */; };
 		1D6014212874C0B400CA8F4A /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014202874C0B400CA8F4A /* PostViewController.swift */; };
 		1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014222874C4A000CA8F4A /* InfoViewController.swift */; };
+		1D6014252878127100CA8F4A /* StructPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014242878127100CA8F4A /* StructPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1D60141E2874BD5300CA8F4A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1D6014202874C0B400CA8F4A /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		1D6014222874C4A000CA8F4A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		1D6014242878127100CA8F4A /* StructPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructPost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				1D60140A2874B50F00CA8F4A /* SceneDelegate.swift */,
 				1D60141E2874BD5300CA8F4A /* ProfileViewController.swift */,
 				1D60141C2874BD2300CA8F4A /* FeedViewController.swift */,
+				1D6014242878127100CA8F4A /* StructPost.swift */,
 				1D6014202874C0B400CA8F4A /* PostViewController.swift */,
 				1D6014222874C4A000CA8F4A /* InfoViewController.swift */,
 				1D6014112874B51000CA8F4A /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 				1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */,
 				1D60141F2874BD5300CA8F4A /* ProfileViewController.swift in Sources */,
 				1D60141D2874BD2300CA8F4A /* FeedViewController.swift in Sources */,
+				1D6014252878127100CA8F4A /* StructPost.swift in Sources */,
 				1D60140B2874B50F00CA8F4A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
