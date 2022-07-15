@@ -43,7 +43,8 @@ class ProfileViewController: UIViewController {
     
     @objc private func setStatus(sender: UIButton){
         if sender.tag == Tags.showStatusButton.rawValue {
-            if profileView.enteringStatusTextField.text != "" && profileView.enteringStatusTextField.text != nil {
+            if profileView.enteringStatusTextField.text?.isEmpty == false,
+                profileView.enteringStatusTextField.text != nil {
                 profileView.statusTextField.text = profileView.globalStatusText
             } else {
                 print("This field is empty")

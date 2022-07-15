@@ -64,7 +64,7 @@ class ProfileHeaderView: UIView {
 
     @objc private func statusTextChanged(){
         var statusText: String
-        if (enteringStatusTextField.text != nil || enteringStatusTextField.text != "") {
+        if (enteringStatusTextField.text != nil || enteringStatusTextField.text?.isEmpty == false) {
             statusText = enteringStatusTextField.text!
             globalStatusText = statusText
             print(statusText)
