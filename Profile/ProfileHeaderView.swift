@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
 
     private lazy var avatarImageView: UIImageView = {
         var imageView = UIImageView(frame: CGRect(x: 16, y: 40, width: 170, height: 170))
-        imageView.image = UIImage(named: Pictures.mainPhoto.rawValue)
+        imageView.image = UIImage(named: Constants.mainPhoto)
         // скруглить изображение
         imageView.clipsToBounds = true
         imageView.backgroundColor = .systemCyan
@@ -21,43 +21,43 @@ class ProfileHeaderView: UIView {
         // толщина рамки
         imageView.layer.borderWidth = 3.0
         // цвет рамки
-        imageView.layer.borderColor = colorWhite
-        imageView.tag = Tags.avatarImageView.rawValue
+        imageView.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        imageView.tag = Constants.avatarImageViewTap
         return imageView
     }()
 
     private lazy var titleTextField: UITextField = {
-        let titleField = UITextField(frame: CGRect(x: 150, y: 60, width: 130, height: 20))
+        let titleField = UITextField(frame: CGRect(x: 190, y: 60, width: 130, height: 20))
         titleField.textColor = .black
         titleField.font = .boldSystemFont(ofSize: 18)
-        titleField.text = StatusNames.titleTextField.rawValue
-        titleField.tag = Tags.titleTextField.rawValue
+        titleField.text = Constants.titleTextField
+        titleField.tag = Constants.titleTextFieldTap
         titleField.isUserInteractionEnabled = false
         return titleField
     }()
 
     private lazy var statusTextField: UITextField = {
-        let statusField = UITextField(frame: CGRect(x: 150, y: 150, width: 170, height: 20))
+        let statusField = UITextField(frame: CGRect(x: 190, y: 150, width: 170, height: 20))
         statusField.textColor = .gray
         statusField.font = .systemFont(ofSize: 14)
-        statusField.text = StatusNames.statusTextField.rawValue
-        statusField.tag = Tags.statusTextField.rawValue
+        statusField.text = Constants.statusTextField
+        statusField.tag = Constants.statusTextFieldTap
         statusField.isUserInteractionEnabled = false
         return statusField
     }()
 
     private lazy var enteringStatusTextField: UITextField = {
-        let enterStatusField = UITextField(frame: CGRect(x: 150, y: 110, width: 170, height: 40))
+        let enterStatusField = UITextField(frame: CGRect(x: 190, y: 180, width: 170, height: 40))
         // Чтобы был отступ при вводе текста
         enterStatusField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         enterStatusField.layer.cornerRadius = 12.0
         enterStatusField.layer.borderWidth = 1.0
-        enterStatusField.layer.borderColor = colorBlack
+        enterStatusField.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         enterStatusField.backgroundColor = .white
         enterStatusField.textColor = .black
         enterStatusField.font = .systemFont(ofSize: 15)
-        enterStatusField.text = StatusNames.enteringStatusTextField.rawValue
-        enterStatusField.tag = Tags.enteringStatusTextField.rawValue
+        enterStatusField.text = Constants.enteringStatusTextField
+        enterStatusField.tag = Constants.enteringStatusTextFieldTap
         enterStatusField.addTarget(self, action: #selector(self.statusTextChanged), for: .editingChanged)
         return enterStatusField
     }()
@@ -77,7 +77,7 @@ class ProfileHeaderView: UIView {
     private lazy var showStatusButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 16, y: 320, width: 380, height: 50))
         button.backgroundColor = .systemBlue
-        button.setTitle(StatusNames.showStatusButton.rawValue, for: .normal)
+        button.setTitle(Constants.showStatusButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 4.0
         button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -85,14 +85,14 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOffset.height = 4.0
         button.layer.shadowOpacity = 0.7
         button.layer.shadowRadius = 4.0
-        button.tag = Tags.showStatusButton.rawValue
+        button.tag = Constants.showStatusButtonTap
         button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(self.setStatus), for: .touchUpInside)
         return button
     }()
 
       @objc private func setStatus(sender: UIButton){
-        if sender.tag == Tags.showStatusButton.rawValue {
+        if sender.tag == Constants.showStatusButtonTap {
             if enteringStatusTextField.text?.isEmpty == false,
                 enteringStatusTextField.text != nil {
                 statusTextField.text = globalStatusText
@@ -112,36 +112,6 @@ class ProfileHeaderView: UIView {
         self.addSubview(statusTextField)
         self.addSubview(enteringStatusTextField)
         self.addSubview(showStatusButton)
-        setupConstraints()
-    }
-
-    func setupConstraints(){
-        // отключить дефолтные CONSTRAINTs и создать свои, активировать их
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
-        avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-        avatarImageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-        avatarImageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
-
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.topAnchor.constraint(equalTo: topAnchor, constant: 27).isActive = true
-        titleTextField.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20).isActive = true
-
-        statusTextField.translatesAutoresizingMaskIntoConstraints = false
-        statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34).isActive = true
-        statusTextField.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20).isActive = true
-
-        showStatusButton.translatesAutoresizingMaskIntoConstraints = false
-        showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16).isActive = true
-        showStatusButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-        showStatusButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
-
-        enteringStatusTextField.translatesAutoresizingMaskIntoConstraints = false
-        enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16).isActive = true
-        enteringStatusTextField.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16).isActive = true
-        enteringStatusTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
-        enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16).isActive = true
-        enteringStatusTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 
     required init?(coder: NSCoder) {

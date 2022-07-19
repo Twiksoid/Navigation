@@ -40,7 +40,7 @@ class ProfileViewController: UIViewController {
         // navigationController?.navigationBar.prefersLargeTitles = true
         // чтобы автоматом подбирало размер
         navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = StatusNames.viewTitle.rawValue
+        navigationItem.title = Constants.viewTitle
         
         view.addSubview(profileView)
     }
