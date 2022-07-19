@@ -17,10 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: FeedViewController())
-        let secondItemController = ProfileViewController()
+        let secondItemController = UINavigationController(rootViewController: ProfileViewController())
+        
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
-            navigationController, secondItemController]
+                                            navigationController,
+                                            secondItemController
+                                            ]
+        // задаем цвет для navigationController (верх) и tabBarController (низ)
+        navigationController.navigationBar.backgroundColor = UIColor.white
+        secondItemController.navigationBar.backgroundColor = UIColor.white
+        tabBarController.tabBar.backgroundColor = UIColor.white
         tabBarController.viewControllers?[0].tabBarItem.title = "Лента"
         tabBarController.viewControllers?[1].tabBarItem.title = "Профиль"
         
