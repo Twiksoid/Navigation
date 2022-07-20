@@ -23,6 +23,7 @@ class ProfileHeaderView: UIView {
         // цвет рамки
         imageView.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
         imageView.tag = Constants.avatarImageViewTap
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -33,6 +34,7 @@ class ProfileHeaderView: UIView {
         titleField.text = Constants.titleTextField
         titleField.tag = Constants.titleTextFieldTap
         titleField.isUserInteractionEnabled = false
+        titleField.translatesAutoresizingMaskIntoConstraints = false
         return titleField
     }()
 
@@ -43,6 +45,7 @@ class ProfileHeaderView: UIView {
         statusField.text = Constants.statusTextField
         statusField.tag = Constants.statusTextFieldTap
         statusField.isUserInteractionEnabled = false
+        statusField.translatesAutoresizingMaskIntoConstraints = false
         return statusField
     }()
 
@@ -59,6 +62,7 @@ class ProfileHeaderView: UIView {
         enterStatusField.text = Constants.enteringStatusTextField
         enterStatusField.tag = Constants.enteringStatusTextFieldTap
         enterStatusField.addTarget(self, action: #selector(self.statusTextChanged), for: .editingChanged)
+        enterStatusField.translatesAutoresizingMaskIntoConstraints = false
         return enterStatusField
     }()
 
@@ -88,6 +92,7 @@ class ProfileHeaderView: UIView {
         button.tag = Constants.showStatusButtonTap
         button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(self.setStatus), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
@@ -107,15 +112,74 @@ class ProfileHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(avatarImageView)
-        self.addSubview(titleTextField)
-        self.addSubview(statusTextField)
-        self.addSubview(enteringStatusTextField)
-        self.addSubview(showStatusButton)
+        self.setupView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func setupView(){
+        self.addSubview(avatarImageView)
+        self.addSubview(titleTextField)
+        self.addSubview(statusTextField)
+        self.addSubview(enteringStatusTextField)
+        self.addSubview(showStatusButton)
+
+        let avatarImageViewConstraint = self.avatarImageViewConstraint()
+        let titleTextFieldConstraint = self.titleTextFieldConstraint()
+        let statusTextFieldConstraint = self.statusTextFieldConstraint()
+        let enteringStatusTextFieldConstraint = self.enteringStatusTextFieldConstraint()
+        let showStatusButtonConstraint = self.showStatusButtonConstraint()
+
+        NSLayoutConstraint.activate(avatarImageViewConstraint +
+                                    titleTextFieldConstraint +
+                                    statusTextFieldConstraint +
+                                    enteringStatusTextFieldConstraint +
+                                    showStatusButtonConstraint
+        )
+    }
+
+    private func avatarImageViewConstraint() -> [NSLayoutConstraint]{
+        let AIVCTop = avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16)
+        let AIVCLeft = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+        let AIVCHeight = avatarImageView.heightAnchor.constraint(equalToConstant: 180)
+        let AIVCWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 180)
+        return [AIVCTop, AIVCLeft, AIVCHeight, AIVCWidth]
+    }
+
+ private func titleTextFieldConstraint() -> [NSLayoutConstraint]{
+     let TTFCTop = titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27)
+     let TTFCLeft = titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20)
+     let TTFCHeight = titleTextField.heightAnchor.constraint(equalToConstant: 20)
+     let TTFCWidth = titleTextField.widthAnchor.constraint(equalToConstant: 130)
+     return [TTFCTop,TTFCLeft, TTFCHeight, TTFCWidth]
+    }
+
+    private func statusTextFieldConstraint() -> [NSLayoutConstraint]{
+      let STFCTop =  statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34)
+      let STFCLeft = statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20)
+        let STFCHeight = statusTextField.heightAnchor.constraint(equalToConstant: 20)
+        let STFCWidth = statusTextField.widthAnchor.constraint(equalToConstant: 170)
+        return [STFCTop, STFCLeft, STFCHeight, STFCWidth]
+    }
+
+    private func enteringStatusTextFieldConstraint() -> [NSLayoutConstraint]{
+       let ESTFCTop = enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16)
+       let ESTFCLeft = enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16)
+       let ESTFCRight = enteringStatusTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+       let ESTFCBottom = enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16)
+      let ESTFCHeight = enteringStatusTextField.heightAnchor.constraint(equalToConstant: 40)
+        let ESTFCWidth = enteringStatusTextField.widthAnchor.constraint(equalToConstant: 170)
+        return [ESTFCTop, ESTFCLeft, ESTFCRight, ESTFCBottom, ESTFCHeight, ESTFCWidth]
+    }
+
+    private func showStatusButtonConstraint() -> [NSLayoutConstraint]{
+    let SSBTop = showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
+    let SSBLeft = showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+    let SSBRight = showStatusButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+        let SSBHeight = showStatusButton.heightAnchor.constraint(equalToConstant: 50)
+          let SSBWidth = showStatusButton.widthAnchor.constraint(equalToConstant: 380)
+    return [SSBTop, SSBLeft, SSBRight, SSBHeight, SSBWidth]
+    }
 }

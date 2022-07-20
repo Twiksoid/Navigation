@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController {
     private lazy var profileView: ProfileHeaderView = {
         let profileHeaderView = ProfileHeaderView(frame: .zero)
         profileHeaderView.backgroundColor = .lightGray
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         return profileHeaderView
     }()
     
@@ -24,6 +25,19 @@ class ProfileViewController: UIViewController {
                                         width: self.view.bounds.width,
                                         height: self.view.bounds.height)
     }
+
+    private lazy var newButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 16, y: 450, width: 380, height: 50))
+        button.backgroundColor = .systemBlue
+        button.setTitle(Constants.newButton, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 4.0
+        button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        button.tag = Constants.newButtonTap
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +45,15 @@ class ProfileViewController: UIViewController {
         setupView()
         // настраиваем вью, если темная тема
         isCurrentThemeDark()
+    }
+
+    private func profileViewConstraint() -> [NSLayoutConstraint] {
+        let profileViewConsttaintTop = NSLayoutConstraint(item: self.profileView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0)
+        let profileViewConsttaintLeft = self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        let profileViewConsttaintRight = self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        let profileViewConsttaintBottom = self.profileView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        let profileViewConsttaintHeight = self.profileView.heightAnchor.constraint(equalToConstant: 220)
+        return [profileViewConsttaintTop,profileViewConsttaintLeft,profileViewConsttaintRight,profileViewConsttaintBottom,profileViewConsttaintHeight]
     }
     
     func setupView(){
@@ -41,9 +64,26 @@ class ProfileViewController: UIViewController {
         // чтобы автоматом подбирало размер
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = Constants.viewTitle
-        
         view.addSubview(profileView)
+        view.addSubview(newButton)
+
+        // настройка Constrait
+        let profileViewConstrait = self.profileViewConstraint()
+        let newButtonConstraint = self.newButtonConstraint()
+        NSLayoutConstraint.activate(profileViewConstrait +
+                                    newButtonConstraint)
+
     }
+
+    private func newButtonConstraint() -> [NSLayoutConstraint]{
+        let NBCLeft = profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        let NBCRigt = profileView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+        let NBCBottom = NSLayoutConstraint(item: self.profileView, attribute: .bottom, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0)
+        let NBCHwight = self.profileView.heightAnchor.constraint(equalToConstant: 50)
+        return [NBCLeft, NBCRigt, NBCBottom, NBCHwight]
+    }
+
+
     
     // Для темной темы нужен костыль, чтобы нормально отображался верхний бар (где время, заряд батареи и тд)
     public func isCurrentThemeDark(){
