@@ -11,7 +11,7 @@ class ProfileHeaderView: UIView {
     var globalStatusText: String = ""
     
     private lazy var avatarImageView: UIImageView = {
-        var imageView = UIImageView(frame: CGRect(x: 16, y: 40, width: 170, height: 170))
+        var imageView = UIImageView()
         imageView.image = UIImage(named: Constants.mainPhoto)
         // скруглить изображение
         imageView.clipsToBounds = true
@@ -28,7 +28,7 @@ class ProfileHeaderView: UIView {
     }()
     
     private lazy var titleTextField: UITextField = {
-        let titleField = UITextField(frame: CGRect(x: 190, y: 60, width: 130, height: 20))
+        let titleField = UITextField()
         titleField.textColor = .black
         titleField.font = .boldSystemFont(ofSize: 18)
         titleField.text = Constants.titleTextField
@@ -39,7 +39,7 @@ class ProfileHeaderView: UIView {
     }()
     
     private lazy var statusTextField: UITextField = {
-        let statusField = UITextField(frame: CGRect(x: 190, y: 150, width: 170, height: 20))
+        let statusField = UITextField()
         statusField.textColor = .gray
         statusField.font = .systemFont(ofSize: 14)
         statusField.text = Constants.statusTextField
@@ -50,7 +50,7 @@ class ProfileHeaderView: UIView {
     }()
     
     private lazy var enteringStatusTextField: UITextField = {
-        let enterStatusField = UITextField(frame: CGRect(x: 190, y: 180, width: 170, height: 40))
+        let enterStatusField = UITextField()
         // Чтобы был отступ при вводе текста
         enterStatusField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         enterStatusField.layer.cornerRadius = 12.0
@@ -79,7 +79,7 @@ class ProfileHeaderView: UIView {
     }
     
     private lazy var showStatusButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 16, y: 320, width: 380, height: 50))
+        let button = UIButton()
         button.backgroundColor = .systemBlue
         button.setTitle(Constants.showStatusButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -178,8 +178,9 @@ class ProfileHeaderView: UIView {
         let showStatusButtonConstraintTop = showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
         let showStatusButtonConstraintLeft = showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         let showStatusButtonConstraintRight = showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        let showStatusButtonConstraintHeight = showStatusButton.heightAnchor.constraint(lessThanOrEqualToConstant: 40)
+        let showStatusButtonConstraintHeight = showStatusButton.heightAnchor.constraint(equalToConstant: 50)
         let showStatusButtonConstraintWidth = showStatusButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
-        return [showStatusButtonConstraintTop, showStatusButtonConstraintLeft, showStatusButtonConstraintRight, showStatusButtonConstraintHeight, showStatusButtonConstraintWidth]
+        let showStatusButtonConstraintBottom = showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
+        return [showStatusButtonConstraintTop, showStatusButtonConstraintLeft, showStatusButtonConstraintRight, showStatusButtonConstraintBottom,  showStatusButtonConstraintHeight, showStatusButtonConstraintWidth]
     }
 }

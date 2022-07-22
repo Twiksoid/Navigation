@@ -27,11 +27,10 @@ class ProfileViewController: UIViewController {
     }
     
     private lazy var newButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 16, y: 450, width: 380, height: 50))
+        let button = UIButton()
         button.backgroundColor = .systemBlue
         button.setTitle(Constants.newButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 4.0
         button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         button.tag = Constants.newButtonTap
         button.isUserInteractionEnabled = true
@@ -70,7 +69,7 @@ class ProfileViewController: UIViewController {
         let profileViewConsttaintTop = NSLayoutConstraint(item: self.profileView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0)
         let profileViewConsttaintLeft = self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let profileViewConsttaintRight = self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        let profileViewConsttaintHeight = self.profileView.heightAnchor.constraint(equalToConstant: 220)
+        let profileViewConsttaintHeight = self.profileView.heightAnchor.constraint(equalToConstant: 267)
         return [profileViewConsttaintTop,profileViewConsttaintLeft,profileViewConsttaintRight,profileViewConsttaintHeight]
     }
     
