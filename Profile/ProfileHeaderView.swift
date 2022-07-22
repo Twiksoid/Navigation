@@ -126,61 +126,35 @@ class ProfileHeaderView: UIView {
         self.addSubview(enteringStatusTextField)
         self.addSubview(showStatusButton)
         
-        let avatarImageViewConstraint = self.avatarImageViewConstraint()
-        let titleTextFieldConstraint = self.titleTextFieldConstraint()
-        let statusTextFieldConstraint = self.statusTextFieldConstraint()
-        let enteringStatusTextFieldConstraint = self.enteringStatusTextFieldConstraint()
-        let showStatusButtonConstraint = self.showStatusButtonConstraint()
-        
-        NSLayoutConstraint.activate(avatarImageViewConstraint +
-                                    titleTextFieldConstraint +
-                                    statusTextFieldConstraint +
-                                    enteringStatusTextFieldConstraint +
-                                    showStatusButtonConstraint
-        )
-    }
-    
-    private func avatarImageViewConstraint() -> [NSLayoutConstraint]{
-        let avatarImageViewConstraintTop = avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16)
-        let avatarImageViewConstraintLeft = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-        let avatarImageViewConstraintHeight = avatarImageView.heightAnchor.constraint(equalToConstant: 180)
-        let avatarImageViewConstraintWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 180)
-        return [avatarImageViewConstraintTop, avatarImageViewConstraintLeft, avatarImageViewConstraintHeight, avatarImageViewConstraintWidth]
-    }
-    
-    private func titleTextFieldConstraint() -> [NSLayoutConstraint]{
-        let titleTextFieldConstraintTop = titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27)
-        let titleTextFieldConstraintLeft = titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
-        let titleTextFieldConstraintHeight = titleTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20)
-        let titleTextFieldConstraintWidth = titleTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 110)
-        return [titleTextFieldConstraintTop,titleTextFieldConstraintLeft, titleTextFieldConstraintHeight, titleTextFieldConstraintWidth]
-    }
-    
-    private func statusTextFieldConstraint() -> [NSLayoutConstraint]{
-        let statusTextFieldConstraintTop =  statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34)
-        let statusTextFieldConstraintLeft = statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
-        let statusTextFieldConstraintHeight = statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20)
-        let statusTextFieldConstraintWidth = statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
-        return [statusTextFieldConstraintTop, statusTextFieldConstraintLeft, statusTextFieldConstraintHeight,  statusTextFieldConstraintWidth]
-    }
-    
-    private func enteringStatusTextFieldConstraint() -> [NSLayoutConstraint]{
-        let enteringStatusTextFieldConstraintTop = enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16)
-        let enteringStatusTextFieldConstraintLeft = enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16)
-        let enteringStatusTextFieldConstraintRight = enteringStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        let enteringStatusTextFieldConstraintBottom = enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16)
-        let enteringStatusTextFieldConstraintHeight = enteringStatusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 40)
-        let enteringStatusTextFieldConstraintWidth = enteringStatusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
-        return [enteringStatusTextFieldConstraintTop, enteringStatusTextFieldConstraintLeft, enteringStatusTextFieldConstraintRight, enteringStatusTextFieldConstraintBottom, enteringStatusTextFieldConstraintHeight, enteringStatusTextFieldConstraintWidth]
-    }
-    
-    private func showStatusButtonConstraint() -> [NSLayoutConstraint]{
-        let showStatusButtonConstraintTop = showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
-        let showStatusButtonConstraintLeft = showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-        let showStatusButtonConstraintRight = showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        let showStatusButtonConstraintHeight = showStatusButton.heightAnchor.constraint(equalToConstant: 50)
-        let showStatusButtonConstraintWidth = showStatusButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
-        let showStatusButtonConstraintBottom = showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3)
-        return [showStatusButtonConstraintTop, showStatusButtonConstraintLeft, showStatusButtonConstraintRight, showStatusButtonConstraintBottom,  showStatusButtonConstraintHeight, showStatusButtonConstraintWidth]
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 180),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 180),
+            
+            titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            titleTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
+            titleTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
+            
+            statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34),
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
+            statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            
+            enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
+            enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            enteringStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16),
+            enteringStatusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 40),
+            enteringStatusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            
+            showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            showStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            showStatusButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            //        // потому что тень, чтобы визуально кнопка была внутри вью, а не выходила за него
+            showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)])
     }
 }

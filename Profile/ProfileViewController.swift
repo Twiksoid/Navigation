@@ -20,10 +20,7 @@ class ProfileViewController: UIViewController {
     // задаю представлению тот же самый размер, что и у profileView
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.profileView.frame = CGRect(x: 0,
-                                        y: 100,
-                                        width: self.view.bounds.width,
-                                        height: self.view.bounds.height)
+        //self.profileView.frame = CGRect()
     }
     
     private lazy var newButton: UIButton = {
@@ -58,32 +55,18 @@ class ProfileViewController: UIViewController {
         view.addSubview(newButton)
         
         // настройка Constrait
-        let profileViewConstrait = self.profileViewConstraint()
-        let newButtonConstraint = self.newButtonConstraint()
-        NSLayoutConstraint.activate(profileViewConstrait +
-                                    newButtonConstraint)
-        
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: self.profileView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0),
+            self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.profileView.heightAnchor.constraint(equalToConstant: 267),
+
+            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            NSLayoutConstraint(item: self.newButton, attribute: .bottom, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0),
+            self.newButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
-    
-    private func profileViewConstraint() -> [NSLayoutConstraint] {
-        let profileViewConsttaintTop = NSLayoutConstraint(item: self.profileView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0)
-        let profileViewConsttaintLeft = self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
-        let profileViewConsttaintRight = self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        // вручную задаю высоту вью
-        let profileViewConsttaintHeight = self.profileView.heightAnchor.constraint(equalToConstant: 267)
-        return [profileViewConsttaintTop,profileViewConsttaintLeft,profileViewConsttaintRight,profileViewConsttaintHeight]
-    }
-    
-    private func newButtonConstraint() -> [NSLayoutConstraint]{
-        let NBCLeft = newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
-        let NBCRigt = newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        let NBCBottom = NSLayoutConstraint(item: self.newButton, attribute: .bottom, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0)
-        let NBCHHeight = self.newButton.heightAnchor.constraint(equalToConstant: 50)
-        //  let NBCHWidht = self.newButton.widthAnchor.constraint(equalToConstant: self.view.frame.width)
-        return [NBCLeft, NBCRigt, NBCBottom, NBCHHeight]//, NBCHWidht]
-    }
-    
-    
     
     // Для темной темы нужен костыль, чтобы нормально отображался верхний бар (где время, заряд батареи и тд)
     public func isCurrentThemeDark(){
