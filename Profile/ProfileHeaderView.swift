@@ -151,16 +151,16 @@ class ProfileHeaderView: UIView {
     private func titleTextFieldConstraint() -> [NSLayoutConstraint]{
         let titleTextFieldConstraintTop = titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27)
         let titleTextFieldConstraintLeft = titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
-        let titleTextFieldConstraintHeight = titleTextField.heightAnchor.constraint(equalToConstant: 20)
-        let titleTextFieldConstraintWidth = titleTextField.widthAnchor.constraint(equalToConstant: 130)
+        let titleTextFieldConstraintHeight = titleTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20)
+        let titleTextFieldConstraintWidth = titleTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 110)
         return [titleTextFieldConstraintTop,titleTextFieldConstraintLeft, titleTextFieldConstraintHeight, titleTextFieldConstraintWidth]
     }
     
     private func statusTextFieldConstraint() -> [NSLayoutConstraint]{
         let statusTextFieldConstraintTop =  statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34)
         let statusTextFieldConstraintLeft = statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
-        let statusTextFieldConstraintHeight = statusTextField.heightAnchor.constraint(equalToConstant: 20)
-        let statusTextFieldConstraintWidth = statusTextField.widthAnchor.constraint(equalToConstant: 170)
+        let statusTextFieldConstraintHeight = statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20)
+        let statusTextFieldConstraintWidth = statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
         return [statusTextFieldConstraintTop, statusTextFieldConstraintLeft, statusTextFieldConstraintHeight,  statusTextFieldConstraintWidth]
     }
     
@@ -169,8 +169,8 @@ class ProfileHeaderView: UIView {
         let enteringStatusTextFieldConstraintLeft = enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16)
         let enteringStatusTextFieldConstraintRight = enteringStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         let enteringStatusTextFieldConstraintBottom = enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16)
-        let enteringStatusTextFieldConstraintHeight = enteringStatusTextField.heightAnchor.constraint(equalToConstant: 40)
-        let enteringStatusTextFieldConstraintWidth = enteringStatusTextField.widthAnchor.constraint(equalToConstant: 170)
+        let enteringStatusTextFieldConstraintHeight = enteringStatusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 40)
+        let enteringStatusTextFieldConstraintWidth = enteringStatusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150)
         return [enteringStatusTextFieldConstraintTop, enteringStatusTextFieldConstraintLeft, enteringStatusTextFieldConstraintRight, enteringStatusTextFieldConstraintBottom, enteringStatusTextFieldConstraintHeight, enteringStatusTextFieldConstraintWidth]
     }
     
@@ -178,8 +178,8 @@ class ProfileHeaderView: UIView {
         let showStatusButtonConstraintTop = showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
         let showStatusButtonConstraintLeft = showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         let showStatusButtonConstraintRight = showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        let showStatusButtonConstraintHeight = showStatusButton.heightAnchor.constraint(equalToConstant: 40)
-        let showStatusButtonConstraintWidth = showStatusButton.widthAnchor.constraint(equalToConstant: 380)
+        let showStatusButtonConstraintHeight = showStatusButton.heightAnchor.constraint(lessThanOrEqualToConstant: 40)
+        let showStatusButtonConstraintWidth = showStatusButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
         return [showStatusButtonConstraintTop, showStatusButtonConstraintLeft, showStatusButtonConstraintRight, showStatusButtonConstraintHeight, showStatusButtonConstraintWidth]
     }
 }
