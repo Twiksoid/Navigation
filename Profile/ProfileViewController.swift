@@ -23,18 +23,6 @@ class ProfileViewController: UIViewController {
         //self.profileView.frame = CGRect()
     }
     
-    private lazy var newButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .systemBlue
-        button.setTitle(Constants.newButton, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        button.tag = Constants.newButtonTap
-        button.isUserInteractionEnabled = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем базовые вью
@@ -52,32 +40,26 @@ class ProfileViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = Constants.viewTitle
         view.addSubview(profileView)
-        view.addSubview(newButton)
         
         // настройка Constrait
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: self.profileView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0),
+            self.profileView.topAnchor.constraint(equalTo:self.view.safeAreaLayoutGuide.topAnchor),
             self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.profileView.heightAnchor.constraint(equalToConstant: 267),
-
-            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            NSLayoutConstraint(item: self.newButton, attribute: .bottom, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0),
-            self.newButton.heightAnchor.constraint(equalToConstant: 50)
+            self.profileView.heightAnchor.constraint(equalToConstant: 267)
         ])
     }
     
     // Для темной темы нужен костыль, чтобы нормально отображался верхний бар (где время, заряд батареи и тд)
-    public func isCurrentThemeDark(){
+     func isCurrentThemeDark(){
         if (traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark) {
             print("Current Theme is dark")
-            // меняю цвет вью на черный
-            view.backgroundColor = .black
-            // меняю "Profile" в NavigationBar на белый
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 20)!]
-            // меняю фон NavigationBar на черный
-            navigationController?.navigationBar.backgroundColor = .black
+            // меняю цвет вью на серый
+            view.backgroundColor = .lightGray
+            // меняю "Profile" в NavigationBar на черный
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 20)!]
+            // меняю фон NavigationBar на белый
+            navigationController?.navigationBar.backgroundColor = .white
         } else {
             print("Current Theme is not dark or I can not recognize it")
         }

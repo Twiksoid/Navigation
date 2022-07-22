@@ -11,7 +11,7 @@ class FeedViewController: UIViewController {
     
     private lazy var button1: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 140, height: 35))
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .systemRed
         button.setTitle("Показать пост 1", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(self.showPost), for: .touchUpInside)
@@ -44,7 +44,9 @@ class FeedViewController: UIViewController {
         self.view.backgroundColor = .white
         self.view.addSubview(self.vStack)
         self.vStack.center = self.view.center
-        
+
+        // настраиваем вью, если темная тема
+        isCurrentThemeDark()
     }
     
     @objc private func showPost(){
@@ -52,7 +54,18 @@ class FeedViewController: UIViewController {
         self.navigationController?.pushViewController(postScene, animated: true)
         postScene.title = post.title
     }
-    
+
+    func isCurrentThemeDark(){
+        if (traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark) {
+            print("Current Theme is dark")
+            // меняю цвет вью на серый
+            view.backgroundColor = .lightGray
+            // меняю фон NavigationBar на серый
+            navigationController?.navigationBar.backgroundColor = .lightGray
+        } else {
+            print("Current Theme is not dark or I can not recognize it")
+        }
+    }
 }
 
 var post = Post(title: "Поменял текст в заголовке")
