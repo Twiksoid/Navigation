@@ -141,38 +141,45 @@ class ProfileHeaderView: UIView {
     }
     
     private func avatarImageViewConstraint() -> [NSLayoutConstraint]{
-        let AIVCTop = avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16)
-        let AIVCLeft = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-        let AIVCHeight = avatarImageView.heightAnchor.constraint(equalToConstant: 180)
-        let AIVCWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 180)
-        return [AIVCTop, AIVCLeft, AIVCHeight, AIVCWidth]
+        let avatarImageViewConstraintTop = avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16)
+        let avatarImageViewConstraintLeft = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+        let avatarImageViewConstraintHeight = avatarImageView.heightAnchor.constraint(equalToConstant: 180)
+        let avatarImageViewConstraintWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 180)
+        return [avatarImageViewConstraintTop, avatarImageViewConstraintLeft, avatarImageViewConstraintHeight, avatarImageViewConstraintWidth]
     }
     
     private func titleTextFieldConstraint() -> [NSLayoutConstraint]{
-        let TTFCTop = titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27)
-        let TTFCLeft = titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
-        return [TTFCTop,TTFCLeft]
+        let titleTextFieldConstraintTop = titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27)
+        let titleTextFieldConstraintLeft = titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
+        let titleTextFieldConstraintHeight = titleTextField.heightAnchor.constraint(equalToConstant: 20)
+        let titleTextFieldConstraintWidth = titleTextField.widthAnchor.constraint(equalToConstant: 130)
+        return [titleTextFieldConstraintTop,titleTextFieldConstraintLeft, titleTextFieldConstraintHeight, titleTextFieldConstraintWidth]
     }
     
     private func statusTextFieldConstraint() -> [NSLayoutConstraint]{
-        let STFCTop =  statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34)
-        let STFCLeft = statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
-        return [STFCTop, STFCLeft ]
+        let statusTextFieldConstraintTop =  statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34)
+        let statusTextFieldConstraintLeft = statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20)
+        let statusTextFieldConstraintHeight = statusTextField.heightAnchor.constraint(equalToConstant: 20)
+        let statusTextFieldConstraintWidth = statusTextField.widthAnchor.constraint(equalToConstant: 170)
+        return [statusTextFieldConstraintTop, statusTextFieldConstraintLeft, statusTextFieldConstraintHeight,  statusTextFieldConstraintWidth]
     }
     
     private func enteringStatusTextFieldConstraint() -> [NSLayoutConstraint]{
-        let ESTFCTop = enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16)
-        let ESTFCLeft = enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16)
-        let ESTFCRight = enteringStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        let ESTFCBottom = enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16)
-        let ESTFCHeight = enteringStatusTextField.heightAnchor.constraint(equalToConstant: 40)
-        return [ESTFCTop, ESTFCLeft, ESTFCRight, ESTFCBottom, ESTFCHeight]
+        let enteringStatusTextFieldConstraintTop = enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16)
+        let enteringStatusTextFieldConstraintLeft = enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16)
+        let enteringStatusTextFieldConstraintRight = enteringStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+        let enteringStatusTextFieldConstraintBottom = enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16)
+        let enteringStatusTextFieldConstraintHeight = enteringStatusTextField.heightAnchor.constraint(equalToConstant: 40)
+        let enteringStatusTextFieldConstraintWidth = enteringStatusTextField.widthAnchor.constraint(equalToConstant: 170)
+        return [enteringStatusTextFieldConstraintTop, enteringStatusTextFieldConstraintLeft, enteringStatusTextFieldConstraintRight, enteringStatusTextFieldConstraintBottom, enteringStatusTextFieldConstraintHeight, enteringStatusTextFieldConstraintWidth]
     }
     
     private func showStatusButtonConstraint() -> [NSLayoutConstraint]{
-        let SSBTop = showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
-        let SSBLeft = showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-        let SSBRight = showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        return [SSBTop, SSBLeft, SSBRight]
+        let showStatusButtonConstraintTop = showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
+        let showStatusButtonConstraintLeft = showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+        let showStatusButtonConstraintRight = showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+        let showStatusButtonConstraintHeight = showStatusButton.heightAnchor.constraint(equalToConstant: 40)
+        let showStatusButtonConstraintWidth = showStatusButton.widthAnchor.constraint(equalToConstant: 380)
+        return [showStatusButtonConstraintTop, showStatusButtonConstraintLeft, showStatusButtonConstraintRight, showStatusButtonConstraintHeight, showStatusButtonConstraintWidth]
     }
 }
