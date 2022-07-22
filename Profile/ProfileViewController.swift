@@ -70,9 +70,8 @@ class ProfileViewController: UIViewController {
         let profileViewConsttaintTop = NSLayoutConstraint(item: self.profileView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0)
         let profileViewConsttaintLeft = self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let profileViewConsttaintRight = self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        let profileViewConsttaintBottom = self.profileView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         let profileViewConsttaintHeight = self.profileView.heightAnchor.constraint(equalToConstant: 220)
-        return [profileViewConsttaintTop,profileViewConsttaintLeft,profileViewConsttaintRight,profileViewConsttaintBottom,profileViewConsttaintHeight]
+        return [profileViewConsttaintTop,profileViewConsttaintLeft,profileViewConsttaintRight,profileViewConsttaintHeight]
     }
     
     private func newButtonConstraint() -> [NSLayoutConstraint]{
