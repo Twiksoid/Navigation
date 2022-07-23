@@ -13,7 +13,7 @@ enum Constants {
     static let titleTextFieldTap = 1002
     static let avatarImageViewTap = 1003
     static let enteringStatusTextFieldTap = 1004
-
+    
     static let mainPhoto = "cat.png"
     static let titleTextField = "Hipster Cat"
     static let statusTextField = "Waitting for something ..."

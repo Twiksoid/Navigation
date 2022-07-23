@@ -12,6 +12,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemTeal
+        //navigationController?.navigationBar.backgroundColor = .systemTeal
         
         // создаю новый объект в верхнем баре
         let info = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(openInfo))

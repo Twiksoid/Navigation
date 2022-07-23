@@ -13,16 +13,14 @@ class ProfileViewController: UIViewController {
     private lazy var profileView: ProfileHeaderView = {
         let profileHeaderView = ProfileHeaderView(frame: .zero)
         profileHeaderView.backgroundColor = .lightGray
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         return profileHeaderView
     }()
     
     // задаю представлению тот же самый размер, что и у profileView
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.profileView.frame = CGRect(x: 0,
-                                        y: 100,
-                                        width: self.view.bounds.width,
-                                        height: self.view.bounds.height)
+        //self.profileView.frame = CGRect()
     }
     
     override func viewDidLoad() {
@@ -41,20 +39,27 @@ class ProfileViewController: UIViewController {
         // чтобы автоматом подбирало размер
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = Constants.viewTitle
-        
         view.addSubview(profileView)
+        
+        // настройка Constrait
+        NSLayoutConstraint.activate([
+            self.profileView.topAnchor.constraint(equalTo:self.view.safeAreaLayoutGuide.topAnchor),
+            self.profileView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.profileView.heightAnchor.constraint(equalToConstant: 267)
+        ])
     }
     
     // Для темной темы нужен костыль, чтобы нормально отображался верхний бар (где время, заряд батареи и тд)
-    public func isCurrentThemeDark(){
+     func isCurrentThemeDark(){
         if (traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark) {
             print("Current Theme is dark")
-            // меняю цвет вью на черный
-            view.backgroundColor = .black
-            // меняю "Profile" в NavigationBar на белый
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 20)!]
-            // меняю фон NavigationBar на черный
-            navigationController?.navigationBar.backgroundColor = .black
+            // меняю цвет вью на серый
+            view.backgroundColor = .lightGray
+            // меняю "Profile" в NavigationBar на черный
+            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 20)!]
+            // меняю фон NavigationBar на белый
+            navigationController?.navigationBar.backgroundColor = .white
         } else {
             print("Current Theme is not dark or I can not recognize it")
         }

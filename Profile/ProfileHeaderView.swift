@@ -9,9 +9,9 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     var globalStatusText: String = ""
-
+    
     private lazy var avatarImageView: UIImageView = {
-        var imageView = UIImageView(frame: CGRect(x: 16, y: 40, width: 170, height: 170))
+        var imageView = UIImageView()
         imageView.image = UIImage(named: Constants.mainPhoto)
         // скруглить изображение
         imageView.clipsToBounds = true
@@ -23,31 +23,34 @@ class ProfileHeaderView: UIView {
         // цвет рамки
         imageView.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
         imageView.tag = Constants.avatarImageViewTap
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     private lazy var titleTextField: UITextField = {
-        let titleField = UITextField(frame: CGRect(x: 190, y: 60, width: 130, height: 20))
+        let titleField = UITextField()
         titleField.textColor = .black
         titleField.font = .boldSystemFont(ofSize: 18)
         titleField.text = Constants.titleTextField
         titleField.tag = Constants.titleTextFieldTap
         titleField.isUserInteractionEnabled = false
+        titleField.translatesAutoresizingMaskIntoConstraints = false
         return titleField
     }()
-
+    
     private lazy var statusTextField: UITextField = {
-        let statusField = UITextField(frame: CGRect(x: 190, y: 150, width: 170, height: 20))
+        let statusField = UITextField()
         statusField.textColor = .gray
         statusField.font = .systemFont(ofSize: 14)
         statusField.text = Constants.statusTextField
         statusField.tag = Constants.statusTextFieldTap
         statusField.isUserInteractionEnabled = false
+        statusField.translatesAutoresizingMaskIntoConstraints = false
         return statusField
     }()
-
+    
     private lazy var enteringStatusTextField: UITextField = {
-        let enterStatusField = UITextField(frame: CGRect(x: 190, y: 180, width: 170, height: 40))
+        let enterStatusField = UITextField()
         // Чтобы был отступ при вводе текста
         enterStatusField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         enterStatusField.layer.cornerRadius = 12.0
@@ -59,9 +62,10 @@ class ProfileHeaderView: UIView {
         enterStatusField.text = Constants.enteringStatusTextField
         enterStatusField.tag = Constants.enteringStatusTextFieldTap
         enterStatusField.addTarget(self, action: #selector(self.statusTextChanged), for: .editingChanged)
+        enterStatusField.translatesAutoresizingMaskIntoConstraints = false
         return enterStatusField
     }()
-
+    
     @objc private func statusTextChanged(){
         var statusText: String
         if (enteringStatusTextField.text != nil || enteringStatusTextField.text?.isEmpty == false) {
@@ -71,11 +75,11 @@ class ProfileHeaderView: UIView {
         } else {
             print("I can not take status, because its nil")
         }
-
+        
     }
-
+    
     private lazy var showStatusButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 16, y: 320, width: 380, height: 50))
+        let button = UIButton()
         button.backgroundColor = .systemBlue
         button.setTitle(Constants.showStatusButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -88,13 +92,14 @@ class ProfileHeaderView: UIView {
         button.tag = Constants.showStatusButtonTap
         button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(self.setStatus), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
-      @objc private func setStatus(sender: UIButton){
+    
+    @objc private func setStatus(sender: UIButton){
         if sender.tag == Constants.showStatusButtonTap {
             if enteringStatusTextField.text?.isEmpty == false,
-                enteringStatusTextField.text != nil {
+               enteringStatusTextField.text != nil {
                 statusTextField.text = globalStatusText
             } else {
                 print("This field is empty")
@@ -103,19 +108,52 @@ class ProfileHeaderView: UIView {
             endEditing(true)
         }
     }
-
-
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView(){
         self.addSubview(avatarImageView)
         self.addSubview(titleTextField)
         self.addSubview(statusTextField)
         self.addSubview(enteringStatusTextField)
         self.addSubview(showStatusButton)
+        
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 180),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 180),
+            
+            titleTextField.safeAreaLayoutGuide.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            titleTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            titleTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
+            titleTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
+            
+            statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34),
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
+            statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            
+            enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
+            enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
+            enteringStatusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            enteringStatusTextField.bottomAnchor.constraint(equalTo: showStatusButton.topAnchor, constant: -16),
+            enteringStatusTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            showStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            showStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            showStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            showStatusButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            //        // потому что тень, чтобы визуально кнопка была внутри вью, а не выходила за него
+            showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)])
     }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
 }
