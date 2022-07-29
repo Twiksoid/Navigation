@@ -68,4 +68,5 @@ class FeedViewController: UIViewController {
     }
 }
 
-var post = Post(title: "Поменял текст в заголовке")
+//var post = Post(title: "Поменял текст в заголовке")
+var post = Post(title: "Change text", author: "Self", description: "bla", image: "cat.png", likes: 5, views: 5)

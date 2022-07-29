@@ -168,7 +168,7 @@ class LogInViewController: UIViewController {
         if sender.tag == Constants.logInButtonTap {
             hideKeyboard()
             let goToProfileViewController = ProfileViewController()
-            goToProfileViewController.modalPresentationStyle = .automatic
+            goToProfileViewController.modalPresentationStyle = .currentContext
             self.present(goToProfileViewController, animated: true)
         }
     }
