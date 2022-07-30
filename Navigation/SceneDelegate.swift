@@ -22,9 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
-                                            navigationController,
-                                            secondItemController
-                                            ]
+            navigationController,
+            secondItemController
+        ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
         secondItemController.navigationBar.backgroundColor = UIColor.white

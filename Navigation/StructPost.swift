@@ -8,13 +8,13 @@
 import UIKit
 
 struct Post {
-
-    var title: String
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
+    
+    let title: String
+    let author: String
+    let description: String
+    let image: String
+    let likes: Int
+    let views: Int
 }
 
 let post1 = Post(title: "Чеширский Кот",

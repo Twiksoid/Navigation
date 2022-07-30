@@ -9,30 +9,31 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    // создаю представление CustomHeaderView
-    private lazy var profileView: CustomHeaderView = {
-        let profileHeaderView = CustomHeaderView(frame: .zero)
+    // создаю представление ProfileHeaderView
+    private lazy var profileView: ProfileHeaderView = {
+        let profileHeaderView = ProfileHeaderView(frame: .zero)
         profileHeaderView.backgroundColor = .lightGray
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         return profileHeaderView
     }()
-
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray6
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        // extend the space between content and the edges of the content view. The unit of size is points. The default value is UIEdgeInsetsZero.
+        //tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 500
-        tableView.register(CustomHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "CustomCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-
+    
     // Тут лежат посты, которые будем показывать
-private var viewModel: [Post] = [
+    private var viewModel: [Post] = [
         post1,
         post2,
         post3,
@@ -65,42 +66,42 @@ private var viewModel: [Post] = [
     }
 }
 
-    extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-
-        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            if section == 0 {
-                if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? CustomHeaderView {
-                    return headerView
-                } else {
-                    return nil
-                }
-            }
-            return nil
-        }
-
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            self.viewModel.count
-        }
-
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {
-                let post = self.viewModel[indexPath.row]
-                cell.backgroundColor = .white
-                cell.setup(for: post)
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-                return cell
-            }
-            }
-
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            self.tableView.deselectRow(at: indexPath, animated: true)
-        }
-
-    }
-
-
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? ProfileHeaderView {
+                return headerView
+            } else {
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.viewModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {
+            let post = self.viewModel[indexPath.row]
+            cell.backgroundColor = .white
+            cell.setup(for: post)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+
+
 
