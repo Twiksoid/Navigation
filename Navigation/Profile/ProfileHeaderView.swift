@@ -1,13 +1,14 @@
 //
-//  ProfileHeaderView.swift
+//  CustomHeaderView.swift
 //  Navigation
 //
-//  Created by Nikita Byzov on 12.07.2022.
+//  Created by Nikita Byzov on 27.07.2022.
 //
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
+    
     var globalStatusText: String = ""
     
     private lazy var avatarImageView: UIImageView = {
@@ -38,9 +39,10 @@ class ProfileHeaderView: UIView {
         return titleField
     }()
     
-    private lazy var statusTextField: UITextField = {
-        let statusField = UITextField()
+    private lazy var statusTextField: UILabel = {
+        let statusField = UILabel()
         statusField.textColor = .gray
+        statusField.numberOfLines = 0
         statusField.font = .systemFont(ofSize: 14)
         statusField.text = Constants.statusTextField
         statusField.tag = Constants.statusTextFieldTap
@@ -109,10 +111,9 @@ class ProfileHeaderView: UIView {
         }
     }
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -127,7 +128,7 @@ class ProfileHeaderView: UIView {
         self.addSubview(showStatusButton)
         
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 180),
             avatarImageView.widthAnchor.constraint(equalToConstant: 180),
@@ -137,10 +138,11 @@ class ProfileHeaderView: UIView {
             titleTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
             titleTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
             
-            statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 34),
+            statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 30),
             statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
-            statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
-            statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            //statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 30),
+            //statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
             
             enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
             enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
@@ -153,7 +155,7 @@ class ProfileHeaderView: UIView {
             showStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             showStatusButton.heightAnchor.constraint(equalToConstant: 50),
             showStatusButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
-            //        // потому что тень, чтобы визуально кнопка была внутри вью, а не выходила за него
+            // потому что тень, чтобы визуально кнопка была внутри вью, а не выходила за него
             showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)])
     }
 }
