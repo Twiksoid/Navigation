@@ -170,7 +170,6 @@ class LogInViewController: UIViewController {
             let goToProfileViewController = ProfileViewController()
             goToProfileViewController.modalPresentationStyle = .currentContext
             navigationController?.pushViewController(goToProfileViewController, animated: true)
-            //self.present(goToProfileViewController, animated: true)
         }
     }
     

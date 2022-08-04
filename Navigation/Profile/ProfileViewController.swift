@@ -20,8 +20,6 @@ class ProfileViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray6
-        // extend the space between content and the edges of the content view. The unit of size is points. The default value is UIEdgeInsetsZero.
-        //tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -29,7 +27,6 @@ class ProfileViewController: UIViewController {
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "CustomCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "miniCollectionView")
-        tableView.register(PhotosTableViewCell2_tryToUseCollection.self, forCellReuseIdentifier: "miniCollection")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -111,14 +108,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
                return cell
             }
-//        if indexPath.section == 0 && indexPath.row == 0 {
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "miniCollection", for: indexPath) as? PhotosTableViewCell2 {
-//                //cell.backgroundColor = .red
-//                return cell
-//            } else {
-//               let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-//               return cell
-//            }
         } else {
             // добавляю посты
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {

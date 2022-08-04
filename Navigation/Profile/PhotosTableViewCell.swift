@@ -67,28 +67,6 @@ class PhotosTableViewCell: UITableViewCell {
         return image
     }()
 
-
-
-//    private lazy var layout: UICollectionViewFlowLayout = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        layout.minimumLineSpacing = 8
-//        layout.minimumInteritemSpacing = 12
-//        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
-//        layout.collectionView?.layer.cornerRadius = 6
-//        layout.collectionView?.clipsToBounds = true
-//        return layout
-//    }()
-//
-//    private lazy var imageCollections: UICollectionView = {
-//        let image = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        image.register(PhotosTableViewCell.self, forCellWithReuseIdentifier: "miniCollectionView")
-//        image.translatesAutoresizingMaskIntoConstraints = false
-//        return image
-//    }()
-
-    //private var dataSourseForMiniCollection: [String] = ["1.jpg","2.jpg","3.jpg","4.jpg"]
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -114,12 +92,6 @@ class PhotosTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             miniTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             miniTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-
-//            imageMini.topAnchor.constraint(equalTo: miniTitle.bottomAnchor, constant: 12),
-//            imageMini.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-//            imageMini.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-//            imageMini.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 32)/4),
-//            imageMini.heightAnchor.constraint(equalTo: imageMini.widthAnchor, multiplier: 1),
 
             miniImage1.topAnchor.constraint(equalTo: miniTitle.bottomAnchor, constant: 12),
             miniImage1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
@@ -164,22 +136,6 @@ class PhotosTableViewCell: UITableViewCell {
                 miniImage4.image = UIImage(named: i)
             }
             }}
-
-//    func setupMiniCollection(for image: [String]){
-//                for i in image {
-//                    if i == "1.jpg" {
-//                    miniImage1.image = UIImage(image: i)
-//                } else if i == "2.jpg" {
-//                    miniImage2.image = UIImage(image: i)
-//                } else if i == "3.jpg" {
-//                    miniImage3.image = UIImage(image: i)
-//                } else if i == "4.jpg" {
-//                    miniImage4.image = UIImage(image: i)
-//                }
-//                }
-//
-//        //imageMini.image = UIImage(named: image)
-//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
