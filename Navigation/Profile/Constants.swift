@@ -27,6 +27,12 @@ enum Constants {
     static let logInButtonText = "Log In"
     static let email = "Email or phone"
     static let password = "Password"
+
+    static let collectionPhotoTitle = "Photo Gallery"
+    static let numberOfItemInMiniCollection = 4
+    static let numberOfSections = 2
+    static let numberOfItemsInSection = 20
+    static let numberOfItemsInLine: CGFloat = 3
 }
 
 // обращаемся к цвету 4885CC , который задали в Assets

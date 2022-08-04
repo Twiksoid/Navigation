@@ -169,7 +169,8 @@ class LogInViewController: UIViewController {
             hideKeyboard()
             let goToProfileViewController = ProfileViewController()
             goToProfileViewController.modalPresentationStyle = .currentContext
-            self.present(goToProfileViewController, animated: true)
+            navigationController?.pushViewController(goToProfileViewController, animated: true)
+            //self.present(goToProfileViewController, animated: true)
         }
     }
     

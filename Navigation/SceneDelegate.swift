@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(rootViewController: FeedViewController())
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
         _ = UINavigationController(rootViewController: ProfileViewController())
+        _ = UINavigationController(rootViewController: PhotosViewController())
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
