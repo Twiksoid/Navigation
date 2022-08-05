@@ -20,14 +20,13 @@ class ProfileViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray6
-        // extend the space between content and the edges of the content view. The unit of size is points. The default value is UIEdgeInsetsZero.
-        //tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 500
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "CustomCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "miniCollectionView")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -39,6 +38,10 @@ class ProfileViewController: UIViewController {
         post3,
         post4
     ]
+    
+    // тут фотки для миниатюры
+    private var photoModel: [String] = [
+        "1.jpg", "2.jpg", "3.jpg", "4.jpg"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,7 @@ class ProfileViewController: UIViewController {
         // чтобы большим было
         // navigationController?.navigationBar.prefersLargeTitles = true
         // чтобы автоматом подбирало размер
+        
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = Constants.viewTitle
         view.addSubview(tableView)
@@ -63,6 +67,11 @@ class ProfileViewController: UIViewController {
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func goToCollection(for index: IndexPath){
+        let vcCollection = PhotosViewController()
+        self.navigationController?.pushViewController(vcCollection, animated: true)
     }
 }
 
@@ -83,25 +92,45 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         self.viewModel.count
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        Constants.numberOfSections
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {
-            let post = self.viewModel[indexPath.row]
-            cell.backgroundColor = .white
-            cell.setup(for: post)
-            return cell
+        // добавляю мини фотки
+        if indexPath.section == 0 && indexPath.row == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "miniCollectionView", for: indexPath) as? PhotosTableViewCell {
+                cell.selectionStyle = .none
+                cell.setupMiniCollection(for: photoModel)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+                return cell
+            }
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-            return cell
-        }
-    }
+            // добавляю посты
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {
+                let post = self.viewModel[indexPath.row]
+                cell.backgroundColor = .white
+                print("adding new post at")
+                print("section - ", indexPath.section, "row - ", indexPath.row)
+                cell.setup(for: post)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+                return cell
+            }
+        }}
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            goToCollection(for: indexPath)
+        }
     }
     
 }
-
-
 
 

@@ -93,8 +93,8 @@ class PostTableViewCell: UITableViewCell {
             imagePostView.topAnchor.constraint(equalTo: titlePostLabel.bottomAnchor, constant: 8),
             imagePostView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imagePostView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            //imagePostView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            //imagePostView.heightAnchor.constraint(equalTo: imagePostView.widthAnchor, multiplier: 1.0),
+            imagePostView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            imagePostView.heightAnchor.constraint(equalTo: imagePostView.widthAnchor, multiplier: 1.0),
             
             descriptionPostLabel.topAnchor.constraint(greaterThanOrEqualTo: imagePostView.bottomAnchor, constant: 8),
             descriptionPostLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
