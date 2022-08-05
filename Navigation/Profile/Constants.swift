@@ -27,7 +27,7 @@ enum Constants {
     static let logInButtonText = "Log In"
     static let email = "Email or phone"
     static let password = "Password"
-
+    
     static let collectionPhotoTitle = "Photo Gallery"
     static let numberOfItemInMiniCollection = 4
     static let numberOfSections = 2
