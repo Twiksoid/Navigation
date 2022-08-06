@@ -31,7 +31,7 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    // Тут лежат посты, которые будем показывать
+    // Тут лежат посты для ленты
     private var viewModel: [Post] = [
         post1,
         post2,
@@ -39,9 +39,13 @@ class ProfileViewController: UIViewController {
         post4
     ]
     
-    // тут фотки для миниатюры
+    // тут лежат фото для миниатюры
     private var photoModel: [String] = [
-        "1.jpg", "2.jpg", "3.jpg", "4.jpg"]
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +84,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? ProfileHeaderView {
+                // передача ссылки на вью, с которого уходим
+                headerView.delegate = self
                 return headerView
             } else {
                 return nil
@@ -113,8 +119,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {
                 let post = self.viewModel[indexPath.row]
                 cell.backgroundColor = .white
-                print("adding new post at")
-                print("section - ", indexPath.section, "row - ", indexPath.row)
                 cell.setup(for: post)
                 return cell
             } else {

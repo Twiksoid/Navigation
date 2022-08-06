@@ -7,9 +7,12 @@
 
 import UIKit
 
-class ProfileHeaderView: UITableViewHeaderFooterView {
+class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     
     var globalStatusText: String = ""
+    
+    // для работы гистуры нужна ссылка на вью, с которого хотим уйти на новое
+    weak var delegate: ProfileViewController?
     
     private lazy var avatarImageView: UIImageView = {
         var imageView = UIImageView()
@@ -23,7 +26,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         imageView.layer.borderWidth = 3.0
         // цвет рамки
         imageView.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        // ловим нажатие
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imagePressed)))
         imageView.tag = Constants.avatarImageViewTap
+        // позволяем кнопке быть активной
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -114,6 +121,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupView()
+    }
+    
+    @objc func imagePressed(){
+        let vc = ImageAnimatedViewController()
+        delegate?.navigationController?.pushViewController(vc, animated: false)
     }
     
     required init?(coder: NSCoder) {

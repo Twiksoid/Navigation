@@ -44,7 +44,6 @@ class PhotosViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        //navigationController?.navigationBar.isHidden = false
         navigationItem.title = Constants.collectionPhotoTitle
         
     }
@@ -89,6 +88,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        // чтобы ширина автоматически подбиралась под рамзеры устройства
         let insets = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         let interItemSpacing = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0
         let width = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insets.left - insets.right
