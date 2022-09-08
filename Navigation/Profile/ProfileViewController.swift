@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     
@@ -46,11 +47,13 @@ class ProfileViewController: UIViewController {
     }
     
     func setupView(){
-        // чтобы закрасить основное вью
+        #if DEBUG
+        view.backgroundColor = UIColor(named: "specialBlue")
+        print("debug")
+        #else
         view.backgroundColor = .white
-        // чтобы большим было
-        // navigationController?.navigationBar.prefersLargeTitles = true
-        // чтобы автоматом подбирало размер
+        print("release")
+        #endif
         
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = Constants.viewTitle
