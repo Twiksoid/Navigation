@@ -9,14 +9,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    // создаю представление ProfileHeaderView
-    private lazy var profileView: ProfileHeaderView = {
-        let profileHeaderView = ProfileHeaderView(frame: .zero)
-        profileHeaderView.backgroundColor = .lightGray
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        return profileHeaderView
-    }()
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray6
