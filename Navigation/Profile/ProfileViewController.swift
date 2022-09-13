@@ -29,7 +29,8 @@ class ProfileViewController: UIViewController {
         post1,
         post2,
         post3,
-        post4
+        post4,
+        post5
     ]
     
     // тут лежат фото для миниатюры
@@ -47,13 +48,13 @@ class ProfileViewController: UIViewController {
     }
     
     func setupView(){
-        #if DEBUG
+#if DEBUG
         view.backgroundColor = UIColor(named: "specialBlue")
         print("debug")
-        #else
+#else
         view.backgroundColor = .white
         print("release")
-        #endif
+#endif
         
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = Constants.viewTitle
@@ -90,7 +91,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.count
+        viewModel.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +99,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         // добавляю мини фотки
         if indexPath.section == 0 && indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "miniCollectionView", for: indexPath) as? PhotosTableViewCell {
