@@ -72,13 +72,11 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func setup(for model: Post){
-        // тут будет обработка фотки
-        let newObject = ImageProcessor()
         titlePostLabel.text = model.title
         authorPostLabel.text = model.author
         descriptionPostLabel.text = model.description
         // тут обрабатываем фото и возвращаем его в поле
-        newObject.processImage(sourceImage: UIImage(named: model.image)!, filter: .fade) { imagePostView.image = $0 }
+        ImageProcessor().processImage(sourceImage: UIImage(named: model.image)!, filter: .fade) { imagePostView.image = $0 }
         likePostLabel.text = "Likes: \(model.likes)"
         viewPostLabel.text = "Views: \(model.views)"
     }
