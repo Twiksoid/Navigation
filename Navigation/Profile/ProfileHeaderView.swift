@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     
@@ -120,7 +121,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        setupView()
+        //setupView()
+        addSubViews()
     }
     
     @objc func imagePressed(){
@@ -132,6 +134,56 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         fatalError("init(coder:) has not been implemented")
     }
     
+    // использование SnapKit
+    private func addSubViews(){
+        self.addSubview(avatarImageView)
+        self.addSubview(titleTextField)
+        self.addSubview(statusTextField)
+        self.addSubview(enteringStatusTextField)
+        self.addSubview(showStatusButton)
+        
+        setupSnapKitConstraints()
+    }
+    
+    private func setupSnapKitConstraints(){
+        avatarImageView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.width.height.equalTo(180)
+        }
+        
+        titleTextField.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(27)
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(20)
+            make.height.equalTo(20)
+            make.width.greaterThanOrEqualTo(110)
+        }
+        
+        statusTextField.snp.makeConstraints { make in
+            make.top.equalTo(titleTextField.snp.bottom).offset(30)
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(20)
+            make.trailing.equalToSuperview().inset(16)
+        }
+        
+        enteringStatusTextField.snp.makeConstraints { make in
+            make.top.equalTo(statusTextField.snp.bottom).offset(16)
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(showStatusButton.snp.top).offset(-16)
+            make.height.equalTo(40)
+        }
+        
+        showStatusButton.snp.makeConstraints { make in
+            make.top.equalTo(avatarImageView.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(5)
+            make.height.equalTo(50)
+            make.width.equalTo(200)
+        }
+    }
+    
+    // использование классического способа
     private func setupView(){
         self.addSubview(avatarImageView)
         self.addSubview(titleTextField)
