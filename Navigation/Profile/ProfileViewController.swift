@@ -9,6 +9,17 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    let user: User?
+    
+    init(user: User){
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemGray6
@@ -28,7 +39,8 @@ class ProfileViewController: UIViewController {
         post1,
         post2,
         post3,
-        post4
+        post4,
+        post5
     ]
     
     // тут лежат фото для миниатюры
@@ -78,6 +90,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? ProfileHeaderView {
                 // передача ссылки на вью, с которого уходим
                 headerView.delegate = self
+                // настроим, кого выводить
+                headerView.setupHeader(for: user)
                 return headerView
             } else {
                 return nil
