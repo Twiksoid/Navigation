@@ -16,6 +16,9 @@
 		1D3B30FC289A4F02001440EB /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B30FB289A4F02001440EB /* PhotosViewController.swift */; };
 		1D3B30FE289A5512001440EB /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B30FD289A5512001440EB /* PhotosCollectionViewCell.swift */; };
 		1D3B3104289D8199001440EB /* ImageAnimatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B3103289D8199001440EB /* ImageAnimatedViewController.swift */; };
+		1D4C09C628D3217100103A19 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4C09C528D3217100103A19 /* User.swift */; };
+		1D4C09C828D322A200103A19 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4C09C728D322A200103A19 /* CurrentUserService.swift */; };
+		1D4C09CA28D3AF2600103A19 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4C09C928D3AF2600103A19 /* TestUserService.swift */; };
 		1D6014092874B50F00CA8F4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014082874B50F00CA8F4A /* AppDelegate.swift */; };
 		1D60140B2874B50F00CA8F4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60140A2874B50F00CA8F4A /* SceneDelegate.swift */; };
 		1D6014122874B51000CA8F4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D6014112874B51000CA8F4A /* Assets.xcassets */; };
@@ -36,6 +39,9 @@
 		1D3B30FB289A4F02001440EB /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		1D3B30FD289A5512001440EB /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D3B3103289D8199001440EB /* ImageAnimatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAnimatedViewController.swift; sourceTree = "<group>"; };
+		1D4C09C528D3217100103A19 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1D4C09C728D322A200103A19 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		1D4C09C928D3AF2600103A19 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		1D6014052874B50F00CA8F4A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D6014082874B50F00CA8F4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D60140A2874B50F00CA8F4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +70,9 @@
 			children = (
 				1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */,
 				1D3B123B287D7B7E00B4F57C /* ProfileViewController.swift */,
+				1D4C09C528D3217100103A19 /* User.swift */,
+				1D4C09C728D322A200103A19 /* CurrentUserService.swift */,
+				1D4C09C928D3AF2600103A19 /* TestUserService.swift */,
 				1D3B3103289D8199001440EB /* ImageAnimatedViewController.swift */,
 				1D3B123D287E946200B4F57C /* Constants.swift */,
 				1D2CAF66288C246E008DA7EC /* LogInViewController.swift */,
@@ -178,12 +187,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D4C09C828D322A200103A19 /* CurrentUserService.swift in Sources */,
 				1D3B30FA289A4E89001440EB /* PhotosTableViewCell.swift in Sources */,
 				1D3B30FC289A4F02001440EB /* PhotosViewController.swift in Sources */,
 				1D6014212874C0B400CA8F4A /* PostViewController.swift in Sources */,
 				1D6014092874B50F00CA8F4A /* AppDelegate.swift in Sources */,
+				1D4C09C628D3217100103A19 /* User.swift in Sources */,
 				1D3B30FE289A5512001440EB /* PhotosCollectionViewCell.swift in Sources */,
 				1D3B3104289D8199001440EB /* ImageAnimatedViewController.swift in Sources */,
+				1D4C09CA28D3AF2600103A19 /* TestUserService.swift in Sources */,
 				1D2CAF692891BCA9008DA7EC /* PostTableViewCell.swift in Sources */,
 				1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */,
 				1D2CAF6B2891C675008DA7EC /* ProfileHeaderView.swift in Sources */,
@@ -329,6 +341,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 65B98VTA2W;
@@ -345,6 +358,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = NikitaByzov.Navigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -356,6 +370,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 65B98VTA2W;
@@ -372,6 +387,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = NikitaByzov.Navigation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -167,9 +167,41 @@ class LogInViewController: UIViewController {
     @objc private func goToProfileViewController(sender: UIButton){
         if sender.tag == Constants.logInButtonTap {
             hideKeyboard()
-            let goToProfileViewController = ProfileViewController()
-            goToProfileViewController.modalPresentationStyle = .currentContext
-            navigationController?.pushViewController(goToProfileViewController, animated: true)
+            if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
+                // создали какого-то пользователя, хард-код
+                let user = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
+                
+                // создали объект, чтобы проверить этого пользователя
+                // в дебаге - Иван
+                // в релизе - Катя
+#if DEBUG
+                let checkForUser = TestUserService(user: user)
+#else
+                let checkForUser = CurrentUserService(user: user)
+#endif
+                
+                // проверяем связку логин + пароль, если не верный, то Алерт
+                if ( checkForUser.checkUser(for: user.login, and: user.password)?.login == user.login &&
+                     checkForUser.checkUser(for: user.login, and: user.password)?.password == user.password ) {
+                    
+                    // вернем эталонный объект, которому можно ходить в систему
+                    let goToProfileViewController = ProfileViewController(user: checkForUser.checkUser(for: user.login, and: user.password)!)
+                    goToProfileViewController.modalPresentationStyle = .currentContext
+                    navigationController?.pushViewController(goToProfileViewController, animated: true)
+                } else {
+                    // логин или пароль неверный
+                    let alarm = UIAlertController(title: Constants.alertNotCorrectLoginTitle, message: Constants.alertNotCorrectLoginText, preferredStyle: .alert)
+                    let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
+                    alarm.addAction(alarmAction)
+                    present(alarm, animated: true)
+                }
+            } else {
+                // логин или пароль не ввели
+                let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            }
         }
     }
     

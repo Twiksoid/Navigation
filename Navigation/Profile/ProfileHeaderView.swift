@@ -132,6 +132,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Настройка пользовательской вью под зашедшего
+    func setupHeader(for user: User?){
+        avatarImageView.image = user?.photo
+        statusTextField.text = user?.status
+        titleTextField.text = user?.fullName
+    }
+    
     private func setupView(){
         self.addSubview(avatarImageView)
         self.addSubview(titleTextField)
@@ -153,8 +160,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
             statusTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 30),
             statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            //statusTextField.heightAnchor.constraint(lessThanOrEqualToConstant: 30),
-            //statusTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
             
             enteringStatusTextField.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
             enteringStatusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
