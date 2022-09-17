@@ -89,7 +89,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     
     private lazy var showStatusButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = UIColor(named: "AccentColor")
         button.setTitle(Constants.showStatusButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 4.0
