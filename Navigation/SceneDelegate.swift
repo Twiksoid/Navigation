@@ -11,20 +11,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
-    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: FeedViewController())
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
-        // _ = UINavigationController(rootViewController: ProfileViewController())
-        _ = UINavigationController(rootViewController: PhotosViewController())
+        // обозначаем второй экран (форма входа)
+        // создаем объект фабрики
+        // вызываем метод создания объекта типа LoginInspector
+        // присваиваем этот результат делегату
+        // передаем для создания нав контроллера
+        let secondVC = LogInViewController()
+        let loginInspectorCreaterByFabric = MyLoginFactory()
+        secondVC.loginDelegate = loginInspectorCreaterByFabric.makeLoginInspector()
+        let secondVCForShowing = UINavigationController(rootViewController: secondVC)
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             navigationController,
-            secondItemController
+            secondVCForShowing
         ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
@@ -72,4 +78,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
 }
-

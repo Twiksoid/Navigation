@@ -9,6 +9,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    var loginDelegate: LoginViewControllerDelegate?
+    
     private lazy var logoImage: UIImageView = {
         var image = UIImageView()
         image.image = UIImage(named: Constants.logoName)
@@ -169,23 +171,17 @@ class LogInViewController: UIViewController {
             hideKeyboard()
             if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
                 // создали какого-то пользователя, хард-код
-                let user = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
+                let defaultUser = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
                 
-                // создали объект, чтобы проверить этого пользователя
-                // в дебаге - Иван
-                // в релизе - Катя
-#if DEBUG
-                let checkForUser = TestUserService(user: user)
-#else
-                let checkForUser = CurrentUserService(user: user)
-#endif
-                
-                // проверяем связку логин + пароль, если не верный, то Алерт
-                if ( checkForUser.checkUser(for: user.login, and: user.password)?.login == user.login &&
-                     checkForUser.checkUser(for: user.login, and: user.password)?.password == user.password ) {
-                    
+                if (loginDelegate?.check(for: emailTextField.text!, and: passwordTextField.text!)) == true {
                     // вернем эталонный объект, которому можно ходить в систему
-                    let goToProfileViewController = ProfileViewController(user: checkForUser.checkUser(for: user.login, and: user.password)!)
+                    // поскольку две схемы, то придется разнести так
+#if DEBUG
+                    let user = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
+#else
+                    let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
+#endif
+                    let goToProfileViewController = ProfileViewController(user: user)
                     goToProfileViewController.modalPresentationStyle = .currentContext
                     navigationController?.pushViewController(goToProfileViewController, animated: true)
                 } else {
@@ -194,14 +190,13 @@ class LogInViewController: UIViewController {
                     let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
                     alarm.addAction(alarmAction)
                     present(alarm, animated: true)
+                }} else {
+                    // логин или пароль не ввели
+                    let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
+                    let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                    alarm.addAction(alarmAction)
+                    present(alarm, animated: true)
                 }
-            } else {
-                // логин или пароль не ввели
-                let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
-                alarm.addAction(alarmAction)
-                present(alarm, animated: true)
-            }
         }
     }
     
