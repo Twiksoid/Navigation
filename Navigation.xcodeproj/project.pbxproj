@@ -27,6 +27,7 @@
 		1D6014212874C0B400CA8F4A /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014202874C0B400CA8F4A /* PostViewController.swift */; };
 		1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014222874C4A000CA8F4A /* InfoViewController.swift */; };
 		1D6014252878127100CA8F4A /* StructPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014242878127100CA8F4A /* StructPost.swift */; };
+		1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D7C4C28D8E0CF00613BEB /* Checker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		1D6014202874C0B400CA8F4A /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		1D6014222874C4A000CA8F4A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		1D6014242878127100CA8F4A /* StructPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructPost.swift; sourceTree = "<group>"; };
+		1D6D7C4C28D8E0CF00613BEB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		1D3B123A287D7B6500B4F57C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1D6D7C4C28D8E0CF00613BEB /* Checker.swift */,
 				1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */,
 				1D3B123B287D7B7E00B4F57C /* ProfileViewController.swift */,
 				1D4C09C528D3217100103A19 /* User.swift */,
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D4C09C828D322A200103A19 /* CurrentUserService.swift in Sources */,
+				1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */,
 				1D3B30FA289A4E89001440EB /* PhotosTableViewCell.swift in Sources */,
 				1D3B30FC289A4F02001440EB /* PhotosViewController.swift in Sources */,
 				1D6014212874C0B400CA8F4A /* PostViewController.swift in Sources */,

@@ -11,20 +11,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
-    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: FeedViewController())
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
+        let secondVC = LogInViewController()
+        secondVC.loginDelegate = LoginInspector()
+        let secondVCForShowing = UINavigationController(rootViewController: secondVC)
+        //navigationController.pushViewController(secondVC, animated: true)
         // _ = UINavigationController(rootViewController: ProfileViewController())
         _ = UINavigationController(rootViewController: PhotosViewController())
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             navigationController,
-            secondItemController
+            //secondItemController,
+            //secondVC,
+            secondVCForShowing
         ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
@@ -72,4 +77,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
 }
-
