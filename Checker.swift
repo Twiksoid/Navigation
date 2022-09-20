@@ -9,7 +9,7 @@ import UIKit
 
 class Checker {
     static let shared = Checker()
-
+    
     // хард-код
 #if DEBUG
     private let login = "Ivan"
@@ -18,7 +18,7 @@ class Checker {
     private let login = "Kate"
     private let password = "12345"
 #endif
-
+    
     private init() {}
     
     func check(for login: String, and password: String) -> Bool {
@@ -43,6 +43,5 @@ extension LoginViewControllerDelegate {
 struct LoginInspector: LoginViewControllerDelegate {
     func check(for login: String, and password: String) -> Bool {
         return Checker.shared.check(for: login, and: password)
-
     }
 }
