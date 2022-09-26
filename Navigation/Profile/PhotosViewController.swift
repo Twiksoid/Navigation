@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
-    
-    
+
+    let imagePublisherFacede = ImagePublisherFacade()
+
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -40,7 +42,6 @@ class PhotosViewController: UIViewController {
         createData()
         setupNavigationBar()
         setupView()
-        
     }
     
     private func setupNavigationBar(){
@@ -87,16 +88,19 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         // чтобы ширина автоматически подбиралась под рамзеры устройства
         let insets = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         let interItemSpacing = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0
         let width = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insets.left - insets.right
         let itemWidth = floor(width / Constants.numberOfItemsInLine)
-        
         return CGSize(width: itemWidth, height: itemWidth)
     }
-    
-    
-    
 }
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        <#code#>
+    }
+}
+
+
