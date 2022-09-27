@@ -52,11 +52,15 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        // отписка на наблюдения
+        imagePublisherFacede.removeSubscription(for: self)
     }
     // когда приходим на вью коллекции, показываем навигатор-бар
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        // подписка на наблюдения
+        imagePublisherFacede.subscribe(self)
     }
     
     private func setupView(){
@@ -79,7 +83,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
-            cell.setupCell(for: dataSourse[indexPath.row])
+            cell.setupCell(for: dataSourse[indexPath.row], or: indexPath, arrayOfImages: dataSourse)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -99,7 +103,10 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
 
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
-        <#code#>
+        // тут должен быть код какой-то
+        // Он получает массив обр. фотографий. свойство image нужно присвоить своему массиву и перезагрузить коллекцию
+
+        collectionView.reloadData()
     }
 }
 

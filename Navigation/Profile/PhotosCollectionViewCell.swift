@@ -37,8 +37,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func setupCell(for imageName:String){
-        self.imageCollectionView.image = UIImage(named: imageName)
+    func setupCell(for imageName:String, or indexPath: IndexPath, arrayOfImages: [String]) {
+        let arrayOfFinishedImages: [UIImage] = PhotoEdditer().createArrayOfImages(arrayOf: arrayOfImages)
+        imageCollectionView.image = arrayOfFinishedImages[indexPath.row]
+        //self.imageCollectionView.image = UIImage(named: imageName)
+//        return arrayOfFinishedImages
     }
     
 }

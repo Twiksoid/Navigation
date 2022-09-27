@@ -28,6 +28,7 @@
 		1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014222874C4A000CA8F4A /* InfoViewController.swift */; };
 		1D6014252878127100CA8F4A /* StructPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014242878127100CA8F4A /* StructPost.swift */; };
 		1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D7C4C28D8E0CF00613BEB /* Checker.swift */; };
+		1DC15F2428E2D17F0037CE40 /* PhotoEdditer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */; };
 		1DE2C96328DE358B00399C1D /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE2C96228DE358B00399C1D /* iOSIntPackage */; };
 		1DF3100128D9AB000030FEF6 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF3100028D9AB000030FEF6 /* LoginFactory.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		1D6014222874C4A000CA8F4A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		1D6014242878127100CA8F4A /* StructPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructPost.swift; sourceTree = "<group>"; };
 		1D6D7C4C28D8E0CF00613BEB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = SOURCE_ROOT; };
+		1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEdditer.swift; sourceTree = "<group>"; };
 		1DF3100028D9AB000030FEF6 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 				1D3B30F9289A4E89001440EB /* PhotosTableViewCell.swift */,
 				1D3B30FB289A4F02001440EB /* PhotosViewController.swift */,
 				1D3B30FD289A5512001440EB /* PhotosCollectionViewCell.swift */,
+				1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				1D3B30FC289A4F02001440EB /* PhotosViewController.swift in Sources */,
 				1D6014212874C0B400CA8F4A /* PostViewController.swift in Sources */,
 				1D6014092874B50F00CA8F4A /* AppDelegate.swift in Sources */,
+				1DC15F2428E2D17F0037CE40 /* PhotoEdditer.swift in Sources */,
 				1D4C09C628D3217100103A19 /* User.swift in Sources */,
 				1D3B30FE289A5512001440EB /* PhotosCollectionViewCell.swift in Sources */,
 				1D3B3104289D8199001440EB /* ImageAnimatedViewController.swift in Sources */,
