@@ -8,10 +8,16 @@
 import UIKit
 import iOSIntPackage
 
+protocol ImagesDelegate {
+    func setFor(image: UIImage?)
+}
+
 class PhotosViewController: UIViewController {
-
-    let imagePublisherFacede = ImagePublisherFacade()
-
+    
+    private lazy var imagePublisherFacede = ImagePublisherFacade()
+    private lazy var arrayOfImagesForObserver = [UIImage]()
+    lazy var arrayOfImages = [UIImage]()
+    
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -35,7 +41,9 @@ class PhotosViewController: UIViewController {
     private func createData(){
         for num in 1...Constants.numberOfItemsInSection {
             dataSourse.append("\(num).jpg")
-        }}
+        }
+        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 20, userImages: arrayOfImagesForObserver)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +92,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
             cell.setupCell(for: dataSourse[indexPath.row], or: indexPath, arrayOfImages: dataSourse)
+            arrayOfImagesForObserver = cell.getFinalArray()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -103,9 +112,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
 
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
-        // тут должен быть код какой-то
-        // Он получает массив обр. фотографий. свойство image нужно присвоить своему массиву и перезагрузить коллекцию
-
+        arrayOfImages = images
         collectionView.reloadData()
     }
 }

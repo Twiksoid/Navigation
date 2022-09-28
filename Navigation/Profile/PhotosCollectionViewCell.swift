@@ -10,6 +10,8 @@ import UIKit
 // отдельный экран, где фотографии
 class PhotosCollectionViewCell: UICollectionViewCell {
     
+    private var finalArray = [UIImage]()
+    
     private lazy var imageCollectionView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -40,8 +42,13 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     func setupCell(for imageName:String, or indexPath: IndexPath, arrayOfImages: [String]) {
         let arrayOfFinishedImages: [UIImage] = PhotoEdditer().createArrayOfImages(arrayOf: arrayOfImages)
         imageCollectionView.image = arrayOfFinishedImages[indexPath.row]
+        finalArray = arrayOfFinishedImages
         //self.imageCollectionView.image = UIImage(named: imageName)
 //        return arrayOfFinishedImages
+    }
+    
+    func getFinalArray() -> [UIImage] {
+        return finalArray
     }
     
 }
