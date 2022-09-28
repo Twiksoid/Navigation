@@ -42,7 +42,14 @@ class PhotosViewController: UIViewController {
         for num in 1...Constants.numberOfItemsInSection {
             dataSourse.append("\(num).jpg")
         }
-        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 20, userImages: arrayOfImagesForObserver)
+    }
+    
+    private func setupArray() {
+        
+        dataSourse.forEach { photo in
+            self.arrayOfImagesForObserver.append(UIImage(named: photo)!)
+        }
+        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 21, userImages: arrayOfImagesForObserver)
     }
     
     override func viewDidLoad() {
@@ -50,6 +57,7 @@ class PhotosViewController: UIViewController {
         createData()
         setupNavigationBar()
         setupView()
+        setupArray()
     }
     
     private func setupNavigationBar(){
@@ -86,13 +94,12 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataSourse.count
+        arrayOfImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
-            cell.setupCell(for: dataSourse[indexPath.row], or: indexPath, arrayOfImages: dataSourse)
-            arrayOfImagesForObserver = cell.getFinalArray()
+            cell.setImage(image: arrayOfImages[indexPath.row])
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
