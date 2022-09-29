@@ -6,9 +6,17 @@
 //
 
 import UIKit
+import iOSIntPackage
+
+protocol ImagesDelegate {
+    func setFor(image: UIImage?)
+}
 
 class PhotosViewController: UIViewController {
     
+    private lazy var imagePublisherFacede = ImagePublisherFacade()
+    private lazy var arrayOfImagesForObserver = [UIImage]()
+    lazy var arrayOfImages = [UIImage]()
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -33,14 +41,23 @@ class PhotosViewController: UIViewController {
     private func createData(){
         for num in 1...Constants.numberOfItemsInSection {
             dataSourse.append("\(num).jpg")
-        }}
+        }
+    }
+    
+    private func setupArray() {
+        
+        dataSourse.forEach { photo in
+            self.arrayOfImagesForObserver.append(UIImage(named: photo)!)
+        }
+        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 21, userImages: arrayOfImagesForObserver)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createData()
         setupNavigationBar()
         setupView()
-        
+        setupArray()
     }
     
     private func setupNavigationBar(){
@@ -51,11 +68,15 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        // отписка на наблюдения
+        imagePublisherFacede.removeSubscription(for: self)
     }
     // когда приходим на вью коллекции, показываем навигатор-бар
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        // подписка на наблюдения
+        imagePublisherFacede.subscribe(self)
     }
     
     private func setupView(){
@@ -73,12 +94,12 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataSourse.count
+        arrayOfImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
-            cell.setupCell(for: dataSourse[indexPath.row])
+            cell.setImage(image: arrayOfImages[indexPath.row])
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -87,16 +108,20 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         // чтобы ширина автоматически подбиралась под рамзеры устройства
         let insets = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         let interItemSpacing = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0
         let width = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insets.left - insets.right
         let itemWidth = floor(width / Constants.numberOfItemsInLine)
-        
         return CGSize(width: itemWidth, height: itemWidth)
     }
-    
-    
-    
 }
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        arrayOfImages = images
+        collectionView.reloadData()
+    }
+}
+
+

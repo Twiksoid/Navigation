@@ -28,6 +28,8 @@
 		1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014222874C4A000CA8F4A /* InfoViewController.swift */; };
 		1D6014252878127100CA8F4A /* StructPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014242878127100CA8F4A /* StructPost.swift */; };
 		1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D7C4C28D8E0CF00613BEB /* Checker.swift */; };
+		1DC15F2428E2D17F0037CE40 /* PhotoEdditer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */; };
+		1DE2C96328DE358B00399C1D /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE2C96228DE358B00399C1D /* iOSIntPackage */; };
 		1DF3100128D9AB000030FEF6 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF3100028D9AB000030FEF6 /* LoginFactory.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,7 @@
 		1D6014222874C4A000CA8F4A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		1D6014242878127100CA8F4A /* StructPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructPost.swift; sourceTree = "<group>"; };
 		1D6D7C4C28D8E0CF00613BEB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = SOURCE_ROOT; };
+		1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEdditer.swift; sourceTree = "<group>"; };
 		1DF3100028D9AB000030FEF6 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DE2C96328DE358B00399C1D /* iOSIntPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,10 +76,10 @@
 		1D3B123A287D7B6500B4F57C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1D3B123B287D7B7E00B4F57C /* ProfileViewController.swift */,
 				1D6D7C4C28D8E0CF00613BEB /* Checker.swift */,
 				1DF3100028D9AB000030FEF6 /* LoginFactory.swift */,
 				1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */,
-				1D3B123B287D7B7E00B4F57C /* ProfileViewController.swift */,
 				1D4C09C528D3217100103A19 /* User.swift */,
 				1D4C09C728D322A200103A19 /* CurrentUserService.swift */,
 				1D4C09C928D3AF2600103A19 /* TestUserService.swift */,
@@ -86,6 +90,7 @@
 				1D3B30F9289A4E89001440EB /* PhotosTableViewCell.swift */,
 				1D3B30FB289A4F02001440EB /* PhotosViewController.swift */,
 				1D3B30FD289A5512001440EB /* PhotosCollectionViewCell.swift */,
+				1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -139,6 +144,9 @@
 			dependencies = (
 			);
 			name = Navigation;
+			packageProductDependencies = (
+				1DE2C96228DE358B00399C1D /* iOSIntPackage */,
+			);
 			productName = Navigation;
 			productReference = 1D6014052874B50F00CA8F4A /* Navigation.app */;
 			productType = "com.apple.product-type.application";
@@ -167,6 +175,9 @@
 				Base,
 			);
 			mainGroup = 1D6013FC2874B50F00CA8F4A;
+			packageReferences = (
+				1DE2C96128DE358B00399C1D /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+			);
 			productRefGroup = 1D6014062874B50F00CA8F4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -199,6 +210,7 @@
 				1D3B30FC289A4F02001440EB /* PhotosViewController.swift in Sources */,
 				1D6014212874C0B400CA8F4A /* PostViewController.swift in Sources */,
 				1D6014092874B50F00CA8F4A /* AppDelegate.swift in Sources */,
+				1DC15F2428E2D17F0037CE40 /* PhotoEdditer.swift in Sources */,
 				1D4C09C628D3217100103A19 /* User.swift in Sources */,
 				1D3B30FE289A5512001440EB /* PhotosCollectionViewCell.swift in Sources */,
 				1D3B3104289D8199001440EB /* ImageAnimatedViewController.swift in Sources */,
@@ -434,6 +446,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1DE2C96128DE358B00399C1D /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
+			requirement = {
+				branch = imagepublisher;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1DE2C96228DE358B00399C1D /* iOSIntPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DE2C96128DE358B00399C1D /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
+			productName = iOSIntPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1D6013FD2874B50F00CA8F4A /* Project object */;
 }
