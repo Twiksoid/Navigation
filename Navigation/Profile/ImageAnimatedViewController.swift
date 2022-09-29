@@ -11,40 +11,20 @@ import UIKit
 
 class ImageAnimatedViewController: UIViewController {
     
-//    private lazy var closeButton: UIButton = {
-//        let button = UIButton(type: .custom)
-//        let image = UIImage(systemName: "xmark.square.fill")
-//        button.alpha = 0
-//        button.clipsToBounds = true
-//        button.layer.cornerRadius = 1
-//        button.setImage(image, for: .normal)
-//        button.layer.borderWidth = 3
-//        button.layer.borderColor = UIColor.lightGray.cgColor
-//        button.tintColor = .black
-//        button.backgroundColor = .white
-//        button.addTarget(self, action: #selector(tapOnClose), for: .touchUpInside)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
-    
-        private var closeButtonAfterShowAvatarImage = CustomButton(title: "",
-                                                                   titleColor: .black,
-                                                                   buttonSystemName: "xmark.square.fill",
-                                                                   backgroundButtonColor: .white,
-                                                                   clipsToBoundsOfButton: true,
-                                                                   cornerRadius: 1,
-                                                                   borderWidth: 3,
-                                                                   alphaButton: 0,
-                                                                   borderColor: UIColor.lightGray.cgColor,
-                                                                   targetName: "tapOnClose",
-                                                                   targetState: .touchUpInside,
-                                                                   autoLayout: false)
-    
-//    func somefunc(){
-//        closeButtonAfterShowAvatarImage.addTarget = { [self] in
-//            self.closeButtonAfterShowAvatarImage.addTarget(self, action: #selector(tapOnClose), for: .touchUpInside)
-//        }
-//    }
+    private lazy var closeButtonAfterShowAvatarImage: CustomButton = {
+        let button = CustomButton(title: "",
+                                  titleColor: .black,
+                                  backgroundButtonColor: .white,
+                                  clipsToBoundsOfButton: true,
+                                  cornerRadius: 1,
+                                  borderWidth: 3,
+                                  alphaButton: 0,
+                                  borderColor: UIColor.lightGray.cgColor,
+                                  autoLayout: false)
+        button.setImage(UIImage(named: "xmark.square.fill"), for: .normal)
+        button.addTargetForButton = { self.tapOnClose() }
+        return button
+    }()
     
     // назад вернуться
     @objc private func tapOnClose(){
@@ -74,7 +54,7 @@ class ImageAnimatedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        somefunc()
+        //        somefunc()
         setupView()
         // нужен коэф увеличения
         let finalWidth = (Float(view.frame.width) / 180)

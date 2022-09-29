@@ -81,15 +81,15 @@ class LogInViewController: UIViewController {
         return tStack
     }()
     
-    private lazy var logInButton: UIButton = {
-        let button = UIButton()
+    private lazy var logInButton: CustomButton = {
+        let button = CustomButton(title: Constants.logInButtonText,
+                                  titleColor: .white,
+                                  backgroundButtonColor: UIColor(named: "AccentColor")!,
+                                  clipsToBoundsOfButton: true,
+                                  cornerRadius: 10,
+                                  autoLayout: false)
         button.tag = Constants.logInButtonTap
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.setTitle(Constants.logInButtonText, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setBackgroundImage(UIImage(named: Constants.pixelBlue), for: .normal)
-        button.addTarget(self, action: #selector(goToProfileViewController), for: .touchUpInside)
+        button.addTargetForButton = { self.goToProfileViewController(sender: button) }
         return button
     }()
     
