@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D2457F028E54B7100E8C2BD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2457EF28E54B7100E8C2BD /* CustomButton.swift */; };
 		1D2CAF67288C246E008DA7EC /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAF66288C246E008DA7EC /* LogInViewController.swift */; };
 		1D2CAF692891BCA9008DA7EC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */; };
 		1D2CAF6B2891C675008DA7EC /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAF6A2891C675008DA7EC /* ProfileHeaderView.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D2457EF28E54B7100E8C2BD /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		1D2CAF66288C246E008DA7EC /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		1D2CAF6A2891C675008DA7EC /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				1D3B30FB289A4F02001440EB /* PhotosViewController.swift */,
 				1D3B30FD289A5512001440EB /* PhotosCollectionViewCell.swift */,
 				1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */,
+				1D2457EF28E54B7100E8C2BD /* CustomButton.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				1DF3100128D9AB000030FEF6 /* LoginFactory.swift in Sources */,
 				1D6014252878127100CA8F4A /* StructPost.swift in Sources */,
 				1D3B123C287D7B7E00B4F57C /* ProfileViewController.swift in Sources */,
+				1D2457F028E54B7100E8C2BD /* CustomButton.swift in Sources */,
 				1D60140B2874B50F00CA8F4A /* SceneDelegate.swift in Sources */,
 				1D3B123E287E946200B4F57C /* Constants.swift in Sources */,
 				1D2CAF67288C246E008DA7EC /* LogInViewController.swift in Sources */,
