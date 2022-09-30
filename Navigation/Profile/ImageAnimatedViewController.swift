@@ -11,19 +11,18 @@ import UIKit
 
 class ImageAnimatedViewController: UIViewController {
     
-    private lazy var closeButton: UIButton = {
-        let button = UIButton(type: .custom)
-        let image = UIImage(systemName: "xmark.square.fill")
-        button.alpha = 0
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 1
-        button.setImage(image, for: .normal)
-        button.layer.borderWidth = 3
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.tintColor = .black
-        button.backgroundColor = .white
-        button.addTarget(self, action: #selector(tapOnClose), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var closeButtonAfterShowAvatarImage: CustomButton = {
+        let button = CustomButton(title: "",
+                                  titleColor: .black,
+                                  backgroundButtonColor: .white,
+                                  clipsToBoundsOfButton: true,
+                                  cornerRadius: 1,
+                                  borderWidth: 3,
+                                  alphaButton: 0,
+                                  borderColor: UIColor.lightGray.cgColor,
+                                  autoLayout: false)
+        button.setImage(UIImage(named: "xmark.square.fill"), for: .normal)
+        button.addTargetForButton = { self.tapOnClose() }
         return button
     }()
     
@@ -55,6 +54,7 @@ class ImageAnimatedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        somefunc()
         setupView()
         // нужен коэф увеличения
         let finalWidth = (Float(view.frame.width) / 180)
@@ -70,14 +70,14 @@ class ImageAnimatedViewController: UIViewController {
             self.avatarImageIncrease.layer.cornerRadius = 0
             self.avatarImageIncrease.transform = CGAffineTransform(scaleX: CGFloat(finalWidth), y: CGFloat(finalHeight))
         } completion: { _ in
-            UIView.animate(withDuration: 0.3) {self.closeButton.alpha = 1} completion: { _ in }
+            UIView.animate(withDuration: 0.3) {self.closeButtonAfterShowAvatarImage.alpha = 1} completion: { _ in }
         }
     }
     
     private func animationClose(with finalWidth: Float, and finalHeight: Float){
         UIView.animate(withDuration: 1) {
             self.view.alpha = 1
-            self.closeButton.alpha = 0
+            self.closeButtonAfterShowAvatarImage.alpha = 0
             self.avatarImageIncrease.layer.cornerRadius = 90
             self.avatarImageIncrease.transform = CGAffineTransform(scaleX: CGFloat(finalWidth), y: CGFloat(finalHeight))
         } completion: { _ in  }
@@ -85,13 +85,13 @@ class ImageAnimatedViewController: UIViewController {
     
     private func setupView(){
         view.backgroundColor = .lightGray
-        view.addSubview(closeButton)
+        view.addSubview(closeButtonAfterShowAvatarImage)
         view.addSubview(avatarImageIncrease)
         
         NSLayoutConstraint.activate([
             
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            closeButtonAfterShowAvatarImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            closeButtonAfterShowAvatarImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             
             avatarImageIncrease.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             avatarImageIncrease.centerYAnchor.constraint(equalTo: view.centerYAnchor),

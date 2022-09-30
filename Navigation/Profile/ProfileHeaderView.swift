@@ -87,12 +87,12 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         
     }
     
-    private lazy var showStatusButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "AccentColor")
-        button.setTitle(Constants.showStatusButton, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 4.0
+    private lazy var showStatusButton: CustomButton = {
+        let button = CustomButton(title: Constants.showStatusButton,
+                                  titleColor: .white,
+                                  backgroundButtonColor: UIColor(named: "AccentColor")!,
+                                  clipsToBoundsOfButton: true,
+                                  cornerRadius: 4, autoLayout: false)
         button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         button.layer.shadowOffset.width = 4.0
         button.layer.shadowOffset.height = 4.0
@@ -100,10 +100,27 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         button.layer.shadowRadius = 4.0
         button.tag = Constants.showStatusButtonTap
         button.isUserInteractionEnabled = true
-        button.addTarget(self, action: #selector(self.setStatus), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTargetForButton = { self.setStatus(sender: button) }
         return button
     }()
+    
+    //    private lazy var showStatusButton: UIButton = {
+    //        let button = UIButton()
+    //        button.backgroundColor = UIColor(named: "AccentColor")
+    //        button.setTitle(Constants.showStatusButton, for: .normal)
+    //        button.setTitleColor(.white, for: .normal)
+    //        button.layer.cornerRadius = 4.0
+    //        button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+    //        button.layer.shadowOffset.width = 4.0
+    //        button.layer.shadowOffset.height = 4.0
+    //        button.layer.shadowOpacity = 0.7
+    //        button.layer.shadowRadius = 4.0
+    //        button.tag = Constants.showStatusButtonTap
+    //        button.isUserInteractionEnabled = true
+    //        button.addTarget(self, action: #selector(self.setStatus), for: .touchUpInside)
+    //        button.translatesAutoresizingMaskIntoConstraints = false
+    //        return button
+    //    }()
     
     @objc private func setStatus(sender: UIButton){
         if sender.tag == Constants.showStatusButtonTap {
