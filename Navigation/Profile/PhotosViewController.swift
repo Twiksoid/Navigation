@@ -48,8 +48,8 @@ class PhotosViewController: UIViewController {
         
         let start = DispatchTime.now() // засекаем начало операции
         ImageProcessor().processImagesOnThread(sourceImages: arrayOfImages,
-                                               filter: .colorInvert,
-                                               qos: .utility)
+                                               filter: .tonal,
+                                               qos: .userInteractive)
         { [weak self] checkedImages in DispatchQueue.main.async {
             self?.arrayOfFinishedImages = checkedImages.compactMap { image in
                 if let image = image {
@@ -58,20 +58,21 @@ class PhotosViewController: UIViewController {
                     return nil
                 }
             }
+            let end = DispatchTime.now()   // фиксируем конец
+            // <<<<< Считаем разницу в нано-секундах (UInt64)
+            let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
             self?.collectionView.reloadData()
+            
+            let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
+            print("Time to evaluate problem: \(timeInterval) seconds")
         }
+            let end = DispatchTime.now()   // фиксируем конец
         }
-        
-        let end = DispatchTime.now()   // фиксируем конец
-        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Считаем разницу в нано-секундах (UInt64)
-        // это если нужно посчитать для других вариантов
-        // let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
-        //print("Time to evaluate problem: \(timeInterval) seconds")
         
         //MARK: результаты теста
-        //"qos: .userInteractive and filter: .tonal - 5.825e-05 seconds"
-        //"qos: .default and filter: .chrome - 7.0084e-05 seconds "
-        //"qos: .utility and filter: .colorInvert -  3.075e-05 seconds"
+        //"qos: .userInteractive and filter: .tonal - 1.87176e-05 seconds"
+        //"qos: .default and filter: .chrome - 1.7344e-05 seconds "
+        //"qos: .utility and filter: .colorInvert -  1.925e-05 seconds"
     }
     
     override func viewDidLoad() {
