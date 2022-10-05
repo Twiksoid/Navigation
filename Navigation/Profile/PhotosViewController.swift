@@ -54,22 +54,20 @@ class PhotosViewController: UIViewController {
         }
         
         print("Array of Images: ", "\n", arrayOfImages)
-        DispatchQueue.main.async {
-            
-            let start = DispatchTime.now() // <<<<<<<<<< Start time
-            self.imageProcessor.processImagesOnThread(sourceImages: self.arrayOfImages,
-                                                      filter: .colorInvert,
-                                                      qos: .utility)
-            { [weak self] image in self?.arrayOfFinishedImages = image.map( { image in UIImage(cgImage: image!) as! CGImage? } )
-                // arrayOfFinishedImages = checkedImages
-                let end = DispatchTime.now()   // <<<<<<<<<<   end time
-                
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
-                let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
-                //print("Time to evaluate problem: \(timeInterval) seconds")
-                
-                print("array Of Finished Images: ", "\n", self!.arrayOfFinishedImages)
-            }}
+        
+        let start = DispatchTime.now() // <<<<<<<<<< Start time
+        imageProcessor.processImagesOnThread(sourceImages: arrayOfImages,
+                                             filter: .colorInvert,
+                                             qos: .utility)
+        { checkedImages = $0 }
+        arrayOfFinishedImages = checkedImages
+        let end = DispatchTime.now()   // <<<<<<<<<<   end time
+        
+        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
+        let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
+        //print("Time to evaluate problem: \(timeInterval) seconds")
+        
+        print("array Of Finished Images: ", "\n", arrayOfFinishedImages)
         
         //"qos: .userInteractive and filter: .tonal - 5.825e-05 seconds"
         //"qos: .default and filter: .chrome - 7.0084e-05 seconds "
