@@ -12,8 +12,8 @@ class Checker {
     
     // хард-код
 #if DEBUG
-    private let login = "Ivan"
-    private let password = "123456"
+    private let login = "I"
+    private let password = "1"
 #else
     private let login = "Kate"
     private let password = "12345"

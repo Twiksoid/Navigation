@@ -8,15 +8,19 @@
 import UIKit
 import iOSIntPackage
 
-protocol ImagesDelegate {
-    func setFor(image: UIImage?)
-}
+//protocol ImagesDelegate {
+//    func setFor(image: UIImage?)
+//}
 
 class PhotosViewController: UIViewController {
     
-    private lazy var imagePublisherFacede = ImagePublisherFacade()
-    private lazy var arrayOfImagesForObserver = [UIImage]()
-    lazy var arrayOfImages = [UIImage]()
+    //private lazy var imagePublisherFacede = ImagePublisherFacade()
+    //private lazy var arrayOfImagesForObserver = [UIImage]()
+    // lazy var arrayOfImages = [UIImage]()
+    
+    var arrayOfImages = [UIImage]()
+    let imageProcessor = ImageProcessor()
+    var arrayOfFinishedImages = [CGImage?]()
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -39,25 +43,53 @@ class PhotosViewController: UIViewController {
     
     private var dataSourse: [String] = []
     private func createData(){
+        
+        var checkedImages: [CGImage?] = []
         for num in 1...Constants.numberOfItemsInSection {
             dataSourse.append("\(num).jpg")
         }
+        
+        for image in dataSourse {
+            arrayOfImages.append((UIImage(named: image) ?? UIImage(named: "1.jpg"))!)
+        }
+        
+        print("Array of Images: ", "\n", arrayOfImages)
+        DispatchQueue.main.async {
+            
+            let start = DispatchTime.now() // <<<<<<<<<< Start time
+            self.imageProcessor.processImagesOnThread(sourceImages: self.arrayOfImages,
+                                                      filter: .colorInvert,
+                                                      qos: .utility)
+            { [weak self] image in self?.arrayOfFinishedImages = image.map( { image in UIImage(cgImage: image!) as! CGImage? } )
+                // arrayOfFinishedImages = checkedImages
+                let end = DispatchTime.now()   // <<<<<<<<<<   end time
+                
+                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
+                let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
+                //print("Time to evaluate problem: \(timeInterval) seconds")
+                
+                print("array Of Finished Images: ", "\n", self!.arrayOfFinishedImages)
+            }}
+        
+        //"qos: .userInteractive and filter: .tonal - 5.825e-05 seconds"
+        //"qos: .default and filter: .chrome - 7.0084e-05 seconds "
+        //"qos: .utility and filter: .colorInvert -  3.075e-05 seconds"
     }
     
-    private func setupArray() {
-        
-        dataSourse.forEach { photo in
-            self.arrayOfImagesForObserver.append(UIImage(named: photo)!)
-        }
-        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 21, userImages: arrayOfImagesForObserver)
-    }
+    //    private func setupArray() {
+    //
+    //        dataSourse.forEach { photo in
+    //            self.arrayOfImagesForObserver.append(UIImage(named: photo)!)
+    //        }
+    //        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 21, userImages: arrayOfImagesForObserver)
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createData()
         setupNavigationBar()
         setupView()
-        setupArray()
+        //setupArray()
     }
     
     private func setupNavigationBar(){
@@ -69,14 +101,14 @@ class PhotosViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
         // отписка на наблюдения
-        imagePublisherFacede.removeSubscription(for: self)
+        //imagePublisherFacede.removeSubscription(for: self)
     }
     // когда приходим на вью коллекции, показываем навигатор-бар
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
         // подписка на наблюдения
-        imagePublisherFacede.subscribe(self)
+        //imagePublisherFacede.subscribe(self)
     }
     
     private func setupView(){
@@ -94,12 +126,15 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        arrayOfImages.count
+        dataSourse.count
+        //arrayOfImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
-            cell.setImage(image: arrayOfImages[indexPath.row])
+            cell.setupCell(for: UIImage(cgImage: arrayOfFinishedImages[indexPath.row]!))
+            //cell.setupCell(for: arrayOfImages[indexPath.row])
+            //cell.setImage(image: arrayOfImages[indexPath.row])
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -117,11 +152,11 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        arrayOfImages = images
-        collectionView.reloadData()
-    }
-}
+//extension PhotosViewController: ImageLibrarySubscriber {
+//    func receive(images: [UIImage]) {
+//        arrayOfImages = images
+//        collectionView.reloadData()
+//    }
+//}
 
 
