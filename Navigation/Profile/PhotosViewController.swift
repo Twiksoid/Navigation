@@ -20,7 +20,7 @@ class PhotosViewController: UIViewController {
     
     var arrayOfImages = [UIImage]()
     let imageProcessor = ImageProcessor()
-    var arrayOfFinishedImages = [CGImage?]()
+    var arrayOfFinishedImages = [UIImage?]()
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -59,15 +59,18 @@ class PhotosViewController: UIViewController {
         imageProcessor.processImagesOnThread(sourceImages: arrayOfImages,
                                              filter: .colorInvert,
                                              qos: .utility)
-        { checkedImages = $0 }
-        arrayOfFinishedImages = checkedImages
+        { [weak self] checkedImages in self?.arrayOfFinishedImages = checkedImages.map( {checkedImages in UIImage(cgImage: checkedImages!) } )
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }}
+        //arrayOfFinishedImages = checkedImages
         let end = DispatchTime.now()   // <<<<<<<<<<   end time
         
         let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
         let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
         //print("Time to evaluate problem: \(timeInterval) seconds")
         
-        print("array Of Finished Images: ", "\n", arrayOfFinishedImages)
+        print("array Of Finished Images: ", "\n", self.arrayOfFinishedImages)
         
         //"qos: .userInteractive and filter: .tonal - 5.825e-05 seconds"
         //"qos: .default and filter: .chrome - 7.0084e-05 seconds "
@@ -130,7 +133,8 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
-            cell.setupCell(for: UIImage(cgImage: arrayOfFinishedImages[indexPath.row]!))
+            print("before cell: \n", arrayOfFinishedImages)
+            cell.setupCell(for: arrayOfFinishedImages[indexPath.row]!)
             //cell.setupCell(for: arrayOfImages[indexPath.row])
             //cell.setImage(image: arrayOfImages[indexPath.row])
             return cell
