@@ -8,15 +8,11 @@
 import UIKit
 import iOSIntPackage
 
-protocol ImagesDelegate {
-    func setFor(image: UIImage?)
-}
 
 class PhotosViewController: UIViewController {
     
-    private lazy var imagePublisherFacede = ImagePublisherFacade()
-    private lazy var arrayOfImagesForObserver = [UIImage]()
-    lazy var arrayOfImages = [UIImage]()
+    var arrayOfImages = [UIImage]() // массив имен фото
+    var arrayOfFinishedImages = [UIImage?]() // массив обработанных на потоке фото
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -39,17 +35,44 @@ class PhotosViewController: UIViewController {
     
     private var dataSourse: [String] = []
     private func createData(){
+        
+        // создаем массив фото. Каждое фото в имени цифру имеет, поэтому так можно
         for num in 1...Constants.numberOfItemsInSection {
             dataSourse.append("\(num).jpg")
         }
-    }
-    
-    private func setupArray() {
         
-        dataSourse.forEach { photo in
-            self.arrayOfImagesForObserver.append(UIImage(named: photo)!)
+        // перекладываем фото для другого массива, едфолтом положим все картинки 1, если что-то не так пойдет
+        for image in dataSourse {
+            arrayOfImages.append((UIImage(named: image) ?? UIImage(named: "1.jpg"))!)
         }
-        imagePublisherFacede.addImagesWithTimer(time: 1, repeat: 21, userImages: arrayOfImagesForObserver)
+        
+        let start = DispatchTime.now() // засекаем начало операции
+        ImageProcessor().processImagesOnThread(sourceImages: arrayOfImages,
+                                               filter: .tonal,
+                                               qos: .userInteractive)
+        { [weak self] checkedImages in DispatchQueue.main.async {
+            self?.arrayOfFinishedImages = checkedImages.compactMap { image in
+                if let image = image {
+                    return UIImage(cgImage: image)
+                } else {
+                    return nil
+                }
+            }
+            let end = DispatchTime.now()   // фиксируем конец
+            // <<<<< Считаем разницу в нано-секундах (UInt64)
+            let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+            self?.collectionView.reloadData()
+            
+            let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
+            print("Time to evaluate problem: \(timeInterval) seconds")
+        }
+            let end = DispatchTime.now()   // фиксируем конец
+        }
+        
+        //MARK: результаты теста
+        //"qos: .userInteractive and filter: .tonal - 1.87176e-05 seconds"
+        //"qos: .default and filter: .chrome - 1.7344e-05 seconds "
+        //"qos: .utility and filter: .colorInvert -  1.925e-05 seconds"
     }
     
     override func viewDidLoad() {
@@ -57,7 +80,6 @@ class PhotosViewController: UIViewController {
         createData()
         setupNavigationBar()
         setupView()
-        setupArray()
     }
     
     private func setupNavigationBar(){
@@ -68,15 +90,12 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
-        // отписка на наблюдения
-        imagePublisherFacede.removeSubscription(for: self)
     }
+    
     // когда приходим на вью коллекции, показываем навигатор-бар
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        // подписка на наблюдения
-        imagePublisherFacede.subscribe(self)
     }
     
     private func setupView(){
@@ -99,7 +118,9 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Custom", for: indexPath) as? PhotosCollectionViewCell {
-            cell.setImage(image: arrayOfImages[indexPath.row])
+            if !arrayOfFinishedImages.isEmpty, let image = arrayOfFinishedImages[indexPath.row] {
+                cell.setupCell(for: image)
+            }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Default", for: indexPath)
@@ -114,13 +135,6 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let width = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insets.left - insets.right
         let itemWidth = floor(width / Constants.numberOfItemsInLine)
         return CGSize(width: itemWidth, height: itemWidth)
-    }
-}
-
-extension PhotosViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        arrayOfImages = images
-        collectionView.reloadData()
     }
 }
 
