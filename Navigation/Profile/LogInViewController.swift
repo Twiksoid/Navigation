@@ -11,6 +11,10 @@ class LogInViewController: UIViewController {
     
     var loginDelegate: LoginViewControllerDelegate?
     
+    let concurrentQuee = DispatchQueue(label: "queueForPassword",
+                                       qos: .userInteractive,
+                                       attributes: [.concurrent])
+    
     private lazy var logoImage: UIImageView = {
         var image = UIImageView()
         image.image = UIImage(named: Constants.logoName)
@@ -93,6 +97,22 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    private lazy var selectPasswordButton: CustomButton = {
+        let buttom = CustomButton(title: Constants.generatePasswordField, titleColor: .white, backgroundButtonColor: .specialBlue, clipsToBoundsOfButton: true, cornerRadius: 10, autoLayout: false)
+        buttom.addTargetForButton = { self.makePassword() }
+        return buttom
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.startAnimating()
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        indicator.isHidden = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     private lazy var stackButton: UIStackView = {
         let bStack = UIStackView()
         bStack.distribution = .fillEqually
@@ -100,6 +120,7 @@ class LogInViewController: UIViewController {
         bStack.spacing = 0
         bStack.translatesAutoresizingMaskIntoConstraints = false
         bStack.addArrangedSubview(logInButton)
+        bStack.addArrangedSubview(selectPasswordButton)
         return bStack
     }()
     
@@ -142,6 +163,7 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(stackLogoImage)
         scrollView.addSubview(stackTextFields)
         scrollView.addSubview(stackButton)
+        view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -162,7 +184,11 @@ class LogInViewController: UIViewController {
             stackButton.topAnchor.constraint(equalTo: stackTextFields.bottomAnchor, constant: 16),
             stackButton.leadingAnchor.constraint(equalTo: stackTextFields.leadingAnchor),
             stackButton.trailingAnchor.constraint(equalTo: stackTextFields.trailingAnchor),
-            stackButton.heightAnchor.constraint(equalToConstant: 50)
+            stackButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            activityIndicator.leadingAnchor.constraint(equalTo: stackButton.trailingAnchor, constant: -26),
+            activityIndicator.centerYAnchor.constraint(equalTo: stackTextFields.centerYAnchor, constant: 26)
+            
         ])
     }
     
@@ -198,6 +224,41 @@ class LogInViewController: UIViewController {
                     present(alarm, animated: true)
                 }
         }
+    }
+    
+    @objc private func makePassword(){
+        // показали AI
+        setupActivityIndicator()
+        // создали переменную, в которую вернем с потока сгенерированный пароль (брутфорс)
+        var setPasswordBetweenQueue: String = ""
+        
+        // запустили подбор пароля, его вернем
+        concurrentQuee.async {
+            setPasswordBetweenQueue = self.comparePasswords()
+            // синхронизировали потоки
+            DispatchQueue.main.async {
+                self.passwordTextField.text = setPasswordBetweenQueue
+                self.passwordTextField.isSecureTextEntry = false
+                self.deSetupActivityIndicator()
+            }
+        }
+    }
+    
+    private func comparePasswords() -> String {
+        // количество символов задаем
+        let randomPassword = String.createRandomPassword(for: 3)
+        let brutePassword = BruteForce().bruteForce(passwordToUnlock: randomPassword)
+        return brutePassword
+    }
+    
+    private func setupActivityIndicator(){
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func deSetupActivityIndicator(){
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
     }
     
     private func setupGesture(){
