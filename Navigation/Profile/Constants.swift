@@ -42,9 +42,11 @@ enum Constants {
     static let alertNotCorrectLoginText = "Проверьте информацию и попробуйте снова"
     static let alertNotCorrectLoginAction = "Ок"
     
+    static let generatePasswordField = "Подобрать пароль"
+    
 }
 
 // обращаемся к цвету 4885CC , который задали в Assets
 extension UIColor {
-    static let specialBlue: UIColor = UIColor(named: "specialBlue")!
+    static let specialBlue: UIColor = UIColor(named: "AccentColor")!
 }
