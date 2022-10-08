@@ -116,8 +116,9 @@ class LogInViewController: UIViewController {
     private lazy var stackButton: UIStackView = {
         let bStack = UIStackView()
         bStack.distribution = .fillEqually
+        bStack.sizeToFit()
         bStack.axis = .vertical
-        bStack.spacing = 0
+        bStack.spacing = 5
         bStack.translatesAutoresizingMaskIntoConstraints = false
         bStack.addArrangedSubview(logInButton)
         bStack.addArrangedSubview(selectPasswordButton)
@@ -184,9 +185,8 @@ class LogInViewController: UIViewController {
             stackButton.topAnchor.constraint(equalTo: stackTextFields.bottomAnchor, constant: 16),
             stackButton.leadingAnchor.constraint(equalTo: stackTextFields.leadingAnchor),
             stackButton.trailingAnchor.constraint(equalTo: stackTextFields.trailingAnchor),
-            stackButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            activityIndicator.leadingAnchor.constraint(equalTo: stackButton.trailingAnchor, constant: -26),
+            stackButton.heightAnchor.constraint(equalToConstant: 70),
+            activityIndicator.leadingAnchor.constraint(equalTo: stackTextFields.leadingAnchor, constant: 26),
             activityIndicator.centerYAnchor.constraint(equalTo: stackTextFields.centerYAnchor, constant: 26)
             
         ])
