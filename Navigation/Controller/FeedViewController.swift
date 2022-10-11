@@ -9,6 +9,9 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
+    private var timer: Timer?
+    private var countOfUnsecTr = 0.0
+    
     private lazy var button1: CustomButton = {
         let button = CustomButton(title: "Показать пост 1",
                                   titleColor: .black,
@@ -39,6 +42,7 @@ class FeedViewController: UIViewController {
         text.layer.borderColor = UIColor.black.cgColor
         text.isUserInteractionEnabled = true
         text.translatesAutoresizingMaskIntoConstraints = false
+        text.addTarget(self, action: #selector(startTimer), for: .allTouchEvents)
         return text
     }()
     
@@ -108,7 +112,33 @@ class FeedViewController: UIViewController {
         ])
     }
     
+    @objc private func startTimer(){
+        timer = Timer(timeInterval: 15.0,
+                      target: self,
+                      selector: #selector(alarmNote),
+                      userInfo: nil,
+                      repeats: false)
+        RunLoop.main.add(timer!, forMode: .default)
+    }
+    
+    @objc private func alarmNote(){
+        countOfUnsecTr = countOfUnsecTr + 0.5
+        // аларм, что не успели
+        let alarm = UIAlertController(title: "Время для проверки слова истекло",
+                                      message: "Попробуйте снова, но быстрее",
+                                      preferredStyle: .alert)
+        let alarmAction = UIAlertAction(title: "ОК",
+                                        style: .default)
+        alarm.addAction(alarmAction)
+        present(alarm, animated: true)
+    }
+    
     @objc private func checker(){
+        
+        // уберем клавиатуру, чтобы пользователь за новым словом пошел в поле
+        view.endEditing(true)
+        
+        print("Количество попыток, при которых пользователь не успел ввести слово за 15 секунд - ",countOfUnsecTr)
         
         if textField.text == "" {
             // поле пустое
