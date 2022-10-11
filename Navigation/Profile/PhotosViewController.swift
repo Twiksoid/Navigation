@@ -66,7 +66,7 @@ class PhotosViewController: UIViewController {
             let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
             print("Time to evaluate problem: \(timeInterval) seconds")
         }
-            let end = DispatchTime.now()   // фиксируем конец
+            let _ = DispatchTime.now()   // фиксируем конец
         }
         
         //MARK: результаты теста

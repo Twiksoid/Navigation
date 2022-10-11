@@ -113,16 +113,20 @@ class FeedViewController: UIViewController {
     }
     
     @objc private func startTimer(){
-        timer = Timer(timeInterval: 15.0,
-                      target: self,
-                      selector: #selector(alarmNote),
-                      userInfo: nil,
-                      repeats: false)
-        RunLoop.main.add(timer!, forMode: .default)
-    }
+        // суть - даем 15 с на ввод слова пользователю. Если не успел, то поднимаем Аларм и считаем такие алармы
+        // таймер (счетчик) отключаем только тогда, когда введено слово + отправлено на проверку
+        // чтобы не было утечки памяти нужно проверять и создавать только 1 таймер
+        if timer == nil {
+            timer = Timer(timeInterval: 15.0,
+                          target: self,
+                          selector: #selector(alarmNote),
+                          userInfo: nil,
+                          repeats: true)
+            RunLoop.main.add(timer!, forMode: .default)
+        }}
     
     @objc private func alarmNote(){
-        countOfUnsecTr = countOfUnsecTr + 0.5
+        countOfUnsecTr += 1
         // аларм, что не успели
         let alarm = UIAlertController(title: "Время для проверки слова истекло",
                                       message: "Попробуйте снова, но быстрее",
@@ -134,6 +138,10 @@ class FeedViewController: UIViewController {
     }
     
     @objc private func checker(){
+        
+        // отключаем таймер
+        timer?.invalidate()
+        timer = nil
         
         // уберем клавиатуру, чтобы пользователь за новым словом пошел в поле
         view.endEditing(true)
