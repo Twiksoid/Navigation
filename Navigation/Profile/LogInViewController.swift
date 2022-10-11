@@ -197,7 +197,7 @@ class LogInViewController: UIViewController {
             hideKeyboard()
             if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
                 // создали какого-то пользователя, хард-код
-                let defaultUser = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
+                let _ = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
                 
                 if (loginDelegate?.check(for: emailTextField.text!, and: passwordTextField.text!)) == true {
                     // вернем эталонный объект, которому можно ходить в систему
