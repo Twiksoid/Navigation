@@ -192,7 +192,7 @@ class LogInViewController: UIViewController {
         ])
     }
     
-    @objc private func goToProfileViewController(sender: UIButton){
+    @objc private func goToProfileViewController(sender: UIButton) {
         if sender.tag == Constants.logInButtonTap {
             hideKeyboard()
             if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
@@ -211,6 +211,7 @@ class LogInViewController: UIViewController {
                     goToProfileViewController.modalPresentationStyle = .currentContext
                     navigationController?.pushViewController(goToProfileViewController, animated: true)
                 } else {
+                    
                     // логин или пароль неверный
                     let alarm = UIAlertController(title: Constants.alertNotCorrectLoginTitle, message: Constants.alertNotCorrectLoginText, preferredStyle: .alert)
                     let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
