@@ -15,13 +15,23 @@ class TestUserService: UserService {
         self.user = user
     }
     
-    func checkUser(for login: String, and password: String) -> User? {
+    // поскольку хотим ловить ошибки, то должны подписаться на протокол, где эти ошибки заводим
+    // суть такая: вернем ошибку или пользователя
+    func checkUser(for login: String,
+                   and password: String,
+                   completionHandler: @escaping (Result<User?, UserServiceError>) -> Void) {
         // эталонный пользователь, которому можно входить, хард-код
         // данный класс используем для отладки, считаем, что тестовым будет Иван
-        let currentUser = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
+        let currentUser = User(login: "Ivan",
+                               password: "123456",
+                               fullName: "Ivan Petrov",
+                               photo: UIImage(named: "Ivan.jpg")!,
+                               status: "I'm free")
         
         if ( currentUser.login == login && currentUser.password == password ) {
-            return currentUser
-        } else { return nil }
+            completionHandler(.success(currentUser))
+        } else {
+            completionHandler(.failure(.incorrectData))
+        }
     }
 }
