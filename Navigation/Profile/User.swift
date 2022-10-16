@@ -23,9 +23,7 @@ class User {
     }
 }
 
-// создаем перечисление ошибок
-// считаем, что может быть ошибка данных
-// или какая-то случайная
+// изменяем запротоколированный метод для возможности обработки ошибок
 enum UserServiceError: Error {
     case incorrectData
     case notDeterminatedError
@@ -35,5 +33,5 @@ enum UserServiceError: Error {
 protocol UserService {
     func checkUser(for login: String,
                    and password: String,
-                   completionHandler: @escaping (Result<User?, UserServiceError>) -> Void)
+                   completionHandler: @escaping (Result<User, UserServiceError>) -> Void)
 }

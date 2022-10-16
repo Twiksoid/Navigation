@@ -142,6 +142,14 @@ class FeedViewController: UIViewController {
         present(alarm, animated: true)
     }
     
+    private func isTextFieldEmpty(for textFied: String?) -> Bool {
+        if textFied == "" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     @objc private func checker() {
         
         // отключаем таймер
@@ -153,10 +161,15 @@ class FeedViewController: UIViewController {
         
         print("Количество попыток, при которых пользователь не успел ввести слово за 15 секунд - ",countOfUnsecTr)
         
-        if textField.text == "" {
+        if isTextFieldEmpty(for: textField.text) == true {
+            // Поскольку два режима, то явно выявить можно один, а второй через исключение
+            // Если поле пустое, то 1 режим
+            // Иначе - без указания на режим
+            let typeOfAction = 1
+            //if textField.text == "" {
             do {
-                try makeAlarmForError(typeOfError: 1) }
-            catch FeedViewController.FeedError.fieldIsEmpty {
+                try makeAlarmForError(typeOfError: typeOfAction)
+            } catch FeedViewController.FeedError.fieldIsEmpty {
                 // поле пустое
                 let alarm = UIAlertController(title: "Не заполнено поле",
                                               message: "Заполните поле и попробуйте снова",
@@ -164,8 +177,8 @@ class FeedViewController: UIViewController {
                 let alarmAction = UIAlertAction(title: "ОК",
                                                 style: .default)
                 alarm.addAction(alarmAction)
-                present(alarm, animated: true) }
-            catch FeedViewController.FeedError.incorrectData {
+                present(alarm, animated: true)
+            } catch FeedViewController.FeedError.incorrectData {
                 // поле заполнено невалидными данными (по идее это никогда не произойдет тк на поле нет таких ограничений)
                 let alarm = UIAlertController(title: "Некорректные данные",
                                               message: "Проверьте корректность введенных данных и попробуйте снова",
@@ -173,9 +186,17 @@ class FeedViewController: UIViewController {
                 let alarmAction = UIAlertAction(title: "ОК",
                                                 style: .default)
                 alarm.addAction(alarmAction)
-                present(alarm, animated: true)}
-            catch {
-                print("Какая-то непредвиденная ошибка", error)}
+                present(alarm, animated: true)
+            } catch {
+                // по идее это какая-то ошибка, которую мы вообще не знаем сейчас, поэтому задаем общее наименование
+                let alarm = UIAlertController(title: "Непредвиденная ошибка",
+                                              message: "Возникла непредвиденная ошибка, необходимо обратиться к разработчику приложения за консультацией, текст ошибки -  \(error.localizedDescription)",
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: "ОК",
+                                                style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            }
             
         } else {
             if FeedModel().check(word: textField.text!) {

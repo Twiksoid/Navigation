@@ -19,7 +19,7 @@ class TestUserService: UserService {
     // суть такая: вернем ошибку или пользователя
     func checkUser(for login: String,
                    and password: String,
-                   completionHandler: @escaping (Result<User?, UserServiceError>) -> Void) {
+                   completionHandler: @escaping (Result<User, UserServiceError>) -> Void) {
         // эталонный пользователь, которому можно входить, хард-код
         // данный класс используем для отладки, считаем, что тестовым будет Иван
         let currentUser = User(login: "Ivan",
