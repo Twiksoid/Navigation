@@ -192,18 +192,29 @@ class LogInViewController: UIViewController {
         ])
     }
     
-    @objc private func goToProfileViewController(sender: UIButton){
+    @objc private func goToProfileViewController(sender: UIButton) {
         if sender.tag == Constants.logInButtonTap {
             hideKeyboard()
             if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
                 // создали какого-то пользователя, хард-код
                 let _ = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
                 
-                if (loginDelegate?.check(for: emailTextField.text!, and: passwordTextField.text!)) == true {
+                if (loginDelegate?.check(for: emailTextField.text!,
+                                         and: passwordTextField.text!)) == true {
                     // вернем эталонный объект, которому можно ходить в систему
                     // поскольку две схемы, то придется разнести так
 #if DEBUG
                     let user = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
+                    // чисто для проверки домена ошибок, ДЗ 11, так не нужно этого
+                    let textUserService = TestUserService(user: user)
+                    textUserService.checkUser(for: user.login, and: user.password) {
+                        result in switch result {
+                        case .success(_):
+                            print("Успешно авторизовался")
+                        case .failure(_):
+                            print("Авторизация неуспешна")
+                        }
+                    }
 #else
                     let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
 #endif
@@ -211,6 +222,7 @@ class LogInViewController: UIViewController {
                     goToProfileViewController.modalPresentationStyle = .currentContext
                     navigationController?.pushViewController(goToProfileViewController, animated: true)
                 } else {
+                    
                     // логин или пароль неверный
                     let alarm = UIAlertController(title: Constants.alertNotCorrectLoginTitle, message: Constants.alertNotCorrectLoginText, preferredStyle: .alert)
                     let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)

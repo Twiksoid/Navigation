@@ -23,6 +23,15 @@ class User {
     }
 }
 
+// изменяем запротоколированный метод для возможности обработки ошибок
+enum UserServiceError: Error {
+    case incorrectData
+    case notDeterminatedError
+}
+
+// подписываемся на ошибки
 protocol UserService {
-    func checkUser(for login: String, and password: String) -> User?
+    func checkUser(for login: String,
+                   and password: String,
+                   completionHandler: @escaping (Result<User, UserServiceError>) -> Void)
 }

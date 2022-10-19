@@ -125,6 +125,11 @@ class FeedViewController: UIViewController {
             RunLoop.main.add(timer!, forMode: .default)
         }}
     
+    enum FeedError: Error {
+        case fieldIsEmpty
+        case incorrectData
+    }
+    
     @objc private func alarmNote(){
         countOfUnsecTr += 1
         // аларм, что не успели
@@ -137,7 +142,15 @@ class FeedViewController: UIViewController {
         present(alarm, animated: true)
     }
     
-    @objc private func checker(){
+    private func isTextFieldEmpty(for textFied: String?) -> Bool {
+        if textFied == "" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    @objc private func checker() {
         
         // отключаем таймер
         timer?.invalidate()
@@ -148,15 +161,43 @@ class FeedViewController: UIViewController {
         
         print("Количество попыток, при которых пользователь не успел ввести слово за 15 секунд - ",countOfUnsecTr)
         
-        if textField.text == "" {
-            // поле пустое
-            let alarm = UIAlertController(title: "Не заполнено поле",
-                                          message: "Заполните поле и попробуйте снова",
-                                          preferredStyle: .alert)
-            let alarmAction = UIAlertAction(title: "ОК",
-                                            style: .default)
-            alarm.addAction(alarmAction)
-            present(alarm, animated: true)
+        if isTextFieldEmpty(for: textField.text) == true {
+            // Поскольку два режима, то явно выявить можно один, а второй через исключение
+            // Если поле пустое, то 1 режим
+            // Иначе - без указания на режим
+            let typeOfAction = 1
+            //if textField.text == "" {
+            do {
+                try makeAlarmForError(typeOfError: typeOfAction)
+            } catch FeedViewController.FeedError.fieldIsEmpty {
+                // поле пустое
+                let alarm = UIAlertController(title: "Не заполнено поле",
+                                              message: "Заполните поле и попробуйте снова",
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: "ОК",
+                                                style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            } catch FeedViewController.FeedError.incorrectData {
+                // поле заполнено невалидными данными (по идее это никогда не произойдет тк на поле нет таких ограничений)
+                let alarm = UIAlertController(title: "Некорректные данные",
+                                              message: "Проверьте корректность введенных данных и попробуйте снова",
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: "ОК",
+                                                style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            } catch {
+                // по идее это какая-то ошибка, которую мы вообще не знаем сейчас, поэтому задаем общее наименование
+                let alarm = UIAlertController(title: "Непредвиденная ошибка",
+                                              message: "Возникла непредвиденная ошибка, необходимо обратиться к разработчику приложения за консультацией, текст ошибки -  \(error.localizedDescription)",
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: "ОК",
+                                                style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            }
+            
         } else {
             if FeedModel().check(word: textField.text!) {
                 textFieldResult.text = "Да"
@@ -167,6 +208,15 @@ class FeedViewController: UIViewController {
             }
         }
         
+    }
+    // метод позволяет выкинуть ошибку и к ней создать Аларм
+    // поскольку ошибок только 2, то можно расписать так
+    private func makeAlarmForError(typeOfError type: Int) throws {
+        if type == 1 {
+            throw FeedViewController.FeedError.fieldIsEmpty }
+        else {
+            throw FeedViewController.FeedError.incorrectData
+        }
     }
     
     @objc private func showPost(){
