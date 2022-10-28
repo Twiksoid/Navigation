@@ -46,6 +46,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
+        
+        // Создаем рандомную ссылку для обращения к API
+        let randomValueForApi = AppConfiguration.allCases.randomElement()!
+        print("Ссылка, которую сформировали рандомно - ", randomValueForApi.rawValue)
+        
+        // Передаем ссылку в сервис для обращения к API
+        NetworkService.request(for: randomValueForApi)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
