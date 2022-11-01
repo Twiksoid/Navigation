@@ -24,6 +24,7 @@ class InfoViewController: UIViewController {
         let label = UILabel()
         label.text = "текст для проверки отображения поля title"
         label.numberOfLines = 0
+        label.textAlignment = .center
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,9 +62,9 @@ class InfoViewController: UIViewController {
     private func setupLabelForAPIFieldTitle(){
         
         // Вызываем обращение к API, задача 1 , Домашнее задание 2
-        NetworkService.requestAnotherAPI(for: "https://jsonplaceholder.typicode.com/todos/") { titleValue in
+        NetworkService.requestAnotherAPI(for: "https://jsonplaceholder.typicode.com/todos/10") { titleValue in
             DispatchQueue.main.async {
-                self.labelForAPIFieldTitle.text = "Значение поля - \(titleValue)"
+                self.labelForAPIFieldTitle.text = "Значение поля - \(titleValue!)"
             }
         }
         

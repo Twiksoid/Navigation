@@ -102,23 +102,12 @@ struct NetworkService {
             
             if data == nil {
                 print("There's nothing to show")
-            } else {
-                print(data!.description)
             }
             
             do {
-                if let answer = try JSONSerialization.jsonObject(with: data!) as? [[String: Any]] {
-                    
-                    
-                    let randomID = Int.random(in: 0..<answer.count)
-                    print(randomID)
-                    print(answer)
-                    if let id = answer[randomID]["id"] as? String, Int(id) == randomID {
-                        let title = answer[randomID]["title"] as? String ?? ""
-                        print("id is \(id) and value is \(title)")
-                    } else {
-                        print("Не смогли разобрать почему-то")
-                    }
+                if let answer = try JSONSerialization.jsonObject(with: data!) as? [String: Any] {
+                    let title = answer["title"] as? String ?? ""
+                    comletion?(title)
                 }
             } catch {
                 print("при попытке парса данных произошла ошибка ", error.localizedDescription)
@@ -144,8 +133,6 @@ struct NetworkService {
             
             if data == nil {
                 print("There's nothing to show")
-            } else {
-                print(data?.description)
             }
             
             do {
