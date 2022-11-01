@@ -22,20 +22,20 @@ class InfoViewController: UIViewController {
     
     private lazy var labelForAPIFieldTitle: UILabel = {
         let label = UILabel()
-        label.text = "текст для проверки отображения поля title"
+        label.text = "Загружаю текст ..."
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var labelForAPIFieldOrbitalPeriod: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "Загружаю текст ..."
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -65,6 +65,7 @@ class InfoViewController: UIViewController {
         NetworkService.requestAnotherAPI(for: "https://jsonplaceholder.typicode.com/todos/10") { titleValue in
             DispatchQueue.main.async {
                 self.labelForAPIFieldTitle.text = "Значение поля - \(titleValue!)"
+                self.labelForAPIFieldTitle.textColor = .black
             }
         }
         
@@ -77,6 +78,7 @@ class InfoViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.labelForAPIFieldOrbitalPeriod.text = "Период обращения планеты Татуин вокруг своей звезды \(orbitalPeriod!)"
+                self.labelForAPIFieldOrbitalPeriod.textColor = .black
             }
         }
     }
