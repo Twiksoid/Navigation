@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: FeedViewController())
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
+        let thirdItemController = UINavigationController(rootViewController: InfoViewController())
         // обозначаем второй экран (форма входа)
         // создаем объект фабрики
         // вызываем метод создания объекта типа LoginInspector
@@ -30,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             navigationController,
-            secondVCForShowing
+            secondVCForShowing, thirdItemController
         ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
@@ -38,21 +39,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.backgroundColor = UIColor.white
         tabBarController.viewControllers?[0].tabBarItem.title = "Лента"
         tabBarController.viewControllers?[1].tabBarItem.title = "Профиль"
+        tabBarController.viewControllers?[2].tabBarItem.title = "Инфо"
+        //
+        //        tabBarController.viewControllers?.enumerated().forEach {
+        //
+        //            $1.tabBarItem.image = $0 == 0 ? UIImage(systemName: "paperplane.fill")
+        //            : UIImage(systemName: "brain.head.profile")
+        //        }
         
-        tabBarController.viewControllers?.enumerated().forEach {
-            $1.tabBarItem.image = $0 == 0 ? UIImage(systemName: "paperplane.fill")
-            : UIImage(systemName: "brain.head.profile")
-        }
+        tabBarController.tabBar.items?[0].image = UIImage(systemName: "paperplane.fill")
+        tabBarController.tabBar.items?[1].image = UIImage(systemName: "brain.head.profile")
+        tabBarController.tabBar.items?[2].image = UIImage(systemName: "info.circle")
+        
+        
         
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         
         // Создаем рандомную ссылку для обращения к API
-        let randomValueForApi = AppConfiguration.allCases.randomElement()!
-        print("Ссылка, которую сформировали рандомно - ", randomValueForApi.rawValue)
+        //let randomValueForApi = AppConfiguration.allCases.randomElement()!
+        //print("Ссылка, которую сформировали рандомно - ", randomValueForApi.rawValue)
         
-        // Передаем ссылку в сервис для обращения к API
-        NetworkService.request(for: randomValueForApi)
+        // Передаем ссылку в сервис для обращения к API, задача 1 , Домашнее задание 1
+        //NetworkService.request(for: randomValueForApi)
+        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

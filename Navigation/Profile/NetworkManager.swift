@@ -7,7 +7,7 @@
 
 import UIKit
 
-// Для обращения в сеть по адресу
+// Для обращения в сеть по адресу, Задание 1
 struct NetworkService {
     
     static func request(for configuration: AppConfiguration) {
@@ -81,6 +81,82 @@ struct NetworkService {
         
     }
     
+    // чтобы не плодить сущности для 2 задачи делаю тут реализацию
+    
+    static func requestAnotherAPI(for url: String, comletion: ((_ titleValue: String?) -> Void)?) {
+        
+        let session = URLSession(configuration: .default)
+        
+        let url = URL(string: url)
+        
+        let task = session.dataTask(with: url!) { data, response, error in
+            
+            if let error = error {
+                print(String(describing: error))
+            }
+            
+            let statusCode = (response as? HTTPURLResponse)?.statusCode
+            if statusCode != 200 {
+                print(String(describing: statusCode))
+            }
+            
+            if data == nil {
+                print("There's nothing to show")
+            } else {
+                print(data!.description)
+            }
+            
+            do {
+                if let answer = try JSONSerialization.jsonObject(with: data!) as? [[String: Any]] {
+                    
+                    
+                    let randomID = Int.random(in: 0..<answer.count)
+                    print(randomID)
+                    print(answer)
+                    if let id = answer[randomID]["id"] as? String, Int(id) == randomID {
+                        let title = answer[randomID]["title"] as? String ?? ""
+                        print("id is \(id) and value is \(title)")
+                    } else {
+                        print("Не смогли разобрать почему-то")
+                    }
+                }
+            } catch {
+                print("при попытке парса данных произошла ошибка ", error.localizedDescription)
+            }
+        }
+        task.resume()
+    }
+    
+    static func requestPlanetAPI(for url: String, comletion: ((_ orbitalPeriod: String?) -> Void)?) {
+        let session = URLSession(configuration: .default)
+        
+        let url = URL(string: url)
+        
+        let task = session.dataTask(with: url!) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            let statusCode = (response as? HTTPURLResponse)?.statusCode
+            if statusCode != 200 {
+                print(String(describing: statusCode))
+            }
+            
+            if data == nil {
+                print("There's nothing to show")
+            } else {
+                print(data?.description)
+            }
+            
+            do {
+                let orbitalPeriod = try JSONDecoder().decode(Planet.self, from: data!)
+                comletion?(orbitalPeriod.orbitalPeriod)
+            } catch {
+                print("ошибка парсинга данных ", String(describing: error))
+            }
+        }
+        task.resume()
+    }
 }
 
 // Перечисление делаем для значений URL
@@ -93,3 +169,42 @@ enum AppConfiguration: String, CaseIterable {
     case planets = "https://swapi.dev/api/planets/5"
     
 }
+
+// Делаем модель данных для планет
+struct Planet: Decodable {
+    var name: String
+    var rotation_period: String
+    // отображать будем его
+    var orbitalPeriod: String
+    var diameter: String
+    var climate: String
+    var gravity: String
+    var terrain: String
+    var surface_water: String
+    var population: String
+    var residents: [String]
+    var films: [String]
+    var created: String
+    var edited: String
+    var url: String
+    
+    // Добавляем отображение имени для замены (не понятно зачем, но по заданию просили)
+    enum CodingKeys: String, CodingKey {
+        case name
+        case rotation_period
+        // как хочу = какой ключ в API
+        case orbitalPeriod = "orbital_period"
+        case diameter
+        case climate
+        case gravity
+        case terrain
+        case surface_water
+        case population
+        case residents
+        case films
+        case created
+        case edited
+        case url
+    }
+}
+
