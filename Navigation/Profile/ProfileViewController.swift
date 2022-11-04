@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+
+var handle: AuthStateDidChangeListenerHandle?
 
 class ProfileViewController: UIViewController {
     
@@ -55,6 +58,23 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         // настраиваем базовые вью
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Начинаем слушать авторизацию пользователя
+        // если ее нет, то выкинем алерт
+        handle = Auth.auth().addStateDidChangeListener { auth, user in
+            if user == nil {
+                let alarm = UIAlertController(title: Constants.notLoginUserTitleAlarm, message: Constants.notLoginUserTextAlarm, preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: Constants.notLoginUserAction, style: .default)
+                alarm.addAction(alarmAction)
+                self.present(alarm, animated: true)
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     func setupView(){

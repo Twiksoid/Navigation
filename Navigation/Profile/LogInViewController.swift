@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class LogInViewController: UIViewController {
+    
+    //var handle: AuthStateDidChangeListenerHandle?
     
     var loginDelegate: LoginViewControllerDelegate?
     
@@ -97,9 +101,11 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-    private lazy var selectPasswordButton: CustomButton = {
-        let buttom = CustomButton(title: Constants.generatePasswordField, titleColor: .white, backgroundButtonColor: .specialBlue, clipsToBoundsOfButton: true, cornerRadius: 10, autoLayout: false)
-        buttom.addTargetForButton = { self.makePassword() }
+    // Чтобы упростить себе жизнь кнопка брутфорса с прошлых ДЗ переделана на Регистрация
+    // весь код брутфорса удален
+    private lazy var registerNewUserButton: CustomButton = {
+        let buttom = CustomButton(title: Constants.registrationNewUser, titleColor: .white, backgroundButtonColor: .specialBlue, clipsToBoundsOfButton: true, cornerRadius: 10, autoLayout: false)
+        buttom.addTargetForButton = { self.registerNewUser() }
         return buttom
     }()
     
@@ -121,7 +127,7 @@ class LogInViewController: UIViewController {
         bStack.spacing = 5
         bStack.translatesAutoresizingMaskIntoConstraints = false
         bStack.addArrangedSubview(logInButton)
-        bStack.addArrangedSubview(selectPasswordButton)
+        bStack.addArrangedSubview(registerNewUserButton)
         return bStack
     }()
     
@@ -147,6 +153,18 @@ class LogInViewController: UIViewController {
                                                selector: #selector(didHideKeyBoard(_:)),
                                                name: UIResponder.keyboardDidHideNotification,
                                                object: nil)
+        
+        // Начинаем слушать авторизацию пользователя
+        // если ее нет, то выкинем алерт
+        //        handle = Auth.auth().addStateDidChangeListener { auth, user in
+        //            if user == nil {
+        //                let alarm = UIAlertController(title: Constants.notLoginUserTitleAlarm, message: Constants.notLoginUserTextAlarm, preferredStyle: .alert)
+        //                let alarmAction = UIAlertAction(title: Constants.notLoginUserAction, style: .default)
+        //                alarm.addAction(alarmAction)
+        //                self.present(alarm, animated: true)
+        //            }
+        //        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -154,6 +172,11 @@ class LogInViewController: UIViewController {
         // чтобы клавиатура сразу была в поле email
         //  emailTextField.becomeFirstResponder()
     }
+    
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        // перестаем слушать авторизацию пользователя
+    //        Auth.auth().removeStateDidChangeListener(handle!)
+    //    }
     
     private func setupView(){
         self.view.backgroundColor = .white
@@ -186,7 +209,7 @@ class LogInViewController: UIViewController {
             stackButton.leadingAnchor.constraint(equalTo: stackTextFields.leadingAnchor),
             stackButton.trailingAnchor.constraint(equalTo: stackTextFields.trailingAnchor),
             stackButton.heightAnchor.constraint(equalToConstant: 70),
-            activityIndicator.leadingAnchor.constraint(equalTo: stackTextFields.leadingAnchor, constant: 26),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: stackTextFields.centerYAnchor, constant: 26)
             
         ])
@@ -194,74 +217,185 @@ class LogInViewController: UIViewController {
     
     @objc private func goToProfileViewController(sender: UIButton) {
         if sender.tag == Constants.logInButtonTap {
+            setupActivityIndicator()
             hideKeyboard()
             if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
-                // создали какого-то пользователя, хард-код
-                let _ = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
                 
-                if (loginDelegate?.check(for: emailTextField.text!,
-                                         and: passwordTextField.text!)) == true {
-                    // вернем эталонный объект, которому можно ходить в систему
-                    // поскольку две схемы, то придется разнести так
-#if DEBUG
-                    let user = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
-                    // чисто для проверки домена ошибок, ДЗ 11, так не нужно этого
-                    let textUserService = TestUserService(user: user)
-                    textUserService.checkUser(for: user.login, and: user.password) {
-                        result in switch result {
-                        case .success(_):
-                            print("Успешно авторизовался")
-                        case .failure(_):
-                            print("Авторизация неуспешна")
-                        }
+                let checkerService = CheckerService()
+                checkerService.checkCredentials(for: emailTextField.text!, and: passwordTextField.text!) { result in
+                    switch result {
+                    case .success(let user):
+                        self.deSetupActivityIndicator()
+                        let goToProfileViewController = ProfileViewController(user: user)
+                        goToProfileViewController.modalPresentationStyle = .currentContext
+                        self.navigationController?.pushViewController(goToProfileViewController, animated: true)
+                        
+                    case .failure(let error):
+                        self.deSetupActivityIndicator()
+                        let alarm = UIAlertController(title: Constants.errorRegistrationFireBase, message: error.localizedDescription, preferredStyle: .alert)
+                        let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                        alarm.addAction(alarmAction)
+                        self.present(alarm, animated: true)
+                        print(String(describing: error))
                     }
-#else
-                    let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
-#endif
+                }
+                //                //
+                //                Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { result, error in
+                //                    if error == nil {
+                //                        print("Вошел пользователь ", result!.user.uid)
+                //#if DEBUG
+                //                    let user = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
+                //#else
+                //                    let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
+                //#endif
+                //                        let goToProfileViewController = ProfileViewController(user: user)
+                //                        goToProfileViewController.modalPresentationStyle = .currentContext
+                //                        self.navigationController?.pushViewController(goToProfileViewController, animated: true)
+                //                    } else {
+                //                        let alarm = UIAlertController(title: Constants.errorRegistrationFireBase, message: error?.localizedDescription, preferredStyle: .alert)
+                //                        let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                //                        alarm.addAction(alarmAction)
+                //                        self.present(alarm, animated: true)
+                //                        print(String(describing: error))
+                //                    }
+                //                }
+                //                //
+                
+                // создали какого-то пользователя, хард-код
+                //                let _ = User(login: emailTextField.text!, password: passwordTextField.text!, fullName: "Maia Petrovna", photo: UIImage(named: "Maya.jpg")!, status: "I'm pretty cool")
+                
+                //                if (loginDelegate?.check(for: emailTextField.text!,
+                //                                         and: passwordTextField.text!)) == true {
+                // вернем эталонный объект, которому можно ходить в систему
+                // поскольку две схемы, то придется разнести так
+                //#if DEBUG
+                //                    let user = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
+                //                    // чисто для проверки домена ошибок, ДЗ 11, так не нужно этого
+                //                    let textUserService = TestUserService(user: user)
+                //                    textUserService.checkUser(for: user.login, and: user.password) {
+                //                        result in switch result {
+                //                        case .success(_):
+                //                            print("Успешно авторизовался")
+                //                        case .failure(_):
+                //                            print("Авторизация неуспешна")
+                //                        }
+                //                    }
+                //#else
+                //                    let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
+                //#endif
+                //                    let goToProfileViewController = ProfileViewController(user: user)
+                //                    goToProfileViewController.modalPresentationStyle = .currentContext
+                //                    navigationController?.pushViewController(goToProfileViewController, animated: true)
+            } else {
+                deSetupActivityIndicator()
+                // логин или пароль неверный
+                let alarm = UIAlertController(title: Constants.alertNotCorrectLoginTitle, message: Constants.alertNotCorrectLoginText, preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            }} else {
+                deSetupActivityIndicator()
+                // логин или пароль не ввели
+                let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                alarm.addAction(alarmAction)
+                present(alarm, animated: true)
+            }
+    }
+    // }
+    
+    //    @objc private func makePassword(){
+    //        // показали AI
+    //        setupActivityIndicator()
+    //        // создали переменную, в которую вернем с потока сгенерированный пароль (брутфорс)
+    //        var setPasswordBetweenQueue: String = ""
+    //
+    //        // запустили подбор пароля, его вернем
+    //        concurrentQuee.async {
+    //            setPasswordBetweenQueue = self.comparePasswords()
+    //            // синхронизировали потоки
+    //            DispatchQueue.main.async {
+    //                self.passwordTextField.text = setPasswordBetweenQueue
+    //                self.passwordTextField.isSecureTextEntry = false
+    //                self.deSetupActivityIndicator()
+    //            }
+    //        }
+    //    }
+    
+    @objc private func registerNewUser(){
+        setupActivityIndicator()
+        hideKeyboard()
+        // если поля заполнены, то можно идти дальше
+        if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
+            
+            let checkerService = CheckerService()
+            checkerService.signUp(for: emailTextField.text!, and: passwordTextField.text!) { result in
+                switch result {
+                case .success(let user):
+                    self.deSetupActivityIndicator()
                     let goToProfileViewController = ProfileViewController(user: user)
                     goToProfileViewController.modalPresentationStyle = .currentContext
-                    navigationController?.pushViewController(goToProfileViewController, animated: true)
-                } else {
-                    
-                    // логин или пароль неверный
-                    let alarm = UIAlertController(title: Constants.alertNotCorrectLoginTitle, message: Constants.alertNotCorrectLoginText, preferredStyle: .alert)
-                    let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
-                    alarm.addAction(alarmAction)
-                    present(alarm, animated: true)
-                }} else {
-                    // логин или пароль не ввели
-                    let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
+                    self.navigationController?.pushViewController(goToProfileViewController, animated: true)
+                case .failure(let error):
+                    self.deSetupActivityIndicator()
+                    let alarm = UIAlertController(title: Constants.errorRegistrationFireBase, message: error.localizedDescription, preferredStyle: .alert)
                     let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
                     alarm.addAction(alarmAction)
-                    present(alarm, animated: true)
+                    self.present(alarm, animated: true)
+                    print(String(describing: error))
                 }
-        }
-    }
-    
-    @objc private func makePassword(){
-        // показали AI
-        setupActivityIndicator()
-        // создали переменную, в которую вернем с потока сгенерированный пароль (брутфорс)
-        var setPasswordBetweenQueue: String = ""
-        
-        // запустили подбор пароля, его вернем
-        concurrentQuee.async {
-            setPasswordBetweenQueue = self.comparePasswords()
-            // синхронизировали потоки
-            DispatchQueue.main.async {
-                self.passwordTextField.text = setPasswordBetweenQueue
-                self.passwordTextField.isSecureTextEntry = false
-                self.deSetupActivityIndicator()
             }
+            //}
+            //            //
+            //            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { result, error in
+            //                if error == nil {
+            //                    if let result = result {
+            //                        print("Пользователь зарегистрирован с идентификатором ", result.user.uid)
+            //                        // Поскольку по условиям задачи мы не создаем пользователя полноценно, а форма уже есть
+            //                        // то воспользуемся уже ранее созданными пользователями в своих схемах
+            //#if DEBUG
+            //                    let user = User(login: "Ivan", password: "123456", fullName: "Ivan Petrov", photo: UIImage(named: "Ivan.jpg")!, status: "I'm free")
+            //#else
+            //                    let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
+            //#endif
+            //                    let goToProfileViewController = ProfileViewController(user: user)
+            //                    goToProfileViewController.modalPresentationStyle = .currentContext
+            //                    self.navigationController?.pushViewController(goToProfileViewController, animated: true)
+            //                    }
+            //                } else {
+            //                    let alarm = UIAlertController(title: Constants.errorRegistrationFireBase, message: error?.localizedDescription, preferredStyle: .alert)
+            //                    let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+            //                    alarm.addAction(alarmAction)
+            //                    self.present(alarm, animated: true)
+            //                    print(String(describing: error))
+            //                }
+            //            }
+            //        //
+            
+            //            let checkerService = CheckerService()
+            //            checkerService.signUp(for: emailTextField.text!, and: passwordTextField.text!) { error in
+            //                let alarm = UIAlertController(title: Constants.errorRegistrationFireBase, message: String(describing: error), preferredStyle: .alert)
+            //                let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+            //                alarm.addAction(alarmAction)
+            //                self.present(alarm, animated: true)
+            //}
+        } else  {
+            deSetupActivityIndicator()
+            // логин или пароль не ввели
+            let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
+            let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+            alarm.addAction(alarmAction)
+            present(alarm, animated: true)
         }
+        
     }
     
-    private func comparePasswords() -> String {
-        // количество символов задаем
-        let randomPassword = String.createRandomPassword(for: 3)
-        let brutePassword = BruteForce().bruteForce(passwordToUnlock: randomPassword)
-        return brutePassword
-    }
+    //    private func comparePasswords() -> String {
+    //        // количество символов задаем
+    //        let randomPassword = String.createRandomPassword(for: 3)
+    //        let brutePassword = BruteForce().bruteForce(passwordToUnlock: randomPassword)
+    //        return brutePassword
+    //    }
     
     private func setupActivityIndicator(){
         activityIndicator.isHidden = false
