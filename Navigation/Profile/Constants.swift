@@ -46,6 +46,7 @@ enum Constants {
     static let registrationNewUser = "Регистрация"
     
     static let errorRegistrationFireBase = "Ошибка при регистрации"
+    static let errorLogInFireBase = "Ошибка при входе"
     static let notLoginUserTitleAlarm = "Пользователь не авторизован"
     static let notLoginUserTextAlarm = "Перейдите на вкладку Профиль и пройдите авторизацию"
     static let notLoginUserAction = "Ок"
