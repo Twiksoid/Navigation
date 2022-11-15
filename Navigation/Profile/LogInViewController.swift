@@ -8,8 +8,11 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import RealmSwift
 
 class LogInViewController: UIViewController {
+    
+    var authModel = AuthorizationModel()
     
     var loginDelegate: LoginViewControllerDelegate?
     
@@ -141,6 +144,7 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupGesture()
+        skipLoginVC()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -199,6 +203,40 @@ class LogInViewController: UIViewController {
         ])
     }
     
+    private func saveLoginData(login: String, password: String){
+        // тут будем сохранять данные по логину, если он был успешен (это как регистрация, так и обычный вход)
+        let realm = try! Realm()
+        try! realm.write({
+            let user = AuthorizationModel()
+            user.login = login
+            user.password = password
+            user.isLogin = true
+            realm.add(user)
+        })
+    }
+    
+    private func skipLoginVC() {
+        // тут будем отслеживать наличие авторизации. Если она есть, то сразу кидаем в экран профиля
+        
+        let realm = try! Realm()
+        let authUsers = realm.objects(AuthorizationModel.self)
+        
+        // тут вернем все пользователей, у которых есть авторизация. По идее там всегда будет один
+        // себе для будущего. Если будет кнопка выхода, то пользователя нужно удалить из базы или разлогинить
+        let isUserAuth = authUsers.contains(where: { $0.isLogin == true } )
+        if isUserAuth {
+            
+            // если у нас уже есть авторизация, то сразу идем к следующему контроллеру
+            // поскольку у нас нет юзеров в базе, то берем просто вручную созданного
+            // в данном случае будет Катя тк она сейчас в сервисе checkCredentials
+            let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
+            let goToProfileViewController = ProfileViewController(user: user)
+            goToProfileViewController.modalPresentationStyle = .currentContext
+            self.navigationController?.pushViewController(goToProfileViewController, animated: true)
+            
+        }
+    }
+    
     @objc private func goToProfileViewController(sender: UIButton) {
         if sender.tag == Constants.logInButtonTap {
             setupActivityIndicator()
@@ -210,6 +248,8 @@ class LogInViewController: UIViewController {
                     switch result {
                     case .success(let user):
                         self.deSetupActivityIndicator()
+                        // Сохраним в REALM данные
+                        self.saveLoginData(login: self.emailTextField.text!, password: self.passwordTextField.text!)
                         let goToProfileViewController = ProfileViewController(user: user)
                         goToProfileViewController.modalPresentationStyle = .currentContext
                         self.navigationController?.pushViewController(goToProfileViewController, animated: true)
@@ -251,6 +291,8 @@ class LogInViewController: UIViewController {
                 switch result {
                 case .success(let user):
                     self.deSetupActivityIndicator()
+                    // Сохраним в REALM данные
+                    self.saveLoginData(login: self.emailTextField.text!, password: self.passwordTextField.text!)
                     let goToProfileViewController = ProfileViewController(user: user)
                     goToProfileViewController.modalPresentationStyle = .currentContext
                     self.navigationController?.pushViewController(goToProfileViewController, animated: true)
