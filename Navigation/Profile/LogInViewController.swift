@@ -55,6 +55,7 @@ class LogInViewController: UIViewController {
         email.backgroundColor = .systemGray6
         email.placeholder = Constants.email
         email.autocapitalizationType = .none
+        email.keyboardType = .emailAddress
         email.layer.sublayerTransform = CATransform3DMakeTranslation(16, 0, 0)
         return email
     }()
