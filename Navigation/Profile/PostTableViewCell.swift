@@ -134,14 +134,20 @@ class PostTableViewCell: UITableViewCell {
     @objc func doubleTapFunc() {
         if index != nil {
             let model = [post1, post2, post3, post4, post5]
+            print(model)
             
-            coreDataManager.createPost(title: model[index!.row].title,
-                                       image: model[index!.row].image,
-                                       author: model[index!.row].author,
-                                       description: model[index!.row].description,
-                                       likes: model[index!.row].likes,
-                                       views: model[index!.row].views,
-                                       id: UUID().uuidString)
+            if let _ = coreDataManager.posts.firstIndex(where: { $0.id == model[index!.row].uniqID }) {
+                print(Constants.favoriteNoteExsist + " " + Constants.favoriteNoteExsistText)
+            } else {
+                coreDataManager.createPost(title: model[index!.row].title,
+                                           image: model[index!.row].image,
+                                           author: model[index!.row].author,
+                                           description: model[index!.row].description,
+                                           likes: model[index!.row].likes,
+                                           views: model[index!.row].views,
+                                           id: model[index!.row].uniqID)
+                coreDataManager.reloadData()
+            }
         } else {
             print("Index is nil when DoubleTap")
         }

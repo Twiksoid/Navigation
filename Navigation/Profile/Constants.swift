@@ -51,6 +51,8 @@ enum Constants {
     static let notLoginUserTitleAlarm = "Пользователь не авторизован"
     static let notLoginUserTextAlarm = "Перейдите на вкладку Профиль и пройдите авторизацию"
     static let notLoginUserAction = "Ок"
+    static let favoriteNoteExsist = "Заметка уже существует"
+    static let favoriteNoteExsistText = "Добавление заметки еще раз невозможно"
     
 }
 

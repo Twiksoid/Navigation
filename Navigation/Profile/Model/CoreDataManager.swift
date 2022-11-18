@@ -34,7 +34,7 @@ class CoreDataManager {
                 try context.save()
             } catch {
                 let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                fatalError("Unresolved error \(nserror.localizedDescription), \(nserror.userInfo)")
             }
         }
     }
@@ -56,6 +56,12 @@ class CoreDataManager {
         posts.likes = Int16(likes)
         posts.view = Int16(views)
         posts.id = id
+        saveContext()
+        reloadData()
+    }
+    
+    func deletePostTypeNote(post: Posts){
+        persistentContainer.viewContext.delete(post)
         saveContext()
         reloadData()
     }
