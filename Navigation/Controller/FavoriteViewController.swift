@@ -10,12 +10,18 @@ import CoreData
 
 class FavoriteViewController: UIViewController {
     
-    var posts = CoreDataManager().posts
-    var id = [UUID]()
-
+    var coreDataManager = CoreDataManager()
+    var id = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        coreDataManager.reloadData()
+        createDataForCoreData()
+        tableView.reloadData()
     }
     
     private lazy var tableView: UITableView = {
@@ -29,7 +35,7 @@ class FavoriteViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-
+    
     private func setupView(){
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .automatic
@@ -47,8 +53,8 @@ class FavoriteViewController: UIViewController {
     }
     
     private func createDataForCoreData(){
-        if posts.count > 0 {
-            for i in posts {
+        if coreDataManager.posts.count > 0 {
+            for i in coreDataManager.posts {
                 id.append(i.id!)
             }
         }
@@ -57,11 +63,12 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        coreDataManager.posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? PostTableViewCell {
+            print("indexPath in trying to do new cell",indexPath.row)
             let idForPost = id[indexPath.row]
             cell.backgroundColor = .white
             cell.setupForFavoriteFromCoreData(for: idForPost)

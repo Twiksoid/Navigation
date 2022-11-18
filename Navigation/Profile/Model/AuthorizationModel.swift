@@ -15,5 +15,3 @@ class AuthorizationModel: Object {
     @Persisted var password: String?
     @Persisted var isLogin: Bool?
 }
-
-// путь папки на устройстве - print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])

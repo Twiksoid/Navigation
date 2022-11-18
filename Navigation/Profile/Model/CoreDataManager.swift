@@ -12,11 +12,11 @@ class CoreDataManager {
     static let shared = CoreDataManager()
     
     init(){
-        //
+        reloadData()
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "AppForBase")
+        let container = NSPersistentContainer(name: "note")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -24,9 +24,9 @@ class CoreDataManager {
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving support
-
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -47,7 +47,7 @@ class CoreDataManager {
         self.posts = posts
     }
     
-    func createPost(title: String, image: String, author: String, description: String, likes: Int, views: Int, id: UUID){
+    func createPost(title: String, image: String, author: String, description: String, likes: Int, views: Int, id: String){
         let posts = Posts(context: persistentContainer.viewContext)
         posts.title = title
         posts.image = image

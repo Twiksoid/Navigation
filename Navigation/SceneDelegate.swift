@@ -61,6 +61,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         
+        // путь папки на устройстве -
+        //        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
+        
+        
         // Создаем рандомную ссылку для обращения к API
         //let randomValueForApi = AppConfiguration.allCases.randomElement()!
         //print("Ссылка, которую сформировали рандомно - ", randomValueForApi.rawValue)
