@@ -9,6 +9,9 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
     
+    let coreDataManager = CoreDataManager()
+    var index: IndexPath?
+    
     private lazy var titlePostLabel: UILabel = {
         let title = UILabel()
         title.font = .boldSystemFont(ofSize: 20)
@@ -78,7 +81,24 @@ class PostTableViewCell: UITableViewCell {
         viewPostLabel.text = "Views: \(model.views)"
     }
     
+    func setupForFavoriteFromCoreData(for postID: String){
+        coreDataManager.reloadData()
+        if let index = coreDataManager.posts.firstIndex(where: { $0.id == postID })  {
+            titlePostLabel.text = coreDataManager.posts[index].title
+            authorPostLabel.text = coreDataManager.posts[index].author
+            descriptionPostLabel.text = coreDataManager.posts[index].descriptionOfPost
+            imagePostView.image = UIImage(named: coreDataManager.posts[index].image!)
+            likePostLabel.text = "Likes: \(coreDataManager.posts[index].likes)"
+            viewPostLabel.text = "Views: \(coreDataManager.posts[index].view)"
+        }
+    }
+    
+    
     func setupView(){
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapFunc))
+        doubleTap.numberOfTapsRequired = 2
+        addGestureRecognizer(doubleTap)
+        
         contentView.addSubview(titlePostLabel)
         //contentView.addSubview(authorPostLabel)
         contentView.addSubview(descriptionPostLabel)
@@ -109,6 +129,28 @@ class PostTableViewCell: UITableViewCell {
             viewPostLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             viewPostLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    @objc func doubleTapFunc() {
+        if index != nil {
+            let model = [post1, post2, post3, post4, post5]
+            print(model)
+            
+            if let _ = coreDataManager.posts.firstIndex(where: { $0.id == model[index!.row].uniqID }) {
+                print(Constants.favoriteNoteExsist + " " + Constants.favoriteNoteExsistText)
+            } else {
+                coreDataManager.createPost(title: model[index!.row].title,
+                                           image: model[index!.row].image,
+                                           author: model[index!.row].author,
+                                           description: model[index!.row].description,
+                                           likes: model[index!.row].likes,
+                                           views: model[index!.row].views,
+                                           id: model[index!.row].uniqID)
+                coreDataManager.reloadData()
+            }
+        } else {
+            print("Index is nil when DoubleTap")
+        }
     }
 }
 

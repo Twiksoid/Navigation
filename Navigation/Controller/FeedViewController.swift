@@ -244,4 +244,5 @@ var post = Post(title: "Change text",
                 description: "bla",
                 image: "cat.png",
                 likes: 5,
-                views: 5)
+                views: 5,
+                uniqID: UUID().uuidString)

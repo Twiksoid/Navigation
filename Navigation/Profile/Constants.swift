@@ -21,6 +21,7 @@ enum Constants {
     static let enteringStatusTextField = ""
     static let showStatusButton = "Set status"
     static let viewTitle = "Profile"
+    static let viewFavoriteTitle = "Favorite"
     
     static let logoName = "logo.png"
     static let pixelBlue = "blue_pixel.png"
@@ -50,6 +51,8 @@ enum Constants {
     static let notLoginUserTitleAlarm = "Пользователь не авторизован"
     static let notLoginUserTextAlarm = "Перейдите на вкладку Профиль и пройдите авторизацию"
     static let notLoginUserAction = "Ок"
+    static let favoriteNoteExsist = "Заметка уже существует"
+    static let favoriteNoteExsistText = "Добавление заметки еще раз невозможно"
     
 }
 

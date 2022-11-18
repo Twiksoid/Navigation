@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(rootViewController: FeedViewController())
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
         let thirdItemController = UINavigationController(rootViewController: InfoViewController())
+        let forthItemController = UINavigationController(rootViewController: FavoriteViewController())
         // обозначаем второй экран (форма входа)
         // создаем объект фабрики
         // вызываем метод создания объекта типа LoginInspector
@@ -33,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             navigationController,
-            secondVCForShowing, thirdItemController
+            secondVCForShowing, thirdItemController, forthItemController
         ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
@@ -42,6 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers?[0].tabBarItem.title = "Лента"
         tabBarController.viewControllers?[1].tabBarItem.title = "Профиль"
         tabBarController.viewControllers?[2].tabBarItem.title = "Инфо"
+        tabBarController.viewControllers?[3].tabBarItem.title = "Избранное"
         //
         //        tabBarController.viewControllers?.enumerated().forEach {
         //
@@ -52,11 +54,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.items?[0].image = UIImage(systemName: "paperplane.fill")
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "brain.head.profile")
         tabBarController.tabBar.items?[2].image = UIImage(systemName: "info.circle")
+        tabBarController.tabBar.items?[3].image = UIImage(systemName: "bookmark.fill")
         
         
         
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
+        
+        // путь папки на устройстве -
+        //        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
+        
         
         // Создаем рандомную ссылку для обращения к API
         //let randomValueForApi = AppConfiguration.allCases.randomElement()!

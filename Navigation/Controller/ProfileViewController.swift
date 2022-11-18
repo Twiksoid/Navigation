@@ -146,6 +146,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 let post = self.viewModel[indexPath.row]
                 cell.backgroundColor = .white
                 cell.setup(for: post)
+                cell.index = indexPath
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
@@ -160,7 +161,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             goToCollection(for: indexPath)
         }
     }
-    
 }
 
 
