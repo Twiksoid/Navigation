@@ -78,6 +78,18 @@ class PostTableViewCell: UITableViewCell {
         viewPostLabel.text = "Views: \(model.views)"
     }
     
+    func setupForFavoriteFromCoreData(for postID: UUID){
+        let posts = CoreDataManager().posts
+        if let index = posts.firstIndex(where: { $0.id == postID })  {
+            titlePostLabel.text = posts[index].title
+            authorPostLabel.text = posts[index].author
+            descriptionPostLabel.text = posts[index].descriptionOfPost
+            imagePostView.image = UIImage(named: posts[index].image!)
+            likePostLabel.text = "Likes: \(posts[index].likes)"
+            viewPostLabel.text = "Views: \(posts[index].view)"
+        }
+    }
+    
     func setupView(){
         contentView.addSubview(titlePostLabel)
         //contentView.addSubview(authorPostLabel)

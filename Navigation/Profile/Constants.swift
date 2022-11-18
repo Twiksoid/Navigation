@@ -21,6 +21,7 @@ enum Constants {
     static let enteringStatusTextField = ""
     static let showStatusButton = "Set status"
     static let viewTitle = "Profile"
+    static let viewFavoriteTitle = "Favorite"
     
     static let logoName = "logo.png"
     static let pixelBlue = "blue_pixel.png"

@@ -32,6 +32,9 @@
 		1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014222874C4A000CA8F4A /* InfoViewController.swift */; };
 		1D6014252878127100CA8F4A /* StructPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6014242878127100CA8F4A /* StructPost.swift */; };
 		1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D7C4C28D8E0CF00613BEB /* Checker.swift */; };
+		1D80132B29271942008734D0 /* note.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D80132929271942008734D0 /* note.xcdatamodeld */; };
+		1D80132D2927198D008734D0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80132C2927198D008734D0 /* CoreDataManager.swift */; };
+		1D80135229271A84008734D0 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80135129271A84008734D0 /* FavoriteViewController.swift */; };
 		1D93AF3A29137E0500B41A14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D93AF3929137E0500B41A14 /* GoogleService-Info.plist */; };
 		1D93AF3D2913824500B41A14 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1D93AF3C2913824500B41A14 /* FirebaseAuth */; };
 		1D93AF3F29138A4D00B41A14 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93AF3E29138A4D00B41A14 /* CheckerService.swift */; };
@@ -72,6 +75,9 @@
 		1D6014222874C4A000CA8F4A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		1D6014242878127100CA8F4A /* StructPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructPost.swift; sourceTree = "<group>"; };
 		1D6D7C4C28D8E0CF00613BEB /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = SOURCE_ROOT; };
+		1D80132A29271942008734D0 /* note.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = note.xcdatamodel; sourceTree = "<group>"; };
+		1D80132C2927198D008734D0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = Profile/Model/CoreDataManager.swift; sourceTree = "<group>"; };
+		1D80135129271A84008734D0 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1D93AF3929137E0500B41A14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D93AF3E29138A4D00B41A14 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		1DACD9202923644E00E05A61 /* AuthorizationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
@@ -107,7 +113,11 @@
 		1D2457F528E5E49C00E8C2BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1D3B30FB289A4F02001440EB /* PhotosViewController.swift */,
+				1D2CAF66288C246E008DA7EC /* LogInViewController.swift */,
+				1D3B123B287D7B7E00B4F57C /* ProfileViewController.swift */,
 				1D60141C2874BD2300CA8F4A /* FeedViewController.swift */,
+				1D80135129271A84008734D0 /* FavoriteViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -122,7 +132,6 @@
 		1D3B123A287D7B6500B4F57C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				1D3B123B287D7B7E00B4F57C /* ProfileViewController.swift */,
 				1D6D7C4C28D8E0CF00613BEB /* Checker.swift */,
 				1D93AF3E29138A4D00B41A14 /* CheckerService.swift */,
 				1DF3100028D9AB000030FEF6 /* LoginFactory.swift */,
@@ -132,18 +141,17 @@
 				1D4C09C928D3AF2600103A19 /* TestUserService.swift */,
 				1D3B3103289D8199001440EB /* ImageAnimatedViewController.swift */,
 				1D3B123D287E946200B4F57C /* Constants.swift */,
-				1D2CAF66288C246E008DA7EC /* LogInViewController.swift */,
 				1D5314A828F1B52000988B85 /* BruteForce.swift */,
 				1D5314AA28F1B7C700988B85 /* RandomPassword.swift */,
 				1D2CAF6A2891C675008DA7EC /* ProfileHeaderView.swift */,
 				1D3B30F9289A4E89001440EB /* PhotosTableViewCell.swift */,
-				1D3B30FB289A4F02001440EB /* PhotosViewController.swift */,
 				1D3B30FD289A5512001440EB /* PhotosCollectionViewCell.swift */,
 				1DC15F2328E2D17F0037CE40 /* PhotoEdditer.swift */,
 				1D2457EF28E54B7100E8C2BD /* CustomButton.swift */,
 				1D2457F428E5E3B100E8C2BD /* Model */,
 				1D2457F828E5E5ED00E8C2BD /* View */,
 				1DE1BB12290C2FED00306AD9 /* NetworkManager.swift */,
+				1D80132929271942008734D0 /* note.xcdatamodeld */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -175,6 +183,7 @@
 				1D6014222874C4A000CA8F4A /* InfoViewController.swift */,
 				1D60140A2874B50F00CA8F4A /* SceneDelegate.swift */,
 				1D6014082874B50F00CA8F4A /* AppDelegate.swift */,
+				1D80132C2927198D008734D0 /* CoreDataManager.swift */,
 				1D93AF3929137E0500B41A14 /* GoogleService-Info.plist */,
 				1D6014112874B51000CA8F4A /* Assets.xcassets */,
 				1D6014132874B51000CA8F4A /* LaunchScreen.storyboard */,
@@ -275,6 +284,7 @@
 				1D5314AB28F1B7C700988B85 /* RandomPassword.swift in Sources */,
 				1D4C09C828D322A200103A19 /* CurrentUserService.swift in Sources */,
 				1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */,
+				1D80132B29271942008734D0 /* note.xcdatamodeld in Sources */,
 				1D3B30FA289A4E89001440EB /* PhotosTableViewCell.swift in Sources */,
 				1D93AF3F29138A4D00B41A14 /* CheckerService.swift in Sources */,
 				1D3B30FC289A4F02001440EB /* PhotosViewController.swift in Sources */,
@@ -289,10 +299,12 @@
 				1D4C09CA28D3AF2600103A19 /* TestUserService.swift in Sources */,
 				1D2CAF692891BCA9008DA7EC /* PostTableViewCell.swift in Sources */,
 				1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */,
+				1D80132D2927198D008734D0 /* CoreDataManager.swift in Sources */,
 				1D2CAF6B2891C675008DA7EC /* ProfileHeaderView.swift in Sources */,
 				1DE1BB13290C2FED00306AD9 /* NetworkManager.swift in Sources */,
 				1D60141D2874BD2300CA8F4A /* FeedViewController.swift in Sources */,
 				1DF3100128D9AB000030FEF6 /* LoginFactory.swift in Sources */,
+				1D80135229271A84008734D0 /* FavoriteViewController.swift in Sources */,
 				1D6014252878127100CA8F4A /* StructPost.swift in Sources */,
 				1D3B123C287D7B7E00B4F57C /* ProfileViewController.swift in Sources */,
 				1D2457F028E54B7100E8C2BD /* CustomButton.swift in Sources */,
@@ -571,6 +583,20 @@
 			productName = iOSIntPackage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1D80132929271942008734D0 /* note.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1D80132A29271942008734D0 /* note.xcdatamodel */,
+			);
+			currentVersion = 1D80132A29271942008734D0 /* note.xcdatamodel */;
+			name = note.xcdatamodeld;
+			path = Model/note.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1D6013FD2874B50F00CA8F4A /* Project object */;
 }
