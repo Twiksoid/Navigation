@@ -68,7 +68,6 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? PostTableViewCell {
-            print("indexPath in trying to do new cell",indexPath.row)
             let idForPost = id[indexPath.row]
             cell.backgroundColor = .white
             cell.setupForFavoriteFromCoreData(for: idForPost)
