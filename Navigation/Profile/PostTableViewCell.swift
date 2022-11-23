@@ -133,11 +133,11 @@ class PostTableViewCell: UITableViewCell {
     
     @objc func doubleTapFunc() {
         if index != nil {
-            let model = [post1, post2, post3, post4, post5]
-            print(model)
-            
+            let model = [post0, post1, post2, post3, post4, post5]
+            coreDataManager.reloadData()
             if let _ = coreDataManager.posts.firstIndex(where: { $0.id == model[index!.row].uniqID }) {
                 print(Constants.favoriteNoteExsist + " " + Constants.favoriteNoteExsistText)
+                coreDataManager.reloadData()
             } else {
                 coreDataManager.createPost(title: model[index!.row].title,
                                            image: model[index!.row].image,
