@@ -73,7 +73,7 @@ class CoreDataManager {
     func getPostsBy(author: String) -> [Posts] {
         let fetchRequest = Posts.fetchRequest()
         if author != "" {
-            fetchRequest.predicate = NSPredicate(format: "author == %@", author)
+            fetchRequest.predicate = NSPredicate(format: "author CONTAINS[c] %@", author)
         }
         do {
             return try persistentContainer.viewContext.fetch(fetchRequest)
