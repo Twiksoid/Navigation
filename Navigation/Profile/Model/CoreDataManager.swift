@@ -48,21 +48,38 @@ class CoreDataManager {
     }
     
     func createPost(title: String, image: String, author: String, description: String, likes: Int, views: Int, id: String){
-        let posts = Posts(context: persistentContainer.viewContext)
-        posts.title = title
-        posts.image = image
-        posts.author = author
-        posts.descriptionOfPost = description
-        posts.likes = Int16(likes)
-        posts.view = Int16(views)
-        posts.id = id
-        saveContext()
-        reloadData()
+        persistentContainer.performBackgroundTask({ contexBackground in
+            let newPost = Posts(context: contexBackground)
+            newPost.title = title
+            newPost.image = image
+            newPost.author = author
+            newPost.descriptionOfPost = description
+            newPost.likes = Int16(likes)
+            newPost.view = Int16(views)
+            newPost.id = id
+            try? contexBackground.save()
+            DispatchQueue.main.async {
+                self.reloadData()
+            }
+        })
     }
     
     func deletePostTypeNote(post: Posts){
         persistentContainer.viewContext.delete(post)
         saveContext()
         reloadData()
+    }
+    
+    func getPostsBy(author: String) -> [Posts] {
+        let fetchRequest = Posts.fetchRequest()
+        if author != "" {
+            fetchRequest.predicate = NSPredicate(format: "author CONTAINS[c] %@", author)
+        }
+        do {
+            return try persistentContainer.viewContext.fetch(fetchRequest)
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
     }
 }

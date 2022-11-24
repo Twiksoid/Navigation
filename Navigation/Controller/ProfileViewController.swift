@@ -39,6 +39,7 @@ class ProfileViewController: UIViewController {
     
     // Тут лежат посты для ленты
     private var viewModel: [Post] = [
+        post0,
         post1,
         post2,
         post3,
@@ -150,6 +151,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+                cell.textLabel?.text = "Для обновления потяните страницу вниз"
                 return cell
             }
         }}
