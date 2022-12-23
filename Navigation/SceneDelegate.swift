@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
         let thirdItemController = UINavigationController(rootViewController: InfoViewController())
         let forthItemController = UINavigationController(rootViewController: FavoriteViewController())
+        let fifthItemController = UINavigationController(rootViewController: MapViewController())
         // обозначаем второй экран (форма входа)
         // создаем объект фабрики
         // вызываем метод создания объекта типа LoginInspector
@@ -34,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             navigationController,
-            secondVCForShowing, thirdItemController, forthItemController
+            secondVCForShowing, thirdItemController, forthItemController, fifthItemController
         ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
@@ -44,6 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers?[1].tabBarItem.title = "Профиль"
         tabBarController.viewControllers?[2].tabBarItem.title = "Инфо"
         tabBarController.viewControllers?[3].tabBarItem.title = "Избранное"
+        tabBarController.viewControllers?[4].tabBarItem.title = "Карта"
         //
         //        tabBarController.viewControllers?.enumerated().forEach {
         //
@@ -55,6 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "brain.head.profile")
         tabBarController.tabBar.items?[2].image = UIImage(systemName: "info.circle")
         tabBarController.tabBar.items?[3].image = UIImage(systemName: "bookmark.fill")
+        tabBarController.tabBar.items?[4].image = UIImage(systemName: "map")
         
         
         
