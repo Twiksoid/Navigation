@@ -10,6 +10,7 @@
 		1D2457F028E54B7100E8C2BD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2457EF28E54B7100E8C2BD /* CustomButton.swift */; };
 		1D2457F228E5C5B100E8C2BD /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2457F128E5C5B100E8C2BD /* FeedModel.swift */; };
 		1D2A5DF929542C36005F7D6C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2A5DF829542C36005F7D6C /* MapViewController.swift */; };
+		1D2A5DFB29558DCE005F7D6C /* TextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2A5DFA29558DCE005F7D6C /* TextPicker.swift */; };
 		1D2CAF67288C246E008DA7EC /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAF66288C246E008DA7EC /* LogInViewController.swift */; };
 		1D2CAF692891BCA9008DA7EC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */; };
 		1D2CAF6B2891C675008DA7EC /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAF6A2891C675008DA7EC /* ProfileHeaderView.swift */; };
@@ -52,6 +53,7 @@
 		1D2457EF28E54B7100E8C2BD /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		1D2457F128E5C5B100E8C2BD /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		1D2A5DF829542C36005F7D6C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Navigation/MapViewController.swift; sourceTree = SOURCE_ROOT; };
+		1D2A5DFA29558DCE005F7D6C /* TextPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextPicker.swift; path = Controller/TextPicker.swift; sourceTree = "<group>"; };
 		1D2CAF66288C246E008DA7EC /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		1D2CAF682891BCA9008DA7EC /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		1D2CAF6A2891C675008DA7EC /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		1D6014072874B50F00CA8F4A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				1D2A5DFA29558DCE005F7D6C /* TextPicker.swift */,
 				1D3B123A287D7B6500B4F57C /* Profile */,
 				1D2457F528E5E49C00E8C2BD /* Controller */,
 				1D6014242878127100CA8F4A /* StructPost.swift */,
@@ -305,6 +308,7 @@
 				1D6014232874C4A000CA8F4A /* InfoViewController.swift in Sources */,
 				1D80132D2927198D008734D0 /* CoreDataManager.swift in Sources */,
 				1D2CAF6B2891C675008DA7EC /* ProfileHeaderView.swift in Sources */,
+				1D2A5DFB29558DCE005F7D6C /* TextPicker.swift in Sources */,
 				1DE1BB13290C2FED00306AD9 /* NetworkManager.swift in Sources */,
 				1D60141D2874BD2300CA8F4A /* FeedViewController.swift in Sources */,
 				1DF3100128D9AB000030FEF6 /* LoginFactory.swift in Sources */,
