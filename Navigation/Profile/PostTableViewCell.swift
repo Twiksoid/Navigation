@@ -77,8 +77,8 @@ class PostTableViewCell: UITableViewCell {
         authorPostLabel.text = model.author
         descriptionPostLabel.text = model.description
         imagePostView.image = UIImage(named: model.image)
-        likePostLabel.text = "Likes: \(model.likes)"
-        viewPostLabel.text = "Views: \(model.views)"
+        likePostLabel.text = NSLocalizedString(LocalizitedKeys.keyLikes, comment: "") + ": \(model.likes)"
+        viewPostLabel.text = NSLocalizedString(LocalizitedKeys.keyViews, comment: "") + ": \(model.views)"
     }
     
     func setupForFavoriteFromCoreData(for postID: String){
@@ -88,8 +88,8 @@ class PostTableViewCell: UITableViewCell {
             authorPostLabel.text = coreDataManager.posts[index].author
             descriptionPostLabel.text = coreDataManager.posts[index].descriptionOfPost
             imagePostView.image = UIImage(named: coreDataManager.posts[index].image!)
-            likePostLabel.text = "Likes: \(coreDataManager.posts[index].likes)"
-            viewPostLabel.text = "Views: \(coreDataManager.posts[index].view)"
+            likePostLabel.text = NSLocalizedString(LocalizitedKeys.keyLikes, comment: "") +  ": \(coreDataManager.posts[index].likes)"
+            viewPostLabel.text = NSLocalizedString(LocalizitedKeys.keyViews, comment: "") + ": \(coreDataManager.posts[index].view)"
         }
     }
     
@@ -136,7 +136,7 @@ class PostTableViewCell: UITableViewCell {
             let model = [post0, post1, post2, post3, post4, post5]
             coreDataManager.reloadData()
             if let _ = coreDataManager.posts.firstIndex(where: { $0.id == model[index!.row].uniqID }) {
-                print(Constants.favoriteNoteExsist + " " + Constants.favoriteNoteExsistText)
+                print( NSLocalizedString(LocalizitedKeys.keyFavoriteNoteExsist, comment: "") + " " + NSLocalizedString(LocalizitedKeys.keyFavoriteNoteExsistText, comment: "") )
                 coreDataManager.reloadData()
             } else {
                 coreDataManager.createPost(title: model[index!.row].title,

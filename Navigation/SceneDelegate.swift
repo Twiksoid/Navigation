@@ -41,11 +41,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.navigationBar.backgroundColor = UIColor.white
         secondItemController.navigationBar.backgroundColor = UIColor.white
         tabBarController.tabBar.backgroundColor = UIColor.white
-        tabBarController.viewControllers?[0].tabBarItem.title = "Лента"
-        tabBarController.viewControllers?[1].tabBarItem.title = "Профиль"
-        tabBarController.viewControllers?[2].tabBarItem.title = "Инфо"
-        tabBarController.viewControllers?[3].tabBarItem.title = "Избранное"
-        tabBarController.viewControllers?[4].tabBarItem.title = "Карта"
+        tabBarController.viewControllers?[0].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFeed, comment: "")
+        tabBarController.viewControllers?[1].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyProfile, comment: "")
+        tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyInfo, comment: "")
+        tabBarController.viewControllers?[3].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFavorite, comment: "")
+        tabBarController.viewControllers?[4].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyMap, comment: "")
         //
         //        tabBarController.viewControllers?.enumerated().forEach {
         //

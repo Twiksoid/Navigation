@@ -83,7 +83,7 @@ class PhotosViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = Constants.collectionPhotoTitle
+        navigationItem.title = NSLocalizedString(LocalizitedKeys.keyCollectionPhotoTitle, comment: "")
         
     }
     // когда уходим с вью коллекции, скрываем навигатор-бар

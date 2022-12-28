@@ -66,8 +66,11 @@ class ProfileViewController: UIViewController {
         // если ее нет, то выкинем алерт
         handle = Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
-                let alarm = UIAlertController(title: Constants.notLoginUserTitleAlarm, message: Constants.notLoginUserTextAlarm, preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: Constants.notLoginUserAction, style: .default)
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyNotLoginUserTitleAlarm, comment: ""),
+                                              message: NSLocalizedString(LocalizitedKeys.keyNotLoginUserTextAlarm, comment: ""),
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyNotLoginUserAction, comment: ""),
+                                                style: .default)
                 alarm.addAction(alarmAction)
                 self.present(alarm, animated: true)
             }
@@ -86,7 +89,7 @@ class ProfileViewController: UIViewController {
         // чтобы автоматом подбирало размер
         
         navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = Constants.viewTitle
+        navigationItem.title = LocalizitedKeys.keyViewTitle
         view.addSubview(tableView)
         
         // настройка Constrait
@@ -151,7 +154,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-                cell.textLabel?.text = "Для обновления потяните страницу вниз"
+                cell.textLabel?.text = NSLocalizedString(LocalizitedKeys.keyPullToRefreshText, comment: "")
                 return cell
             }
         }}

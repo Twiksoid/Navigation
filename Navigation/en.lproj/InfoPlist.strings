@@ -1,0 +1,11 @@
+/* 
+ InfoPlist.strings
+ Navigation
+ 
+ Created by Nikita Byzov on 28.12.2022.
+ 
+ */
+
+NSLocationUsageDescription = "Give an allow for get your location right now";
+NSLocationAlwaysUsageDescription = "Give an allow for get your location right now";
+NSLocationWhenInUseUsageDescription = "Give an allow for get your location right now";

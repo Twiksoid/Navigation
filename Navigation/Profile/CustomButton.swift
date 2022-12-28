@@ -36,7 +36,7 @@ class CustomButton: UIButton {
         
         tintColor = titleColor
         
-        setTitle(title, for: .normal)
+        setTitle( NSLocalizedString(title, comment: ""), for: .normal)
         backgroundColor = backgroundButtonColor
         clipsToBounds = clipsToBoundsOfButton
         alpha = alphaButton ?? 1

@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     private var countOfUnsecTr = 0.0
     
     private lazy var button1: CustomButton = {
-        let button = CustomButton(title: "Показать пост 1",
+        let button = CustomButton(title: NSLocalizedString(LocalizitedKeys.keyPostNameOne, comment: ""),
                                   titleColor: .black,
                                   backgroundButtonColor: .systemRed,
                                   clipsToBoundsOfButton: true,
@@ -23,7 +23,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var button2: CustomButton = {
-        let button = CustomButton(title: "Показать пост 2",
+        let button = CustomButton(title: NSLocalizedString(LocalizitedKeys.keyPostNameTwo, comment: ""),
                                   titleColor: .black,
                                   backgroundButtonColor: .systemTeal,
                                   clipsToBoundsOfButton: true,
@@ -35,7 +35,7 @@ class FeedViewController: UIViewController {
     
     private lazy var textField: UITextField = {
         let text = UITextField()
-        text.placeholder = "Введите слово для проверки"
+        text.placeholder = NSLocalizedString(LocalizitedKeys.keyPlaceholderTextForChec, comment: "")
         text.text = ""
         text.textAlignment = .center
         text.textColor = .black
@@ -58,7 +58,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "Проверить данные",
+        let button = CustomButton(title: LocalizitedKeys.keyCheckEnteredWord,
                                   titleColor: .black,
                                   backgroundButtonColor: .blue,
                                   clipsToBoundsOfButton: true,
@@ -133,10 +133,10 @@ class FeedViewController: UIViewController {
     @objc private func alarmNote(){
         countOfUnsecTr += 1
         // аларм, что не успели
-        let alarm = UIAlertController(title: "Время для проверки слова истекло",
-                                      message: "Попробуйте снова, но быстрее",
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyTimeCheckWordExpired, comment: ""),
+                                      message: NSLocalizedString(LocalizitedKeys.keyTryAgainFaster, comment: ""),
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: "ОК",
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
         present(alarm, animated: true)
@@ -171,28 +171,28 @@ class FeedViewController: UIViewController {
                 try makeAlarmForError(typeOfError: typeOfAction)
             } catch FeedViewController.FeedError.fieldIsEmpty {
                 // поле пустое
-                let alarm = UIAlertController(title: "Не заполнено поле",
-                                              message: "Заполните поле и попробуйте снова",
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyNotEnteredField, comment: ""),
+                                              message: NSLocalizedString(LocalizitedKeys.keyEnteredDataInFiled, comment: "") ,
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: "ОК",
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
             } catch FeedViewController.FeedError.incorrectData {
                 // поле заполнено невалидными данными (по идее это никогда не произойдет тк на поле нет таких ограничений)
-                let alarm = UIAlertController(title: "Некорректные данные",
-                                              message: "Проверьте корректность введенных данных и попробуйте снова",
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyThereIsNoCorrectData, comment: ""),
+                                              message: NSLocalizedString(LocalizitedKeys.keyCheckInteredDataAndTryAgain, comment: ""),
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: "ОК",
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
             } catch {
                 // по идее это какая-то ошибка, которую мы вообще не знаем сейчас, поэтому задаем общее наименование
-                let alarm = UIAlertController(title: "Непредвиденная ошибка",
-                                              message: "Возникла непредвиденная ошибка, необходимо обратиться к разработчику приложения за консультацией, текст ошибки -  \(error.localizedDescription)",
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyUnexpectedError, comment: ""),
+                                              message: NSLocalizedString(LocalizitedKeys.keyUnxpectedErrorText, comment: "") + error.localizedDescription,
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: "ОК",
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
@@ -200,10 +200,10 @@ class FeedViewController: UIViewController {
             
         } else {
             if FeedModel().check(word: textField.text!) {
-                textFieldResult.text = "Да"
+                textFieldResult.text = NSLocalizedString(LocalizitedKeys.keyYes, comment: "")
                 textFieldResult.textColor = .green
             } else {
-                textFieldResult.text = "Нет"
+                textFieldResult.text = NSLocalizedString(LocalizitedKeys.keyNo, comment: "")
                 textFieldResult.textColor = .red
             }
         }
@@ -239,7 +239,7 @@ class FeedViewController: UIViewController {
 }
 
 //var post = Post(title: "Поменял текст в заголовке")
-var post = Post(title: "Change text",
+var post = Post(title: NSLocalizedString(LocalizitedKeys.keyChangeTitileButtonText, comment: ""),
                 author: "Self",
                 description: "bla",
                 image: "cat.png",
