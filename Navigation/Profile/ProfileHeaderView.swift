@@ -39,7 +39,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         let titleField = UITextField()
         titleField.textColor = .black
         titleField.font = .boldSystemFont(ofSize: 18)
-        titleField.text = Constants.titleTextField
+        titleField.text = NSLocalizedString(LocalizitedKeys.keyTitleTextField, comment: "")
         titleField.tag = Constants.titleTextFieldTap
         titleField.isUserInteractionEnabled = false
         titleField.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         statusField.textColor = .gray
         statusField.numberOfLines = 0
         statusField.font = .systemFont(ofSize: 14)
-        statusField.text = Constants.statusTextField
+        statusField.text = NSLocalizedString(LocalizitedKeys.keyStatusTextField, comment: "")
         statusField.tag = Constants.statusTextFieldTap
         statusField.isUserInteractionEnabled = false
         statusField.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         enterStatusField.backgroundColor = .white
         enterStatusField.textColor = .black
         enterStatusField.font = .systemFont(ofSize: 15)
-        enterStatusField.text = Constants.enteringStatusTextField
+        enterStatusField.text = ""
         enterStatusField.tag = Constants.enteringStatusTextFieldTap
         enterStatusField.addTarget(self, action: #selector(self.statusTextChanged), for: .editingChanged)
         enterStatusField.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +88,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     }
     
     private lazy var showStatusButton: CustomButton = {
-        let button = CustomButton(title: Constants.showStatusButton,
+        let button = CustomButton(title: LocalizitedKeys.keyShowStatusButton,
                                   titleColor: .white,
                                   backgroundButtonColor: UIColor(named: "AccentColor")!,
                                   clipsToBoundsOfButton: true,

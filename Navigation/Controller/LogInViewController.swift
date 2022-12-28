@@ -53,7 +53,7 @@ class LogInViewController: UIViewController {
         email.textAlignment = .left
         email.font = .systemFont(ofSize: 16)
         email.backgroundColor = .systemGray6
-        email.placeholder = Constants.email
+        email.placeholder = NSLocalizedString(LocalizitedKeys.keyEmail, comment: "")
         email.autocapitalizationType = .none
         email.keyboardType = .emailAddress
         email.layer.sublayerTransform = CATransform3DMakeTranslation(16, 0, 0)
@@ -69,7 +69,7 @@ class LogInViewController: UIViewController {
         password.font = .systemFont(ofSize: 16)
         password.isSecureTextEntry = true
         password.backgroundColor = .systemGray6
-        password.placeholder = Constants.password
+        password.placeholder = NSLocalizedString(LocalizitedKeys.keyPassword, comment: "")
         password.autocapitalizationType = .none
         password.layer.sublayerTransform = CATransform3DMakeTranslation(16, 0, 0)
         return password
@@ -92,7 +92,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var logInButton: CustomButton = {
-        let button = CustomButton(title: Constants.logInButtonText,
+        let button = CustomButton(title: LocalizitedKeys.keyLogInButtonText,
                                   titleColor: .white,
                                   backgroundButtonColor: UIColor(named: "AccentColor")!,
                                   clipsToBoundsOfButton: true,
@@ -106,7 +106,12 @@ class LogInViewController: UIViewController {
     // Чтобы упростить себе жизнь кнопка брутфорса с прошлых ДЗ переделана на Регистрация
     // весь код брутфорса удален
     private lazy var registerNewUserButton: CustomButton = {
-        let buttom = CustomButton(title: Constants.registrationNewUser, titleColor: .white, backgroundButtonColor: .specialBlue, clipsToBoundsOfButton: true, cornerRadius: 10, autoLayout: false)
+        let buttom = CustomButton(title: LocalizitedKeys.keyRegistrationNewUser,
+                                  titleColor: .white,
+                                  backgroundButtonColor: .specialBlue,
+                                  clipsToBoundsOfButton: true,
+                                  cornerRadius: 10,
+                                  autoLayout: false)
         buttom.addTargetForButton = { self.registerNewUser() }
         return buttom
     }()
@@ -257,8 +262,11 @@ class LogInViewController: UIViewController {
                         
                     case .failure(let error):
                         self.deSetupActivityIndicator()
-                        let alarm = UIAlertController(title: Constants.errorLogInFireBase, message: error.localizedDescription, preferredStyle: .alert)
-                        let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
+                        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorLogInFireBase, comment: ""),
+                                                      message: error.localizedDescription,
+                                                      preferredStyle: .alert)
+                        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
+                                                        style: .default)
                         alarm.addAction(alarmAction)
                         self.present(alarm, animated: true)
                         print(String(describing: error))
@@ -267,15 +275,21 @@ class LogInViewController: UIViewController {
             } else {
                 deSetupActivityIndicator()
                 // логин или пароль неверный
-                let alarm = UIAlertController(title: Constants.alertNotCorrectLoginTitle, message: Constants.alertNotCorrectLoginText, preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: Constants.alertNotCorrectLoginAction, style: .default)
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginTitle, comment: ""),
+                                              message: NSLocalizedString(LocalizitedKeys.keyAalertNotCorrectLoginText, comment: ""),
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
+                                                style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
             }} else {
                 deSetupActivityIndicator()
                 // логин или пароль не ввели
-                let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataTitle, comment: ""),
+                                              message: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataText, comment: ""),
+                                              preferredStyle: .alert)
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+                                                style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
             }
@@ -299,8 +313,11 @@ class LogInViewController: UIViewController {
                     self.navigationController?.pushViewController(goToProfileViewController, animated: true)
                 case .failure(let error):
                     self.deSetupActivityIndicator()
-                    let alarm = UIAlertController(title: Constants.errorRegistrationFireBase, message: error.localizedDescription, preferredStyle: .alert)
-                    let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+                    let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorRegistrationFireBase, comment: ""),
+                                                  message: error.localizedDescription,
+                                                  preferredStyle: .alert)
+                    let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+                                                    style: .default)
                     alarm.addAction(alarmAction)
                     self.present(alarm, animated: true)
                     print(String(describing: error))
@@ -309,8 +326,11 @@ class LogInViewController: UIViewController {
         } else  {
             deSetupActivityIndicator()
             // логин или пароль не ввели
-            let alarm = UIAlertController(title: Constants.alertNotEnteredDataTitle, message: Constants.alertNotEnteredDataText, preferredStyle: .alert)
-            let alarmAction = UIAlertAction(title: Constants.alertNotEnteredDataAction, style: .default)
+            let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataTitle, comment: ""),
+                                          message: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataText, comment: ""),
+                                          preferredStyle: .alert)
+            let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+                                            style: .default)
             alarm.addAction(alarmAction)
             present(alarm, animated: true)
         }

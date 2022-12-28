@@ -25,7 +25,7 @@ class FavoriteViewController: UIViewController {
         setupView()
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString(LocalizitedKeys.keyPullToRefreshText, comment: ""))
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
@@ -57,7 +57,7 @@ class FavoriteViewController: UIViewController {
     private func setupView(){
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = Constants.viewFavoriteTitle
+        navigationItem.title = NSLocalizedString(LocalizitedKeys.keyViewFavoriteTitle, comment: "")
         view.addSubview(tableView)
         
         // настройка Constrait

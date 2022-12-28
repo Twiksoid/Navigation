@@ -13,7 +13,7 @@ class PhotosTableViewCell: UITableViewCell {
     private lazy var miniTitle: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "Photos"
+        label.text = NSLocalizedString(LocalizitedKeys.keyNameForMiniCollectionPhotos, comment: "")
         label.font = .boldSystemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

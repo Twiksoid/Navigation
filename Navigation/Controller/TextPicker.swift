@@ -12,19 +12,23 @@ class TextPicker {
     static let defaultPicker = TextPicker()
     
     func getText(in viewController: UIViewController, completion: ((_ text: String)->Void)? ) {
-        let alertController = UIAlertController(title: "Укажите город", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyTitleAlertTextPicker, comment: ""),
+                                                message: nil,
+                                                preferredStyle: .alert)
         
         alertController.addTextField {
-            textFiel in textFiel.placeholder = "Укажите город от которого нужно создать маршрут"
+            textFiel in textFiel.placeholder = NSLocalizedString(LocalizitedKeys.keyAlertPlaceHolderPicler, comment: "")
         }
         
-        let actionOK = UIAlertAction(title: "Добавить", style: .default) { alert in
+        let actionOK = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertTextPickerAdd, comment: ""),
+                                     style: .default) { alert in
             if let text = alertController.textFields?[0].text, text != "" {
                 completion?(text)
             }
         }
         
-        let actionCansel = UIAlertAction(title: "Отменить", style: .cancel)
+        let actionCansel = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertTextPickerCansel, comment: ""),
+                                         style: .cancel)
         
         alertController.addAction(actionOK)
         alertController.addAction(actionCansel)
