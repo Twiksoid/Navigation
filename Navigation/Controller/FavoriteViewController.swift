@@ -44,7 +44,7 @@ class FavoriteViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .systemGray6
+        tableView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -55,7 +55,7 @@ class FavoriteViewController: UIViewController {
     }()
     
     private func setupView(){
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         navigationItem.largeTitleDisplayMode = .automatic
         navigationItem.title = NSLocalizedString(LocalizitedKeys.keyViewFavoriteTitle, comment: "")
         view.addSubview(tableView)
@@ -77,7 +77,7 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? PostTableViewCell {
-            cell.backgroundColor = .white
+            cell.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
             if let idForPost = foundPosts[indexPath.row].id {
                 cell.setupForFavoriteFromCoreData(for: idForPost)
             }

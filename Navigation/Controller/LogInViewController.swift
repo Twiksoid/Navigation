@@ -24,8 +24,8 @@ class LogInViewController: UIViewController {
         var image = UIImageView()
         image.image = UIImage(named: Constants.logoName)
         image.clipsToBounds = true
-        image.layer.borderColor = UIColor.lightGray.cgColor
-        image.layer.borderWidth = 0.5
+        image.layer.borderColor = (UIColor.createColor(lightMode: .white, darkMode: .black)).cgColor
+        image.layer.borderWidth = 0.0
         image.layer.cornerRadius = 10
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -33,8 +33,8 @@ class LogInViewController: UIViewController {
     
     private lazy var stackLogoImage: UIStackView = {
         let lStack = UIStackView()
-        lStack.layer.borderColor = UIColor.white.cgColor
-        lStack.layer.borderWidth = 0.5
+        lStack.layer.borderColor = (UIColor.createColor(lightMode: .white, darkMode: .black)).cgColor
+        lStack.layer.borderWidth = 0.0
         lStack.layer.cornerRadius = 10
         lStack.clipsToBounds = true
         lStack.alignment = .fill
@@ -173,7 +173,7 @@ class LogInViewController: UIViewController {
     }
     
     private func setupView(){
-        self.view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         navigationController?.navigationBar.isHidden = true
         // на вью добавить скролл
         view.addSubview(scrollView)

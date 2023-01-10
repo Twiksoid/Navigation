@@ -16,7 +16,7 @@ class PostTableViewCell: UITableViewCell {
         let title = UILabel()
         title.font = .boldSystemFont(ofSize: 20)
         title.numberOfLines = 2
-        title.textColor = .black
+        title.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -25,7 +25,7 @@ class PostTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
-        image.backgroundColor = .black
+        image.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -42,7 +42,7 @@ class PostTableViewCell: UITableViewCell {
     private lazy var likePostLabel: UILabel = {
         let like = UILabel()
         like.font = .systemFont(ofSize: 16)
-        like.textColor = .black
+        like.textColor = .systemGray
         like.translatesAutoresizingMaskIntoConstraints = false
         return like
     }()
@@ -50,7 +50,7 @@ class PostTableViewCell: UITableViewCell {
     private lazy var viewPostLabel: UILabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 16)
-        view.textColor = .black
+        view.textColor = .systemGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -58,7 +58,7 @@ class PostTableViewCell: UITableViewCell {
     private lazy var authorPostLabel: UILabel = {
         let author = UILabel()
         author.font = .systemFont(ofSize: 16)
-        author.textColor = .black
+        author.textColor = .systemGray
         author.translatesAutoresizingMaskIntoConstraints = false
         return author
     }()

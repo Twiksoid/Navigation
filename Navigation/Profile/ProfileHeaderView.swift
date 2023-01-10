@@ -19,13 +19,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         imageView.image = UIImage(named: Constants.mainPhoto)
         // скруглить изображение
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .systemCyan
+        imageView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         // радиус скругления
         imageView.layer.cornerRadius = 90
         // толщина рамки
-        imageView.layer.borderWidth = 3.0
+        imageView.layer.borderWidth = 0.0
         // цвет рамки
-        imageView.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        //imageView.layer.borderColor = (UIColor.createColor(lightMode: .white, darkMode: .black)).cgColor
         // ловим нажатие
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imagePressed)))
         imageView.tag = Constants.avatarImageViewTap
@@ -37,7 +37,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     
     private lazy var titleTextField: UITextField = {
         let titleField = UITextField()
-        titleField.textColor = .black
+        titleField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         titleField.font = .boldSystemFont(ofSize: 18)
         titleField.text = NSLocalizedString(LocalizitedKeys.keyTitleTextField, comment: "")
         titleField.tag = Constants.titleTextFieldTap
@@ -48,7 +48,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     
     private lazy var statusTextField: UILabel = {
         let statusField = UILabel()
-        statusField.textColor = .gray
+        statusField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         statusField.numberOfLines = 0
         statusField.font = .systemFont(ofSize: 14)
         statusField.text = NSLocalizedString(LocalizitedKeys.keyStatusTextField, comment: "")
@@ -63,10 +63,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         // Чтобы был отступ при вводе текста
         enterStatusField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         enterStatusField.layer.cornerRadius = 12.0
-        enterStatusField.layer.borderWidth = 1.0
+        enterStatusField.layer.borderWidth = 0.0
         enterStatusField.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        enterStatusField.backgroundColor = .white
-        enterStatusField.textColor = .black
+        enterStatusField.backgroundColor = UIColor.createColor(lightMode: .lightGray, darkMode: .darkGray)
+        enterStatusField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         enterStatusField.font = .systemFont(ofSize: 15)
         enterStatusField.text = ""
         enterStatusField.tag = Constants.enteringStatusTextFieldTap
@@ -89,7 +89,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     
     private lazy var showStatusButton: CustomButton = {
         let button = CustomButton(title: LocalizitedKeys.keyShowStatusButton,
-                                  titleColor: .white,
+                                  titleColor: UIColor.createColor(lightMode: .black, darkMode: .white),
                                   backgroundButtonColor: UIColor(named: "AccentColor")!,
                                   clipsToBoundsOfButton: true,
                                   cornerRadius: 4, autoLayout: false)
