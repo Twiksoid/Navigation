@@ -38,7 +38,7 @@ class FeedViewController: UIViewController {
         text.placeholder = NSLocalizedString(LocalizitedKeys.keyPlaceholderTextForChec, comment: "")
         text.text = ""
         text.textAlignment = .center
-        text.textColor = .black
+        text.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         text.layer.borderColor = UIColor.black.cgColor
         text.isUserInteractionEnabled = true
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ class FeedViewController: UIViewController {
         let text = UITextField()
         text.text = ""
         text.textAlignment = .center
-        text.textColor = .black
+        text.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         text.layer.borderColor = UIColor.black.cgColor
         text.isUserInteractionEnabled = false
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -59,8 +59,8 @@ class FeedViewController: UIViewController {
     
     private lazy var checkGuessButton: CustomButton = {
         let button = CustomButton(title: LocalizitedKeys.keyCheckEnteredWord,
-                                  titleColor: .black,
-                                  backgroundButtonColor: .blue,
+                                  titleColor: UIColor.createColor(lightMode: .black, darkMode: .white),
+                                  backgroundButtonColor: UIColor.createColor(lightMode: .specialBlue, darkMode: .specialBlue),
                                   clipsToBoundsOfButton: true,
                                   cornerRadius: 1,
                                   autoLayout: false)
@@ -83,12 +83,13 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        navigationController?.navigationBar.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         //self.view.addSubview(self.vStack)
         //self.vStack.center = self.view.center
         
         // настраиваем вью, если темная тема
-        isCurrentThemeDark()
+        // isCurrentThemeDark()
         setupView()
     }
     

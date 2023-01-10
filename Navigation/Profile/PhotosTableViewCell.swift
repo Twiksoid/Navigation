@@ -12,7 +12,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     private lazy var miniTitle: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.text = NSLocalizedString(LocalizitedKeys.keyNameForMiniCollectionPhotos, comment: "")
         label.font = .boldSystemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ class PhotosTableViewCell: UITableViewCell {
     private lazy var imageArrow: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "arrow.forward")
-        image.tintColor = .black
+        image.tintColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

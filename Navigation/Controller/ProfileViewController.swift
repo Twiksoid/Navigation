@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .systemGray6
+        tableView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -83,7 +83,7 @@ class ProfileViewController: UIViewController {
     
     func setupView(){
         // чтобы закрасить основное вью
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         // чтобы большим было
         // navigationController?.navigationBar.prefersLargeTitles = true
         // чтобы автоматом подбирало размер
@@ -148,7 +148,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             // добавляю посты
             if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? PostTableViewCell {
                 let post = self.viewModel[indexPath.row]
-                cell.backgroundColor = .white
+                cell.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
                 cell.setup(for: post)
                 cell.index = indexPath
                 return cell

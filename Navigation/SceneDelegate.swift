@@ -19,9 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: FeedViewController())
         let secondItemController = UINavigationController(rootViewController: LogInViewController())
-        let thirdItemController = UINavigationController(rootViewController: InfoViewController())
+        //let thirdItemController = UINavigationController(rootViewController: InfoViewController())
         let forthItemController = UINavigationController(rootViewController: FavoriteViewController())
-        let fifthItemController = UINavigationController(rootViewController: MapViewController())
+        //let fifthItemController = UINavigationController(rootViewController: MapViewController())
         // обозначаем второй экран (форма входа)
         // создаем объект фабрики
         // вызываем метод создания объекта типа LoginInspector
@@ -35,17 +35,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             navigationController,
-            secondVCForShowing, thirdItemController, forthItemController, fifthItemController
+            secondVCForShowing,
+            // thirdItemController,
+            forthItemController
+            //, fifthItemController
         ]
         // задаем цвет для navigationController (верх) и tabBarController (низ)
         navigationController.navigationBar.backgroundColor = UIColor.white
         secondItemController.navigationBar.backgroundColor = UIColor.white
-        tabBarController.tabBar.backgroundColor = UIColor.white
+        tabBarController.tabBar.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         tabBarController.viewControllers?[0].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFeed, comment: "")
         tabBarController.viewControllers?[1].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyProfile, comment: "")
-        tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyInfo, comment: "")
-        tabBarController.viewControllers?[3].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFavorite, comment: "")
-        tabBarController.viewControllers?[4].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyMap, comment: "")
+        // tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyInfo, comment: "")
+        tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFavorite, comment: "")
+        //tabBarController.viewControllers?[4].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyMap, comment: "")
         //
         //        tabBarController.viewControllers?.enumerated().forEach {
         //
@@ -55,9 +58,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         tabBarController.tabBar.items?[0].image = UIImage(systemName: "paperplane.fill")
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "brain.head.profile")
-        tabBarController.tabBar.items?[2].image = UIImage(systemName: "info.circle")
-        tabBarController.tabBar.items?[3].image = UIImage(systemName: "bookmark.fill")
-        tabBarController.tabBar.items?[4].image = UIImage(systemName: "map")
+        //tabBarController.tabBar.items?[2].image = UIImage(systemName: "info.circle")
+        tabBarController.tabBar.items?[2].image = UIImage(systemName: "bookmark.fill")
+        //tabBarController.tabBar.items?[4].image = UIImage(systemName: "map")
         
         
         
