@@ -64,7 +64,7 @@ class LogInViewController: UIViewController {
         let password = UITextField()
         password.layer.borderColor = UIColor.lightGray.cgColor
         password.layer.borderWidth = 0.5
-        password.textColor = .black
+        password.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         password.textAlignment = .left
         password.font = .systemFont(ofSize: 16)
         password.isSecureTextEntry = true
