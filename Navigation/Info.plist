@@ -6,6 +6,8 @@
 	<string>Для определения положения необходимо предоставить доступ к локации</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Для определения положения необходимо предоставить доступ к локации</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Для авторизации лицом предоставьте доступ</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

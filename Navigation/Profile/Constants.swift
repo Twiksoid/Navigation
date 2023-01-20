@@ -8,6 +8,12 @@
 import UIKit
 
 enum LocalizitedKeys {
+    static let keyStatusForRandomUser = "keyStatusForRandomUser"
+    static let keyBiometriaAlertError = "keyBiometriaAlertError"
+    static let keyBiometriaAlertDoneText = "keyBiometriaAlertDoneText"
+    static let keyBiometriaAlertDone = "keyBiometriaAlertDone"
+    static let textForPasswordBioAuth = "textForPasswordBioAuth"
+    static let keyButtonBiometricalAuth = "keyButtonBiometricalAuth"
     static let keyTitleTextField = "keyTitleTextField" // "Hipster Cat"
     static let keyStatusTextField = "keyStatusTextField" //"Waitting for something ..."
     static let keyShowStatusButton = "keyShowStatusButton" // "Set status"

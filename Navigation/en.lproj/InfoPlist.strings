@@ -9,3 +9,4 @@
 NSLocationUsageDescription = "Give an allow for get your location right now";
 NSLocationAlwaysUsageDescription = "Give an allow for get your location right now";
 NSLocationWhenInUseUsageDescription = "Give an allow for get your location right now";
+NSFaceIDUsageDescription = "Give permission for use your Biometria";
