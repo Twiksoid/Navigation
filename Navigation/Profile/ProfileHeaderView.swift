@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import RealmSwift
 
 class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     
@@ -13,6 +16,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     
     // для работы гистуры нужна ссылка на вью, с которого хотим уйти на новое
     weak var delegate: ProfileViewController?
+    weak var delegateExit: ProfileViewController?
     
     private lazy var avatarImageView: UIImageView = {
         var imageView = UIImageView()
@@ -104,23 +108,15 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         return button
     }()
     
-    //    private lazy var showStatusButton: UIButton = {
-    //        let button = UIButton()
-    //        button.backgroundColor = UIColor(named: "AccentColor")
-    //        button.setTitle(Constants.showStatusButton, for: .normal)
-    //        button.setTitleColor(.white, for: .normal)
-    //        button.layer.cornerRadius = 4.0
-    //        button.layer.shadowColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-    //        button.layer.shadowOffset.width = 4.0
-    //        button.layer.shadowOffset.height = 4.0
-    //        button.layer.shadowOpacity = 0.7
-    //        button.layer.shadowRadius = 4.0
-    //        button.tag = Constants.showStatusButtonTap
-    //        button.isUserInteractionEnabled = true
-    //        button.addTarget(self, action: #selector(self.setStatus), for: .touchUpInside)
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //        return button
-    //    }()
+    private lazy var exitButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.left.circle.fill"), for: .normal)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     @objc private func setStatus(sender: UIButton){
         if sender.tag == Constants.showStatusButtonTap {
@@ -156,14 +152,31 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         titleTextField.text = user?.fullName
     }
     
+    @objc private func exitButtonTapped(){
+        // ищем авторизованного пользователя в базе
+        // по идее пользователь всегда будет один
+        
+        let realm = try! Realm()
+        let authUser = realm.objects(AuthorizationModel.self).first(where: { $0.isLogin == true } )
+        if authUser != nil { try! realm.write { authUser!.isLogin = false } }
+        // тут бы через слушателя сделать, но пока можно так оставить
+        // суть - мы сделали разлогин пользователя и просим его закрыть приложение, чтобы применилось
+        delegateExit?.showAlertRestartApp()
+    }
+    
     private func setupView(){
         self.addSubview(avatarImageView)
         self.addSubview(titleTextField)
         self.addSubview(statusTextField)
         self.addSubview(enteringStatusTextField)
         self.addSubview(showStatusButton)
+        addSubview(exitButton)
         
         NSLayoutConstraint.activate([
+            
+            exitButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            exitButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 26),
+            
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 180),

@@ -114,6 +114,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? ProfileHeaderView {
                 // передача ссылки на вью, с которого уходим
                 headerView.delegate = self
+                headerView.delegateExit = self
                 // настроим, кого выводить
                 headerView.setupHeader(for: user)
                 return headerView
@@ -165,6 +166,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 && indexPath.row == 0 {
             goToCollection(for: indexPath)
         }
+    }
+    
+    func showAlertRestartApp(){
+        let alert = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyRestartYourApp, comment: ""),
+                                      message: NSLocalizedString(LocalizitedKeys.keyRestartYourAppText, comment: ""),
+                                      preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+                                        style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
     }
 }
 

@@ -8,6 +8,10 @@
 import UIKit
 
 enum LocalizitedKeys {
+    static let keyRestartYourApp = "keyRestartYourApp"
+    static let keyRestartYourAppText = "keyRestartYourAppText"
+    static let keyAlertNotAuthUserForBiometricalEnter = "keyAlertNotAuthUserForBiometricalEnter"
+    static let keyAlertNotAuthUserForBiometricalEnterText = "keyAlertNotAuthUserForBiometricalEnterText"
     static let keyStatusForRandomUser = "keyStatusForRandomUser"
     static let keyBiometriaAlertError = "keyBiometriaAlertError"
     static let keyBiometriaAlertDoneText = "keyBiometriaAlertDoneText"
