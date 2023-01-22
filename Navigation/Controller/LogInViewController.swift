@@ -9,8 +9,11 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import RealmSwift
+import LocalAuthentication
 
 class LogInViewController: UIViewController {
+    
+    // MARK: All variables
     
     var authModel = AuthorizationModel()
     
@@ -19,6 +22,13 @@ class LogInViewController: UIViewController {
     let concurrentQuee = DispatchQueue(label: "queueForPassword",
                                        qos: .userInteractive,
                                        attributes: [.concurrent])
+    
+    let contex = LAContext()
+    var errorInBiometria: NSError?
+    var imageBiometriaName = "faceid"
+    var isBiometriaAllowed: Bool = false
+    
+    // MARK: All elements
     
     private lazy var logoImage: UIImageView = {
         var image = UIImageView()
@@ -116,6 +126,22 @@ class LogInViewController: UIViewController {
         return buttom
     }()
     
+    private lazy var buttonForBiometricalAuth: UIButton = {
+        let button = UIButton()
+        button.setTitle(NSLocalizedString(LocalizitedKeys.keyButtonBiometricalAuth, comment: ""), for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .specialBlue
+        button.setImage(UIImage(systemName: imageBiometriaName), for: .normal)
+        button.imageView?.tintColor = .systemBackground
+        button.isHidden = isBiometriaAllowed
+        button.addTarget(self, action: #selector(loginByBiometrica), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // Нужен для красоты, чтобы было понятно, что в сеть запрос ушел
     // в целом, можно было и не делать
     private lazy var activityIndicator: UIActivityIndicatorView = {
@@ -146,6 +172,9 @@ class LogInViewController: UIViewController {
         return scroll
     }()
     
+    
+    // MARK: All funcs
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -154,6 +183,18 @@ class LogInViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // рповеряю в принципе существование биометрии и необходимость отображения кнопки входа по ней
+        if contex.canEvaluatePolicy(.deviceOwnerAuthentication, error: &errorInBiometria) {
+            isBiometriaAllowed = true
+            if contex.biometryType == .touchID {
+                imageBiometriaName = "touchid"
+            } else if contex.biometryType == .faceID {
+                imageBiometriaName = "faceid"
+            } else {
+                imageBiometriaName = "bandage"
+            }
+        }
+        
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didShowKeyboard(_:)),
@@ -181,6 +222,7 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(stackLogoImage)
         scrollView.addSubview(stackTextFields)
         scrollView.addSubview(stackButton)
+        scrollView.addSubview(buttonForBiometricalAuth)
         view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
@@ -204,7 +246,13 @@ class LogInViewController: UIViewController {
             stackButton.trailingAnchor.constraint(equalTo: stackTextFields.trailingAnchor),
             stackButton.heightAnchor.constraint(equalToConstant: 70),
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: stackTextFields.centerYAnchor, constant: 26)
+            activityIndicator.centerYAnchor.constraint(equalTo: stackTextFields.centerYAnchor, constant: 26),
+            
+            buttonForBiometricalAuth.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            buttonForBiometricalAuth.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            buttonForBiometricalAuth.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            buttonForBiometricalAuth.heightAnchor.constraint(equalToConstant: 50),
+            buttonForBiometricalAuth.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
         ])
     }
@@ -221,25 +269,63 @@ class LogInViewController: UIViewController {
         })
     }
     
-    private func skipLoginVC() {
-        // тут будем отслеживать наличие авторизации. Если она есть, то сразу кидаем в экран профиля
+    @objc private func loginByBiometrica(){
+        
+        if isBiometriaAllowed == true {
+            contex.evaluatePolicy(.deviceOwnerAuthentication,
+                                  localizedReason: NSLocalizedString(LocalizitedKeys.textForPasswordBioAuth, comment: "")) { [weak self] succsess, error in
+                if let error = error { print(error.localizedDescription) }
+                
+                DispatchQueue.main.async {
+                    
+                    if succsess == true {
+                        self?.skipLoginVC()
+                    } else {
+                        self?.showAlertNotLoginByBiometrical(text: error?.localizedDescription ?? "No error text")
+                    }
+                }
+            }
+        }
+    }
+    
+    private func isUserExistAndAuth() -> Bool {
+        // тут будем отслеживать наличие авторизации
         
         let realm = try! Realm()
         let authUsers = realm.objects(AuthorizationModel.self)
         
         // тут вернем все пользователей, у которых есть авторизация. По идее там всегда будет один
-        // себе для будущего. Если будет кнопка выхода, то пользователя нужно удалить из базы или разлогинить
         let isUserAuth = authUsers.contains(where: { $0.isLogin == true } )
-        if isUserAuth {
-            
+        if isUserAuth { return true } else { return false }
+    }
+    
+    private func skipLoginVC() {
+        // на будущее
+        // когда будут разные юзеры, то нужно будет исправить метод,
+        // чтобы получать из метода isUserExistAndAuth найденого пользователя (весь, а не просто авторизованный тк будем
+        // использовать реального юзера, а не просто создавать случайного)
+        if isUserExistAndAuth() == true {
             // если у нас уже есть авторизация, то сразу идем к следующему контроллеру
             // поскольку у нас нет юзеров в базе, то берем просто вручную созданного
             // в данном случае будет Катя тк она сейчас в сервисе checkCredentials
-            let user = User(login: "Kate", password: "12345", fullName: "Kate Baranova", photo: UIImage(named: "Baranova.jpg")!, status: "I'm not sure about your physical abilities")
+            // на будущее - пароль хранить через хеш-функцию в базе, при авторизации сравнивать введенный (преобразование в хеш)
+            let user = User(login: "Kate",
+                            password: "12345",
+                            fullName: "Kate Baranova",
+                            photo: UIImage(named: "Baranova.jpg")!,
+                            status: NSLocalizedString(LocalizitedKeys.keyStatusForRandomUser, comment: ""))
             let goToProfileViewController = ProfileViewController(user: user)
             goToProfileViewController.modalPresentationStyle = .currentContext
             self.navigationController?.pushViewController(goToProfileViewController, animated: true)
-            
+        } else { showAlertNotAuthUser() }
+    }
+    
+    // поскольку код переиспользуется, то вынесено в отдельный метод
+    private func isFieldsIsNill(email eText: String, login lText: String) -> Bool {
+        if (eText != "") && (lText != "") {
+            return true
+        } else {
+            return false
         }
     }
     
@@ -247,7 +333,7 @@ class LogInViewController: UIViewController {
         if sender.tag == Constants.logInButtonTap {
             setupActivityIndicator()
             hideKeyboard()
-            if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
+            if isFieldsIsNill(email: emailTextField.text ?? "", login: passwordTextField.text ?? "") == true {
                 
                 let checkerService = CheckerService()
                 checkerService.checkCredentials(for: emailTextField.text!, and: passwordTextField.text!) { result in
@@ -262,36 +348,18 @@ class LogInViewController: UIViewController {
                         
                     case .failure(let error):
                         self.deSetupActivityIndicator()
-                        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorLogInFireBase, comment: ""),
-                                                      message: error.localizedDescription,
-                                                      preferredStyle: .alert)
-                        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
-                                                        style: .default)
-                        alarm.addAction(alarmAction)
-                        self.present(alarm, animated: true)
+                        self.showAlertNotCorrectDataFireBase(error: error.localizedDescription)
                         print(String(describing: error))
                     }
                 }
             } else {
                 deSetupActivityIndicator()
                 // логин или пароль неверный
-                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginTitle, comment: ""),
-                                              message: NSLocalizedString(LocalizitedKeys.keyAalertNotCorrectLoginText, comment: ""),
-                                              preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
-                                                style: .default)
-                alarm.addAction(alarmAction)
-                present(alarm, animated: true)
+                showAlertNotCorrectData()
             }} else {
                 deSetupActivityIndicator()
                 // логин или пароль не ввели
-                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataTitle, comment: ""),
-                                              message: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataText, comment: ""),
-                                              preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
-                                                style: .default)
-                alarm.addAction(alarmAction)
-                present(alarm, animated: true)
+                showAlertNotEnteredData()
             }
     }
     
@@ -299,7 +367,7 @@ class LogInViewController: UIViewController {
         setupActivityIndicator()
         hideKeyboard()
         // если поля заполнены, то можно идти дальше
-        if ( (emailTextField.text != "") && (passwordTextField.text != "") ) {
+        if isFieldsIsNill(email: emailTextField.text ?? "", login: passwordTextField.text ?? "") == true {
             
             let checkerService = CheckerService()
             checkerService.signUp(for: emailTextField.text!, and: passwordTextField.text!) { result in
@@ -313,28 +381,89 @@ class LogInViewController: UIViewController {
                     self.navigationController?.pushViewController(goToProfileViewController, animated: true)
                 case .failure(let error):
                     self.deSetupActivityIndicator()
-                    let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorRegistrationFireBase, comment: ""),
-                                                  message: error.localizedDescription,
-                                                  preferredStyle: .alert)
-                    let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
-                                                    style: .default)
-                    alarm.addAction(alarmAction)
-                    self.present(alarm, animated: true)
+                    self.showAlertNotRegisteredFireBase(error: error.localizedDescription)
                     print(String(describing: error))
                 }
             }
         } else  {
             deSetupActivityIndicator()
-            // логин или пароль не ввели
-            let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataTitle, comment: ""),
-                                          message: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataText, comment: ""),
-                                          preferredStyle: .alert)
-            let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
-                                            style: .default)
-            alarm.addAction(alarmAction)
-            present(alarm, animated: true)
+            showAlertNotEnteredData()
         }
         
+    }
+    
+    private func showAlertNotRegisteredFireBase(error rText: String){
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorRegistrationFireBase, comment: ""),
+                                      message: rText,
+                                      preferredStyle: .alert)
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+                                        style: .default)
+        alarm.addAction(alarmAction)
+        self.present(alarm, animated: true)
+    }
+    
+    private func showAlertNotEnteredData(){
+        // логин или пароль не ввели
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataTitle, comment: ""),
+                                      message: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataText, comment: ""),
+                                      preferredStyle: .alert)
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+                                        style: .default)
+        alarm.addAction(alarmAction)
+        present(alarm, animated: true)
+    }
+    private func showAlertNotCorrectDataFireBase(error rText: String){
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorLogInFireBase, comment: ""),
+                                      message: rText,
+                                      preferredStyle: .alert)
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
+                                        style: .default)
+        alarm.addAction(alarmAction)
+        self.present(alarm, animated: true)
+    }
+    
+    private func showAlertNotCorrectData(){
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginTitle, comment: ""),
+                                      message: NSLocalizedString(LocalizitedKeys.keyAalertNotCorrectLoginText, comment: ""),
+                                      preferredStyle: .alert)
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
+                                        style: .default)
+        alarm.addAction(alarmAction)
+        present(alarm, animated: true)
+    }
+    
+    private func showAlertNotAuthUser(){
+        // логин или пароль не ввели
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotAuthUserForBiometricalEnter,
+                                                               comment: ""),
+                                      message: NSLocalizedString(LocalizitedKeys.keyAlertNotAuthUserForBiometricalEnterText,
+                                                                 comment: ""),
+                                      preferredStyle: .alert)
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction,
+                                                                 comment: ""),
+                                        style: .default)
+        alarm.addAction(alarmAction)
+        present(alarm, animated: true)
+    }
+    
+    private func showAlertLoginByBiometricalDone(){
+        let alert = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyBiometriaAlertDone, comment: ""),
+                                      message: NSLocalizedString(LocalizitedKeys.keyBiometriaAlertDoneText, comment: ""),
+                                      preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+                                        style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
+    }
+    
+    private func showAlertNotLoginByBiometrical(text error: String){
+        let alert = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyBiometriaAlertError, comment: ""),
+                                      message: error,
+                                      preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+                                        style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
     }
     
     private func setupActivityIndicator(){

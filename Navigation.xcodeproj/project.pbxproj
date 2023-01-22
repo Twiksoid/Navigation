@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D08AD8B297A9717002766F8 /* LocalAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D08AD8A297A9717002766F8 /* LocalAuth.swift */; };
 		1D2457F028E54B7100E8C2BD /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2457EF28E54B7100E8C2BD /* CustomButton.swift */; };
 		1D2457F228E5C5B100E8C2BD /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2457F128E5C5B100E8C2BD /* FeedModel.swift */; };
 		1D2A5DF929542C36005F7D6C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2A5DF829542C36005F7D6C /* MapViewController.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D08AD8A297A9717002766F8 /* LocalAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuth.swift; sourceTree = "<group>"; };
 		1D2457EF28E54B7100E8C2BD /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		1D2457F128E5C5B100E8C2BD /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		1D2A5DF829542C36005F7D6C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Navigation/MapViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -118,6 +120,7 @@
 			children = (
 				1D2457F128E5C5B100E8C2BD /* FeedModel.swift */,
 				1DACD9202923644E00E05A61 /* AuthorizationModel.swift */,
+				1D08AD8A297A9717002766F8 /* LocalAuth.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				1D5314AB28F1B7C700988B85 /* RandomPassword.swift in Sources */,
 				1D4C09C828D322A200103A19 /* CurrentUserService.swift in Sources */,
 				1D6D7C4D28D8E0CF00613BEB /* Checker.swift in Sources */,
+				1D08AD8B297A9717002766F8 /* LocalAuth.swift in Sources */,
 				1D80132B29271942008734D0 /* note.xcdatamodeld in Sources */,
 				1D3B30FA289A4E89001440EB /* PhotosTableViewCell.swift in Sources */,
 				1D93AF3F29138A4D00B41A14 /* CheckerService.swift in Sources */,

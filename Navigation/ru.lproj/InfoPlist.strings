@@ -9,3 +9,4 @@
 NSLocationUsageDescription = "Для определения положения необходимо предоставить доступ к локации";
 NSLocationAlwaysUsageDescription = "Для определения положения необходимо предоставить доступ к локации";
 NSLocationWhenInUseUsageDescription = "Для определения положения необходимо предоставить доступ к локации";
+NSFaceIDUsageDescription = "Для авторизации лицом предоставьте доступ";
