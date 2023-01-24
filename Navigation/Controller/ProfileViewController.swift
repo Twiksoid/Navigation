@@ -66,10 +66,10 @@ class ProfileViewController: UIViewController {
         // если ее нет, то выкинем алерт
         handle = Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
-                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyNotLoginUserTitleAlarm, comment: ""),
-                                              message: NSLocalizedString(LocalizitedKeys.keyNotLoginUserTextAlarm, comment: ""),
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyNotLoginUserTitleAlarm, comment: ""),
+                                              message: NSLocalizedString(LocalizedKeys.keyNotLoginUserTextAlarm, comment: ""),
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyNotLoginUserAction, comment: ""),
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyNotLoginUserAction, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 self.present(alarm, animated: true)
@@ -89,7 +89,7 @@ class ProfileViewController: UIViewController {
         // чтобы автоматом подбирало размер
         
         navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = LocalizitedKeys.keyViewTitle
+        navigationItem.title = LocalizedKeys.keyViewTitle
         view.addSubview(tableView)
         
         // настройка Constrait
@@ -155,7 +155,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-                cell.textLabel?.text = NSLocalizedString(LocalizitedKeys.keyPullToRefreshText, comment: "")
+                cell.textLabel?.text = NSLocalizedString(LocalizedKeys.keyPullToRefreshText, comment: "")
                 return cell
             }
         }}
@@ -169,10 +169,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func showAlertRestartApp(){
-        let alert = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyRestartYourApp, comment: ""),
-                                      message: NSLocalizedString(LocalizitedKeys.keyRestartYourAppText, comment: ""),
+        let alert = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyRestartYourApp, comment: ""),
+                                      message: NSLocalizedString(LocalizedKeys.keyRestartYourAppText, comment: ""),
                                       preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                         style: .default)
         alert.addAction(alertAction)
         present(alert, animated: true)

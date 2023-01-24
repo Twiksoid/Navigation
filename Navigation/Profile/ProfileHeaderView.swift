@@ -43,7 +43,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         let titleField = UITextField()
         titleField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         titleField.font = .boldSystemFont(ofSize: 18)
-        titleField.text = NSLocalizedString(LocalizitedKeys.keyTitleTextField, comment: "")
+        titleField.text = NSLocalizedString(LocalizedKeys.keyTitleTextField, comment: "")
         titleField.tag = Constants.titleTextFieldTap
         titleField.isUserInteractionEnabled = false
         titleField.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +55,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         statusField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         statusField.numberOfLines = 0
         statusField.font = .systemFont(ofSize: 14)
-        statusField.text = NSLocalizedString(LocalizitedKeys.keyStatusTextField, comment: "")
+        statusField.text = NSLocalizedString(LocalizedKeys.keyStatusTextField, comment: "")
         statusField.tag = Constants.statusTextFieldTap
         statusField.isUserInteractionEnabled = false
         statusField.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +92,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
     }
     
     private lazy var showStatusButton: CustomButton = {
-        let button = CustomButton(title: LocalizitedKeys.keyShowStatusButton,
+        let button = CustomButton(title: LocalizedKeys.keyShowStatusButton,
                                   titleColor: UIColor.createColor(lightMode: .black, darkMode: .white),
                                   backgroundButtonColor: UIColor(named: "AccentColor")!,
                                   clipsToBoundsOfButton: true,

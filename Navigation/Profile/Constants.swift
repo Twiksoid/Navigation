@@ -7,7 +7,10 @@
 
 import UIKit
 
-enum LocalizitedKeys {
+enum LocalizedKeys {
+    static let keyTitleDailyUserNotification = "keyTitleDailyUserNotification"
+    static let keyBodyDailyUserNotification = "keyBodyDailyUserNotification"
+    static let keySomeErrorWithAuthNotifications = "keySomeErrorWithAuthNotifications"
     static let keyRestartYourApp = "keyRestartYourApp"
     static let keyRestartYourAppText = "keyRestartYourAppText"
     static let keyAlertNotAuthUserForBiometricalEnter = "keyAlertNotAuthUserForBiometricalEnter"

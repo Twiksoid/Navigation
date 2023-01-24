@@ -42,7 +42,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupNavigationBar(){
-        navigationItem.title = NSLocalizedString(LocalizitedKeys.keyTitleOfNavItemMapView, comment: "")
+        navigationItem.title = NSLocalizedString(LocalizedKeys.keyTitleOfNavItemMapView, comment: "")
         navigationController?.navigationBar.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = false
         

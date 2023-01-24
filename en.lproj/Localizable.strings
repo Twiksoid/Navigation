@@ -5,6 +5,9 @@
  Created by Nikita Byzov on 28.12.2022.
  
  */
+"keyTitleDailyUserNotification" = "Let's check the newest updates";
+"keyBodyDailyUserNotification" = "There's something new in your feed";
+"keySomeErrorWithAuthNotifications" = "Something is wrong, let's check the error text: ";
 "keyRestartYourApp" = "Restart your App";
 "keyRestartYourAppText" = "For emplementing restart app";
 "keyAlertNotAuthUserForBiometricalEnter" = "You can not use Biometrical type for login";
