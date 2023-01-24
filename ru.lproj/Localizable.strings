@@ -4,6 +4,9 @@
  
  Created by Nikita Byzov on 28.12.2022.
  */
+"keyTitleDailyUserNotification" = "Посмотрите последние уведомления";
+"keyBodyDailyUserNotification" = "Что-то новое в твоей ленте";
+"keySomeErrorWithAuthNotifications" = "Что-то пошло не так, текст ошибки: ";
 "keyRestartYourApp" = "Требуется перезапуск приложения";
 "keyRestartYourAppText" = "Для применения настроек необходимо перезапустить приложение";
 "keyAlertNotAuthUserForBiometricalEnter" = "Авторизация через биометрию невозможна";

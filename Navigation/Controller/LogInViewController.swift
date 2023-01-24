@@ -63,7 +63,7 @@ class LogInViewController: UIViewController {
         email.textAlignment = .left
         email.font = .systemFont(ofSize: 16)
         email.backgroundColor = .systemGray6
-        email.placeholder = NSLocalizedString(LocalizitedKeys.keyEmail, comment: "")
+        email.placeholder = NSLocalizedString(LocalizedKeys.keyEmail, comment: "")
         email.autocapitalizationType = .none
         email.keyboardType = .emailAddress
         email.layer.sublayerTransform = CATransform3DMakeTranslation(16, 0, 0)
@@ -79,7 +79,7 @@ class LogInViewController: UIViewController {
         password.font = .systemFont(ofSize: 16)
         password.isSecureTextEntry = true
         password.backgroundColor = .systemGray6
-        password.placeholder = NSLocalizedString(LocalizitedKeys.keyPassword, comment: "")
+        password.placeholder = NSLocalizedString(LocalizedKeys.keyPassword, comment: "")
         password.autocapitalizationType = .none
         password.layer.sublayerTransform = CATransform3DMakeTranslation(16, 0, 0)
         return password
@@ -102,7 +102,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var logInButton: CustomButton = {
-        let button = CustomButton(title: LocalizitedKeys.keyLogInButtonText,
+        let button = CustomButton(title: LocalizedKeys.keyLogInButtonText,
                                   titleColor: .white,
                                   backgroundButtonColor: UIColor(named: "AccentColor")!,
                                   clipsToBoundsOfButton: true,
@@ -116,7 +116,7 @@ class LogInViewController: UIViewController {
     // Чтобы упростить себе жизнь кнопка брутфорса с прошлых ДЗ переделана на Регистрация
     // весь код брутфорса удален
     private lazy var registerNewUserButton: CustomButton = {
-        let buttom = CustomButton(title: LocalizitedKeys.keyRegistrationNewUser,
+        let buttom = CustomButton(title: LocalizedKeys.keyRegistrationNewUser,
                                   titleColor: .white,
                                   backgroundButtonColor: .specialBlue,
                                   clipsToBoundsOfButton: true,
@@ -128,7 +128,7 @@ class LogInViewController: UIViewController {
     
     private lazy var buttonForBiometricalAuth: UIButton = {
         let button = UIButton()
-        button.setTitle(NSLocalizedString(LocalizitedKeys.keyButtonBiometricalAuth, comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString(LocalizedKeys.keyButtonBiometricalAuth, comment: ""), for: .normal)
         button.titleLabel?.textAlignment = .center
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
@@ -273,7 +273,7 @@ class LogInViewController: UIViewController {
         
         if isBiometriaAllowed == true {
             contex.evaluatePolicy(.deviceOwnerAuthentication,
-                                  localizedReason: NSLocalizedString(LocalizitedKeys.textForPasswordBioAuth, comment: "")) { [weak self] succsess, error in
+                                  localizedReason: NSLocalizedString(LocalizedKeys.textForPasswordBioAuth, comment: "")) { [weak self] succsess, error in
                 if let error = error { print(error.localizedDescription) }
                 
                 DispatchQueue.main.async {
@@ -313,7 +313,7 @@ class LogInViewController: UIViewController {
                             password: "12345",
                             fullName: "Kate Baranova",
                             photo: UIImage(named: "Baranova.jpg")!,
-                            status: NSLocalizedString(LocalizitedKeys.keyStatusForRandomUser, comment: ""))
+                            status: NSLocalizedString(LocalizedKeys.keyStatusForRandomUser, comment: ""))
             let goToProfileViewController = ProfileViewController(user: user)
             goToProfileViewController.modalPresentationStyle = .currentContext
             self.navigationController?.pushViewController(goToProfileViewController, animated: true)
@@ -393,10 +393,10 @@ class LogInViewController: UIViewController {
     }
     
     private func showAlertNotRegisteredFireBase(error rText: String){
-        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorRegistrationFireBase, comment: ""),
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyErrorRegistrationFireBase, comment: ""),
                                       message: rText,
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertNotEnteredDataAction, comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
         self.present(alarm, animated: true)
@@ -404,29 +404,29 @@ class LogInViewController: UIViewController {
     
     private func showAlertNotEnteredData(){
         // логин или пароль не ввели
-        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataTitle, comment: ""),
-                                      message: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataText, comment: ""),
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyAlertNotEnteredDataTitle, comment: ""),
+                                      message: NSLocalizedString(LocalizedKeys.keyAlertNotEnteredDataText, comment: ""),
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction, comment: ""),
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertNotEnteredDataAction, comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
         present(alarm, animated: true)
     }
     private func showAlertNotCorrectDataFireBase(error rText: String){
-        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyErrorLogInFireBase, comment: ""),
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyErrorLogInFireBase, comment: ""),
                                       message: rText,
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertNotCorrectLoginAction, comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
         self.present(alarm, animated: true)
     }
     
     private func showAlertNotCorrectData(){
-        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginTitle, comment: ""),
-                                      message: NSLocalizedString(LocalizitedKeys.keyAalertNotCorrectLoginText, comment: ""),
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyAlertNotCorrectLoginTitle, comment: ""),
+                                      message: NSLocalizedString(LocalizedKeys.keyAalertNotCorrectLoginText, comment: ""),
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotCorrectLoginAction, comment: ""),
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertNotCorrectLoginAction, comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
         present(alarm, animated: true)
@@ -434,12 +434,12 @@ class LogInViewController: UIViewController {
     
     private func showAlertNotAuthUser(){
         // логин или пароль не ввели
-        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyAlertNotAuthUserForBiometricalEnter,
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyAlertNotAuthUserForBiometricalEnter,
                                                                comment: ""),
-                                      message: NSLocalizedString(LocalizitedKeys.keyAlertNotAuthUserForBiometricalEnterText,
+                                      message: NSLocalizedString(LocalizedKeys.keyAlertNotAuthUserForBiometricalEnterText,
                                                                  comment: ""),
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertNotEnteredDataAction,
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertNotEnteredDataAction,
                                                                  comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
@@ -447,20 +447,20 @@ class LogInViewController: UIViewController {
     }
     
     private func showAlertLoginByBiometricalDone(){
-        let alert = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyBiometriaAlertDone, comment: ""),
-                                      message: NSLocalizedString(LocalizitedKeys.keyBiometriaAlertDoneText, comment: ""),
+        let alert = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyBiometriaAlertDone, comment: ""),
+                                      message: NSLocalizedString(LocalizedKeys.keyBiometriaAlertDoneText, comment: ""),
                                       preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                         style: .default)
         alert.addAction(alertAction)
         present(alert, animated: true)
     }
     
     private func showAlertNotLoginByBiometrical(text error: String){
-        let alert = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyBiometriaAlertError, comment: ""),
+        let alert = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyBiometriaAlertError, comment: ""),
                                       message: error,
                                       preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+        let alertAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                         style: .default)
         alert.addAction(alertAction)
         present(alert, animated: true)

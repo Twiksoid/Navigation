@@ -44,10 +44,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.navigationBar.backgroundColor = UIColor.white
         secondItemController.navigationBar.backgroundColor = UIColor.white
         tabBarController.tabBar.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
-        tabBarController.viewControllers?[0].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFeed, comment: "")
-        tabBarController.viewControllers?[1].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyProfile, comment: "")
+        tabBarController.viewControllers?[0].tabBarItem.title = NSLocalizedString(LocalizedKeys.keyFeed, comment: "")
+        tabBarController.viewControllers?[1].tabBarItem.title = NSLocalizedString(LocalizedKeys.keyProfile, comment: "")
         // tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyInfo, comment: "")
-        tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyFavorite, comment: "")
+        tabBarController.viewControllers?[2].tabBarItem.title = NSLocalizedString(LocalizedKeys.keyFavorite, comment: "")
         //tabBarController.viewControllers?[4].tabBarItem.title = NSLocalizedString(LocalizitedKeys.keyMap, comment: "")
         //
         //        tabBarController.viewControllers?.enumerated().forEach {

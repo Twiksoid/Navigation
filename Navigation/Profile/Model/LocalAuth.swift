@@ -20,7 +20,7 @@ class LocalAuthorizationService: UIViewController {
         }
         if isBiometriaAllowed == true {
             contex.evaluatePolicy(.deviceOwnerAuthentication,
-                                  localizedReason: NSLocalizedString(LocalizitedKeys.textForPasswordBioAuth, comment: "")) { [weak self] succsess, error in
+                                  localizedReason: NSLocalizedString(LocalizedKeys.textForPasswordBioAuth, comment: "")) { [weak self] succsess, error in
                 if let error = error { print(error.localizedDescription) }
                 
                 DispatchQueue.main.async {

@@ -14,7 +14,7 @@ class InfoViewController: UIViewController {
         button.backgroundColor = .systemRed
         button.addTarget(self, action: #selector(self.showAlert), for: .touchUpInside)
         
-        button.setTitle(NSLocalizedString(LocalizitedKeys.keyShowAlertInfoView, comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString(LocalizedKeys.keyShowAlertInfoView, comment: ""), for: .normal)
         button.setTitleColor(.black, for: .normal)
         
         return button
@@ -22,7 +22,7 @@ class InfoViewController: UIViewController {
     
     private lazy var labelForAPIFieldTitle: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString(LocalizitedKeys.keyLoadingText, comment: "")
+        label.text = NSLocalizedString(LocalizedKeys.keyLoadingText, comment: "")
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .gray
@@ -32,7 +32,7 @@ class InfoViewController: UIViewController {
     
     private lazy var labelForAPIFieldOrbitalPeriod: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString(LocalizitedKeys.keyLoadingText, comment: "")
+        label.text = NSLocalizedString(LocalizedKeys.keyLoadingText, comment: "")
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .gray
@@ -64,7 +64,7 @@ class InfoViewController: UIViewController {
         // Вызываем обращение к API, задача 1 , Домашнее задание 2
         NetworkService.requestAnotherAPI(for: "https://jsonplaceholder.typicode.com/todos/10") { titleValue in
             DispatchQueue.main.async {
-                self.labelForAPIFieldTitle.text = NSLocalizedString(LocalizitedKeys.keyTextFiledValue, comment: "") + titleValue!
+                self.labelForAPIFieldTitle.text = NSLocalizedString(LocalizedKeys.keyTextFiledValue, comment: "") + titleValue!
                 self.labelForAPIFieldTitle.textColor = .black
             }
         }
@@ -77,7 +77,7 @@ class InfoViewController: UIViewController {
         NetworkService.requestPlanetAPI(for: "https://swapi.dev/api/planets/1") { orbitalPeriod in
             
             DispatchQueue.main.async {
-                self.labelForAPIFieldOrbitalPeriod.text = NSLocalizedString(LocalizitedKeys.keyPeriodPlanets, comment: "") + orbitalPeriod!
+                self.labelForAPIFieldOrbitalPeriod.text = NSLocalizedString(LocalizedKeys.keyPeriodPlanets, comment: "") + orbitalPeriod!
                 self.labelForAPIFieldOrbitalPeriod.textColor = .black
             }
         }
@@ -94,11 +94,11 @@ class InfoViewController: UIViewController {
     }
     
     @objc private func showAlert(){
-        let alertController = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyTitilePlanet, comment: ""),
-                                                message: NSLocalizedString(LocalizitedKeys.keyTextMessagaPlanet, comment: ""),
+        let alertController = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyTitilePlanet, comment: ""),
+                                                message: NSLocalizedString(LocalizedKeys.keyTextMessagaPlanet, comment: ""),
                                                 preferredStyle: .alert)
-        let alertActionFirst = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyActionPlanetOne, comment: ""), style: .default) {_ in print("Нажата кнопка 'Действие один'")}
-        let alertActionSecond = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyActionPlanetTwo, comment: "") , style: .cancel) {_ in print("Нажата кнопка 'Действие два'")}
+        let alertActionFirst = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyActionPlanetOne, comment: ""), style: .default) {_ in print("Нажата кнопка 'Действие один'")}
+        let alertActionSecond = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyActionPlanetTwo, comment: "") , style: .cancel) {_ in print("Нажата кнопка 'Действие два'")}
         
         alertController.addAction(alertActionFirst)
         alertController.addAction(alertActionSecond)

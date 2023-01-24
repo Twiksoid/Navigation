@@ -13,7 +13,7 @@ class FeedViewController: UIViewController {
     private var countOfUnsecTr = 0.0
     
     private lazy var button1: CustomButton = {
-        let button = CustomButton(title: NSLocalizedString(LocalizitedKeys.keyPostNameOne, comment: ""),
+        let button = CustomButton(title: NSLocalizedString(LocalizedKeys.keyPostNameOne, comment: ""),
                                   titleColor: .black,
                                   backgroundButtonColor: .systemRed,
                                   clipsToBoundsOfButton: true,
@@ -23,7 +23,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var button2: CustomButton = {
-        let button = CustomButton(title: NSLocalizedString(LocalizitedKeys.keyPostNameTwo, comment: ""),
+        let button = CustomButton(title: NSLocalizedString(LocalizedKeys.keyPostNameTwo, comment: ""),
                                   titleColor: .black,
                                   backgroundButtonColor: .systemTeal,
                                   clipsToBoundsOfButton: true,
@@ -35,7 +35,7 @@ class FeedViewController: UIViewController {
     
     private lazy var textField: UITextField = {
         let text = UITextField()
-        text.placeholder = NSLocalizedString(LocalizitedKeys.keyPlaceholderTextForChec, comment: "")
+        text.placeholder = NSLocalizedString(LocalizedKeys.keyPlaceholderTextForChec, comment: "")
         text.text = ""
         text.textAlignment = .center
         text.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
@@ -58,7 +58,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: LocalizitedKeys.keyCheckEnteredWord,
+        let button = CustomButton(title: LocalizedKeys.keyCheckEnteredWord,
                                   titleColor: UIColor.createColor(lightMode: .black, darkMode: .white),
                                   backgroundButtonColor: UIColor.createColor(lightMode: .specialBlue, darkMode: .specialBlue),
                                   clipsToBoundsOfButton: true,
@@ -134,10 +134,10 @@ class FeedViewController: UIViewController {
     @objc private func alarmNote(){
         countOfUnsecTr += 1
         // аларм, что не успели
-        let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyTimeCheckWordExpired, comment: ""),
-                                      message: NSLocalizedString(LocalizitedKeys.keyTryAgainFaster, comment: ""),
+        let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyTimeCheckWordExpired, comment: ""),
+                                      message: NSLocalizedString(LocalizedKeys.keyTryAgainFaster, comment: ""),
                                       preferredStyle: .alert)
-        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+        let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                         style: .default)
         alarm.addAction(alarmAction)
         present(alarm, animated: true)
@@ -172,28 +172,28 @@ class FeedViewController: UIViewController {
                 try makeAlarmForError(typeOfError: typeOfAction)
             } catch FeedViewController.FeedError.fieldIsEmpty {
                 // поле пустое
-                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyNotEnteredField, comment: ""),
-                                              message: NSLocalizedString(LocalizitedKeys.keyEnteredDataInFiled, comment: "") ,
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyNotEnteredField, comment: ""),
+                                              message: NSLocalizedString(LocalizedKeys.keyEnteredDataInFiled, comment: "") ,
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
             } catch FeedViewController.FeedError.incorrectData {
                 // поле заполнено невалидными данными (по идее это никогда не произойдет тк на поле нет таких ограничений)
-                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyThereIsNoCorrectData, comment: ""),
-                                              message: NSLocalizedString(LocalizitedKeys.keyCheckInteredDataAndTryAgain, comment: ""),
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyThereIsNoCorrectData, comment: ""),
+                                              message: NSLocalizedString(LocalizedKeys.keyCheckInteredDataAndTryAgain, comment: ""),
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
             } catch {
                 // по идее это какая-то ошибка, которую мы вообще не знаем сейчас, поэтому задаем общее наименование
-                let alarm = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyUnexpectedError, comment: ""),
-                                              message: NSLocalizedString(LocalizitedKeys.keyUnxpectedErrorText, comment: "") + error.localizedDescription,
+                let alarm = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyUnexpectedError, comment: ""),
+                                              message: NSLocalizedString(LocalizedKeys.keyUnxpectedErrorText, comment: "") + error.localizedDescription,
                                               preferredStyle: .alert)
-                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyTimeAlertOk, comment: ""),
+                let alarmAction = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyTimeAlertOk, comment: ""),
                                                 style: .default)
                 alarm.addAction(alarmAction)
                 present(alarm, animated: true)
@@ -201,10 +201,10 @@ class FeedViewController: UIViewController {
             
         } else {
             if FeedModel().check(word: textField.text!) {
-                textFieldResult.text = NSLocalizedString(LocalizitedKeys.keyYes, comment: "")
+                textFieldResult.text = NSLocalizedString(LocalizedKeys.keyYes, comment: "")
                 textFieldResult.textColor = .green
             } else {
-                textFieldResult.text = NSLocalizedString(LocalizitedKeys.keyNo, comment: "")
+                textFieldResult.text = NSLocalizedString(LocalizedKeys.keyNo, comment: "")
                 textFieldResult.textColor = .red
             }
         }
@@ -240,7 +240,7 @@ class FeedViewController: UIViewController {
 }
 
 //var post = Post(title: "Поменял текст в заголовке")
-var post = Post(title: NSLocalizedString(LocalizitedKeys.keyChangeTitileButtonText, comment: ""),
+var post = Post(title: NSLocalizedString(LocalizedKeys.keyChangeTitileButtonText, comment: ""),
                 author: "Self",
                 description: "bla",
                 image: "cat.png",

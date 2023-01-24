@@ -12,22 +12,22 @@ class TextPicker {
     static let defaultPicker = TextPicker()
     
     func getText(in viewController: UIViewController, completion: ((_ text: String)->Void)? ) {
-        let alertController = UIAlertController(title: NSLocalizedString(LocalizitedKeys.keyTitleAlertTextPicker, comment: ""),
+        let alertController = UIAlertController(title: NSLocalizedString(LocalizedKeys.keyTitleAlertTextPicker, comment: ""),
                                                 message: nil,
                                                 preferredStyle: .alert)
         
         alertController.addTextField {
-            textFiel in textFiel.placeholder = NSLocalizedString(LocalizitedKeys.keyAlertPlaceHolderPicler, comment: "")
+            textFiel in textFiel.placeholder = NSLocalizedString(LocalizedKeys.keyAlertPlaceHolderPicler, comment: "")
         }
         
-        let actionOK = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertTextPickerAdd, comment: ""),
+        let actionOK = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertTextPickerAdd, comment: ""),
                                      style: .default) { alert in
             if let text = alertController.textFields?[0].text, text != "" {
                 completion?(text)
             }
         }
         
-        let actionCansel = UIAlertAction(title: NSLocalizedString(LocalizitedKeys.keyAlertTextPickerCansel, comment: ""),
+        let actionCansel = UIAlertAction(title: NSLocalizedString(LocalizedKeys.keyAlertTextPickerCansel, comment: ""),
                                          style: .cancel)
         
         alertController.addAction(actionOK)
