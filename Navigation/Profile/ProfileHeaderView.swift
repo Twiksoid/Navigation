@@ -13,9 +13,6 @@ import RealmSwift
 class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     
     var globalStatusText: String = ""
-    
-    // для работы гистуры нужна ссылка на вью, с которого хотим уйти на новое
-    weak var delegate: ProfileViewController?
     weak var delegateExit: ProfileViewController?
     
     private lazy var avatarImageView: UIImageView = {
@@ -30,8 +27,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         imageView.layer.borderWidth = 0.0
         // цвет рамки
         //imageView.layer.borderColor = (UIColor.createColor(lightMode: .white, darkMode: .black)).cgColor
-        // ловим нажатие
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imagePressed)))
         imageView.tag = Constants.avatarImageViewTap
         // позволяем кнопке быть активной
         imageView.isUserInteractionEnabled = true
@@ -67,10 +62,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         // Чтобы был отступ при вводе текста
         enterStatusField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         enterStatusField.layer.cornerRadius = 12.0
-        enterStatusField.layer.borderWidth = 0.0
-        enterStatusField.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        enterStatusField.backgroundColor = UIColor.createColor(lightMode: .lightGray, darkMode: .darkGray)
-        enterStatusField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        enterStatusField.layer.borderWidth = 1.0
+        enterStatusField.layer.borderColor = (UIColor.createColor(lightMode: .black, darkMode: .white)).cgColor
+        enterStatusField.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .white)
+        enterStatusField.textColor = UIColor.createColor(lightMode: .black, darkMode: .black)
         enterStatusField.font = .systemFont(ofSize: 15)
         enterStatusField.text = ""
         enterStatusField.tag = Constants.enteringStatusTextFieldTap
@@ -136,10 +131,10 @@ class ProfileHeaderView: UITableViewHeaderFooterView, UIGestureRecognizerDelegat
         setupView()
     }
     
-    @objc func imagePressed(){
-        let vc = ImageAnimatedViewController()
-        delegate?.navigationController?.pushViewController(vc, animated: false)
-    }
+//    @objc func imagePressed(){
+//        let vc = ImageAnimatedViewController()
+//        delegate?.navigationController?.pushViewController(vc, animated: false)
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

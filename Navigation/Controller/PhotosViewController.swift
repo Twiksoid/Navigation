@@ -46,7 +46,6 @@ class PhotosViewController: UIViewController {
             arrayOfImages.append((UIImage(named: image) ?? UIImage(named: "1.jpg"))!)
         }
         
-        let start = DispatchTime.now() // засекаем начало операции
         ImageProcessor().processImagesOnThread(sourceImages: arrayOfImages,
                                                filter: .tonal,
                                                qos: .userInteractive)
@@ -58,21 +57,9 @@ class PhotosViewController: UIViewController {
                     return nil
                 }
             }
-            let end = DispatchTime.now()   // фиксируем конец
-            // <<<<< Считаем разницу в нано-секундах (UInt64)
-            let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
             self?.collectionView.reloadData()
-            
-            let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
-            print("Time to evaluate problem: \(timeInterval) seconds")
         }
-            let _ = DispatchTime.now()   // фиксируем конец
         }
-        
-        //MARK: результаты теста
-        //"qos: .userInteractive and filter: .tonal - 1.87176e-05 seconds"
-        //"qos: .default and filter: .chrome - 1.7344e-05 seconds "
-        //"qos: .utility and filter: .colorInvert -  1.925e-05 seconds"
     }
     
     override func viewDidLoad() {
@@ -95,12 +82,14 @@ class PhotosViewController: UIViewController {
     // когда приходим на вью коллекции, показываем навигатор-бар
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        navigationController?.navigationBar.tintColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         navigationController?.navigationBar.isHidden = false
     }
     
     private func setupView(){
         view.addSubview(collectionView)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

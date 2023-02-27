@@ -89,7 +89,7 @@ class ProfileViewController: UIViewController {
         // чтобы автоматом подбирало размер
         
         navigationItem.largeTitleDisplayMode = .automatic
-        navigationItem.title = LocalizedKeys.keyViewTitle
+        navigationItem.title = NSLocalizedString(LocalizedKeys.keyViewTitle, comment: "")
         view.addSubview(tableView)
         
         // настройка Constrait
@@ -113,8 +113,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? ProfileHeaderView {
                 // передача ссылки на вью, с которого уходим
-                headerView.delegate = self
-                headerView.delegateExit = self
+                  headerView.delegateExit = self
                 // настроим, кого выводить
                 headerView.setupHeader(for: user)
                 return headerView

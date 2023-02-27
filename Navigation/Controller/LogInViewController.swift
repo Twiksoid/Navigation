@@ -15,6 +15,8 @@ class LogInViewController: UIViewController {
     
     // MARK: All variables
     
+    var realmDB: Realm!
+    
     var authModel = AuthorizationModel()
     
     var loginDelegate: LoginViewControllerDelegate?
@@ -265,6 +267,9 @@ class LogInViewController: UIViewController {
             user.login = login
             user.password = password
             user.isLogin = true
+            user.fullName = "Kate Baranova"
+            user.status = LocalizedKeys.keyStatusForRandomUser
+            user.photo = "Baranova.jpg"
             realm.add(user)
         })
     }
@@ -296,7 +301,11 @@ class LogInViewController: UIViewController {
         
         // тут вернем все пользователей, у которых есть авторизация. По идее там всегда будет один
         let isUserAuth = authUsers.contains(where: { $0.isLogin == true } )
-        if isUserAuth { return true } else { return false }
+        if isUserAuth {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func skipLoginVC() {
@@ -309,11 +318,20 @@ class LogInViewController: UIViewController {
             // поскольку у нас нет юзеров в базе, то берем просто вручную созданного
             // в данном случае будет Катя тк она сейчас в сервисе checkCredentials
             // на будущее - пароль хранить через хеш-функцию в базе, при авторизации сравнивать введенный (преобразование в хеш)
-            let user = User(login: "Kate",
-                            password: "12345",
-                            fullName: "Kate Baranova",
-                            photo: UIImage(named: "Baranova.jpg")!,
-                            status: NSLocalizedString(LocalizedKeys.keyStatusForRandomUser, comment: ""))
+            
+            
+            let realm = try! Realm()
+            let authUsers = realm.objects(AuthorizationModel.self)
+            let idOfAuthUser = authUsers.first(where: { $0.isLogin == true})!
+            
+            let user = User(login: idOfAuthUser.login!,
+                                password: idOfAuthUser.password!,
+                                fullName: idOfAuthUser.fullName!,
+                                photo: UIImage(named: idOfAuthUser.photo!)!,
+                                status: NSLocalizedString(idOfAuthUser.status!, comment: ""))
+            
+            print(realm.configuration.fileURL!)
+
             let goToProfileViewController = ProfileViewController(user: user)
             goToProfileViewController.modalPresentationStyle = .currentContext
             self.navigationController?.pushViewController(goToProfileViewController, animated: true)

@@ -8,6 +8,7 @@
 import UIKit
 
 enum LocalizedKeys {
+    static let keyBackButtonTitle = "keyBackButtonTitle"
     static let keyTitleDailyUserNotification = "keyTitleDailyUserNotification"
     static let keyBodyDailyUserNotification = "keyBodyDailyUserNotification"
     static let keySomeErrorWithAuthNotifications = "keySomeErrorWithAuthNotifications"
