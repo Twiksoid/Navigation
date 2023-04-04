@@ -66,7 +66,7 @@
 		1D4C09C928D3AF2600103A19 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		1D5314A828F1B52000988B85 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 		1D5314AA28F1B7C700988B85 /* RandomPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPassword.swift; sourceTree = "<group>"; };
-		1D6014052874B50F00CA8F4A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6014052874B50F00CA8F4A /* VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D6014082874B50F00CA8F4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D60140A2874B50F00CA8F4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1D6014112874B51000CA8F4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 			children = (
 				1DE369DE29AC97E400096C49 /* Service */,
 				1D94646B295C21B300E7268D /* Localizable.strings */,
-				1D6014072874B50F00CA8F4A /* Navigation */,
+				1D6014072874B50F00CA8F4A /* VK */,
 				1D6014062874B50F00CA8F4A /* Products */,
 				1D93AF402913938000B41A14 /* Frameworks */,
 			);
@@ -174,12 +174,12 @@
 		1D6014062874B50F00CA8F4A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6014052874B50F00CA8F4A /* Navigation.app */,
+				1D6014052874B50F00CA8F4A /* VK.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1D6014072874B50F00CA8F4A /* Navigation */ = {
+		1D6014072874B50F00CA8F4A /* VK */ = {
 			isa = PBXGroup;
 			children = (
 				1D2A5DFA29558DCE005F7D6C /* TextPicker.swift */,
@@ -194,7 +194,7 @@
 				1D6014162874B51000CA8F4A /* Info.plist */,
 				1D946471295C697800E7268D /* InfoPlist.strings */,
 			);
-			path = Navigation;
+			path = VK;
 			sourceTree = "<group>";
 		};
 		1D93AF402913938000B41A14 /* Frameworks */ = {
@@ -225,9 +225,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6014042874B50F00CA8F4A /* Navigation */ = {
+		1D6014042874B50F00CA8F4A /* VK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6014192874B51000CA8F4A /* Build configuration list for PBXNativeTarget "Navigation" */;
+			buildConfigurationList = 1D6014192874B51000CA8F4A /* Build configuration list for PBXNativeTarget "VK" */;
 			buildPhases = (
 				1D6014012874B50F00CA8F4A /* Sources */,
 				1D6014022874B50F00CA8F4A /* Frameworks */,
@@ -237,7 +237,7 @@
 			);
 			dependencies = (
 			);
-			name = Navigation;
+			name = VK;
 			packageProductDependencies = (
 				1DE2C96228DE358B00399C1D /* iOSIntPackage */,
 				1D93AF3C2913824500B41A14 /* FirebaseAuth */,
@@ -245,7 +245,7 @@
 				1DACD91E2922AFE900E05A61 /* RealmSwift */,
 			);
 			productName = Navigation;
-			productReference = 1D6014052874B50F00CA8F4A /* Navigation.app */;
+			productReference = 1D6014052874B50F00CA8F4A /* VK.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -263,7 +263,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1D6014002874B50F00CA8F4A /* Build configuration list for PBXProject "Navigation" */;
+			buildConfigurationList = 1D6014002874B50F00CA8F4A /* Build configuration list for PBXProject "VK" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -282,7 +282,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6014042874B50F00CA8F4A /* Navigation */,
+				1D6014042874B50F00CA8F4A /* VK */,
 			);
 		};
 /* End PBXProject section */
@@ -501,7 +501,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 65B98VTA2W;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_FILE = VK/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -512,7 +512,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = NikitaByzov.Navigation;
+				PRODUCT_BUNDLE_IDENTIFIER = NikitaByzov.VK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -535,7 +535,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 65B98VTA2W;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_FILE = VK/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -546,7 +546,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = NikitaByzov.Navigation;
+				PRODUCT_BUNDLE_IDENTIFIER = NikitaByzov.VK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -561,7 +561,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6014002874B50F00CA8F4A /* Build configuration list for PBXProject "Navigation" */ = {
+		1D6014002874B50F00CA8F4A /* Build configuration list for PBXProject "VK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6014172874B51000CA8F4A /* Debug */,
@@ -570,7 +570,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1D6014192874B51000CA8F4A /* Build configuration list for PBXNativeTarget "Navigation" */ = {
+		1D6014192874B51000CA8F4A /* Build configuration list for PBXNativeTarget "VK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D60141A2874B51000CA8F4A /* Debug */,
